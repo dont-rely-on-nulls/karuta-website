@@ -1,0 +1,7 @@
+#+NAME: fig:tevo
+#+ATTR_HTML: :src ../../static/img/profiles/tevo.png :width 50% :height 50% :align center
+[[file:../../static/img/profiles/bellani.png]]
+
+- [[https://github.com/Tevo45][GitHub]]
+
+Lisp hacker.

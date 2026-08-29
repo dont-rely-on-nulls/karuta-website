@@ -1,0 +1,7 @@
+#+NAME: fig:nathan
+#+ATTR_HTML: :src ../../static/img/profiles/nathan.jpeg :width 50% :height 50% :align center
+[[file:../../static/img/profiles/nathan.jpeg]]
+
+- [[https://github.com/ribeirotomas1904][GitHub]]
+
+Programming languages and reliable software enthusiast.

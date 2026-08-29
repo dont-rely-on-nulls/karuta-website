@@ -1,0 +1,8 @@
+#+NAME: fig:benin
+#+ATTR_HTML: :src ../../static/img/profiles/benevides.jpeg :width 50% :height 50% :align center
+[[file:../../static/img/profiles/benevides.jpeg]]
+
+- [[https://github.com/schonfinkel][GitHub]]
+- [[https://www.linkedin.com/in/schonfinkel/][LinkedIn]]
+
+I bring a weird blend of expertise in backend engineering, infrastructure and purely functional programming. I'm here to deliver what is promised, with simple abstractions and the least amount of overhead.

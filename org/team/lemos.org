@@ -1,0 +1,8 @@
+#+NAME: fig:lemos
+#+ATTR_HTML: :src ../../static/img/profiles/lemos.png :width 50% :height 50% :align center
+[[file:../../static/img/profiles/lemos.png]]
+
+- [[https://github.com/EduardoLR10][GitHub]]
+- [[https://www.linkedin.com/in/eduardo-lemos-rocha-3198a5149/][LinkedIn]]
+
+Aspiring to be a true Hacker. Addicted to Computer Science and all its beauty with a special place for Functional Programming.

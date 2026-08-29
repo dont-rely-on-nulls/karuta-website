@@ -1,0 +1,15 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Don't Rely on Nulls — Boutique Functional Programming Consultancy">
+<meta name="keywords" content="Boutique, Functional Programming, FP, Software Development">
+<meta name="author" content="DrN Team">
+<link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="static/css/style.css">
+<script>
+(function(){
+  var t = localStorage.getItem('theme');
+  if (t !== 'dark' && t !== 'light') {
+    t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  document.documentElement.className = t;
+})();
+</script>

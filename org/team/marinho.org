@@ -1,0 +1,8 @@
+#+NAME: fig:marinho
+#+ATTR_HTML: :src ../../static/img/profiles/marinho.jpg :width 50% :height 50% :align center
+[[file:../../static/img/profiles/marinho.jpg]]
+
+- [[https://github.com/z-silver][GitHub]]
+- [[https://www.linkedin.com/in/mario-pinotti-jr][LinkedIn]]
+
+Lisp user. Forth admirer. A bit crazy about PEG parsing. Occasional chess player.

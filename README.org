@@ -1,0 +1,43 @@
+* Don't Rely on Nulls
+
+#+html: <a href="https://builtwithnix.org"><img alt="built with nix" src="https://builtwithnix.org/badge.svg" /></a><br>
+#+html: <a href="https://github.com/dont-rely-on-nulls/dont-rely-on-nulls.github.io/actions/workflows/deploy.yml"> <img alt="[Pages] Deploy" src="https://github.com/dont-rely-on-nulls/dont-rely-on-nulls.github.io/actions/workflows/client_build.yml/deploy.svg" /></a><br>
+
+Static website for [[https://www.dontrelynulls.org/][Don't Rely on Nulls]], built from Org-mode sources with Emacs Lisp (=publish.el=) and deployed via GitHub Pages.
+
+** Requirements
+
+- [[https://nix.dev/concepts/flakes.html][Nix with flakes]] (provides Emacs with all required packages).
+- Emacs 29+ with =citeproc=, =htmlize=, =org=, =org-roam= and =ox-rss=.
+
+** Development
+
+Enter the dev shell (Nix):
+
+#+begin_src shell
+  nix develop
+  # or 
+  # direnv allow .
+#+end_src
+
+Then build the site locally:
+
+#+begin_src shell
+  # exports org/ into public/
+  make build
+#+end_src
+
+** Production build
+
+#+begin_src shell
+  ENVIRONMENT=prod nix build
+#+end_src
+
+** Project layout
+
+| Path              | Description                                    |
+|-------------------+------------------------------------------------|
+| =org/=            | Org-mode sources (blog, presentations, team…)  |
+| =static/=         | CSS, images and HTML fragments (nav, header…)  |
+| =publish.el=      | Build script (run by =make build=)             |
+| =public/=         | Generated site (created by the build)          |

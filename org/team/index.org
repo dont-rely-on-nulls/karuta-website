@@ -1,0 +1,43 @@
+#+TITLE: Team
+#+OPTIONS: toc:nil
+
+Our team members shared a rare trait in the current landscape of software
+development: we have indescribable levels of *fun* when producing software that
+fulfills its purpose. This reached a certain point in which we all grouped up to create the study group [[https://github.com/Dr-Nekoma][Dr.Nekoma]].
+
+This group is dedicated to explore distinct programming languages to tackle a
+myriad of problems in different domains. From games, to databases, to
+programming languages, we do it all in the pursuit of leveraging different
+mental models of programming by playing with uncommon programming languages,
+such as various Lisp dialects, as Common Lisp and Racket; static FP-based
+languages, as OCaml, Haskell and F#; and perhaps even old-fashioned OOP
+languages, as Objective-C. There are more than 150 videos on [[https://www.youtube.com/channel/UCMyzdYsPiBU3xoqaOeahr6Q][Youtube]] to serve as
+documentation of this ongoing journey.
+
+#+BEGIN_EXPORT html
+<div class="team-grid">
+#+END_EXPORT
+
+* Eduardo Lemos
+
+#+INCLUDE: "./lemos.org"
+
+* Estevan Castilho
+
+#+INCLUDE: "./tevo.org"
+
+* Marcos Benevides
+
+#+INCLUDE: "./benevides.org"
+
+* Marcos Magueta
+
+#+INCLUDE: "./magueta.org"
+
+* Mário Pinotti Jr.
+
+#+INCLUDE: "./marinho.org"
+
+#+BEGIN_EXPORT html
+</div>
+#+END_EXPORT

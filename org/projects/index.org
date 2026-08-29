@@ -1,0 +1,20 @@
+#+TITLE: Projects
+#+OPTIONS: toc:nil
+
+These are our hobby projects from the [[https://github.com/Dr-Nekoma][Dr.Nekoma]] study group and [[https://github.com/dont-rely-on-nulls][Don't Rely on
+NULLs]]. Each one explores a different programming language, paradigm, or problem domain.
+
+* Don't Rely on Nulls
+
++ [[https://github.com/dont-rely-on-nulls/chessboard][Chessboard]] :: A multi-purpose NixOS server ❄️, provisioned by Open Tofu, targets AWS and Magalu Cloud. You can also get QEMU images out of it.
++ [[https://github.com/dont-rely-on-nulls/erlandono][Erlandono]] :: A set of syntax extensions for Erlang.
++ [[https://github.com/dont-rely-on-nulls/karuta][Karuta]] :: A compiler for a relational programming language for the BEAM written in OCaml.
++ [[https://github.com/dont-rely-on-nulls/RNT][RNT]] :: A Pure and Relational NT-like database kernel.
++ [[https://github.com/dont-rely-on-nulls/sakura][Sakura]] :: An Extended Relational Engine written in OCaml.
++ [[https://github.com/dont-rely-on-nulls/zerl][Zerl]] :: A Zig library to idiomatically communicate with other BEAM nodes.
+
+* Dr. Nekoma
+
++ [[https://github.com/Dr-Nekoma/chime][Chime]] :: A stack-based virtual machine written in Objective-C.
++ [[https://github.com/Dr-Nekoma/lyceum][Lyceum]] :: An MMO game written in Erlang + PostgreSQL (+ Omnigres) + Zig (+ Raylib), powered by a Nix-based devenv.
++ [[https://github.com/Dr-Nekoma/WAM][WAM]] :: An implementation of Warren's abstract machine written in OCaml.
