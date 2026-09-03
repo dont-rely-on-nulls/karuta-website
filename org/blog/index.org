@@ -1,10 +1,13 @@
 #+TITLE: Blog
 #+OPTIONS: toc:nil
 
+#+BEGIN_EXPORT html
+<div class="blog-hero">
+#+END_EXPORT
 Here you'll find our latest content, projects, tutorials and ramblings.
 
 #+BEGIN_EXPORT html
-<div class="blog-list">
+    <div class="posts-list">
 #+END_EXPORT
 
 #+begin_src emacs-lisp :exports results :results html
@@ -12,5 +15,6 @@ Here you'll find our latest content, projects, tutorials and ramblings.
 #+end_src
 
 #+BEGIN_EXPORT html
+    </div>
 </div>
 #+END_EXPORT
