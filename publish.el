@@ -51,6 +51,9 @@
                     (concat out-dir "/")
                   "https://www.dontrelynulls.org/"))
 
+(defun drn/directory-files (dir)
+  (directory-files dir 't "\\.org$"))
+
 ;;; Utility: read file content as string
 (defun slurp (path)
   "Return file content of PATH as string, or \"\" if missing."
@@ -95,7 +98,7 @@
 
 (defun drn/generate-blog-list ()
   "Return HTML list of blog posts, sorted anti-chronologically."
-  (let* ((files (directory-files blog-dir t "\\.org$"))
+  (let* ((files (drn/directory-files blog-dir))
          (entries '()))
     (dolist (f files)
       (let* ((fname (file-name-nondirectory f))
@@ -108,8 +111,8 @@
     (setq entries (sort entries (lambda (a b) (string> (car a) (car b)))))
     (mapconcat
      (lambda (e)
-        (format "\n    <article class=\"blog-card\">\n      <h2><a href=\"%s/blog/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>\n    </article>"
-                root-href (nth 2 e) (nth 1 e) (nth 0 e) (nth 0 e)))
+        (format "\n    <article class=\"blog-post\">\n      <h2 class=\"post-title-link\"><a href=\"/blog/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>\n    </article>"
+                (nth 2 e) (nth 1 e) (nth 0 e) (nth 0 e)))
      entries "")))
 
 (defun drn/get-org-keyword (filepath keyword)
@@ -126,7 +129,7 @@
   "Return HTML list of presentations, sorted anti-chronologically.
 Each presentation Org file supplies #+TITLE:, #+DATE: and #+AUTHOR:.
 Entries link to the presentation's own page."
-  (let* ((files (directory-files presentations-dir t "\\.org$"))
+  (let* ((files (drn/directory-files presentations-dir))
          (entries '()))
     (dolist (f files)
       (let* ((fname (file-name-nondirectory f))
@@ -143,8 +146,8 @@ Entries link to the presentation's own page."
        (let ((author-html (if (nth 2 e)
                               (format " by: <span class=\"presenter\">\"%s\"</span>" (nth 2 e))
                             "")))
-         (format "\n    <article class=\"blog-card\">\n      <h2><a href=\"%s/presentations/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>%s\n    </article>"
-                 root-href (nth 3 e) (nth 1 e) (nth 0 e) (nth 0 e) author-html)))
+         (format "\n    <article class=\"blog-card\">\n      <h2><a href=\"/presentations/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>%s\n    </article>"
+                 (nth 3 e) (nth 1 e) (nth 0 e) (nth 0 e) author-html)))
      entries "")))
 
 ;;; org-roam
@@ -177,7 +180,7 @@ Entries link to the presentation's own page."
 ;;; Generate a combined RSS 2.0 feed from blog posts
 (defun drn/generate-rss-feed (&rest _)
   "Write a combined RSS 2.0 feed to blog/rss.xml after site build."
-  (let* ((files (directory-files blog-dir t "\\.org$"))
+  (let* ((files (drn/directory-files blog-dir))
          (entries '())
          (rss-file (expand-file-name "rss.xml" (expand-file-name "blog" out-dir)))
          (blog-url (concat out-url "blog/"))
