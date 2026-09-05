@@ -1,5 +1,5 @@
 #+TITLE: Karuta - Logic Programming for the BEAM
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil title:nil
 
 #+BEGIN_EXPORT html
     <section class="hero">
