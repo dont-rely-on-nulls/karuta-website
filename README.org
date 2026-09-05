@@ -16,8 +16,11 @@ Enter the dev shell (Nix):
 
 #+begin_src shell
   nix develop
-  # or 
+  # or
   # direnv allow .
+
+  # If you don't have Emacs installed on your machine, you can grab it from the CI shell:
+  # nix develop '.#ci'
 #+end_src
 
 Then build the site locally:
@@ -25,6 +28,12 @@ Then build the site locally:
 #+begin_src shell
   # exports org/ into public/
   make build
+#+end_src
+
+In order to test it, you can run a Python server:
+
+#+begin_src shell
+  cd public && python -m http.server
 #+end_src
 
 ** Production build
