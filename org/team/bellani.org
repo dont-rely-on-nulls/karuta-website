@@ -1,8 +1,0 @@
-#+NAME: fig:bellani
-#+ATTR_HTML: :src ../../static/img/profiles/bellani.png :width 50% :height 50% :align center
-[[file:../../static/img/profiles/bellani.png]]
-
-- [[https://github.com/ebellani][GitHub]]
-- [[https://www.linkedin.com/in/eduardo-bellani/][LinkedIn]]
-
-I help companies who see technology as strategic by aligning their technology to their business needs and to build high-performance software development teams.

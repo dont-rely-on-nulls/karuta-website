@@ -1,8 +1,0 @@
-#+NAME: fig:magueta
-#+ATTR_HTML: :src ../../static/img/profiles/magueta.jpg :width 50% :height 50% :align center
-[[file:../../static/img/profiles/magueta.jpg]]
-
-- [[https://github.com/MMagueta][GitHub]]
-- [[https://www.linkedin.com/in/mmagueta][LinkedIn]]
-
-I'm enamored with computers. There's just something beautiful about aiding others with them. I try my best at that with .NET/F#/C#.
