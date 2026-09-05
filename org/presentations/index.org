@@ -1,0 +1,16 @@
+#+TITLE: Presentations
+#+OPTIONS: toc:nil
+
+Talks and slide decks by the team, authored in Org-mode and compiled to LaTeX.
+
+#+BEGIN_EXPORT html
+<div class="blog-list">
+#+END_EXPORT
+
+#+begin_src emacs-lisp :exports results :results html
+(drn/generate-presentation-list)
+#+end_src
+
+#+BEGIN_EXPORT html
+</div>
+#+END_EXPORT

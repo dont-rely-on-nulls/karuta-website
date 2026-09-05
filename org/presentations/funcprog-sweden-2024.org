@@ -1,0 +1,8 @@
+#+TITLE: Func Prog Sweden 2024 - Zerl: Making Zig in the BEAM an ez time
+#+DATE: 2024-11-06
+#+AUTHOR: Eduardo Lemos
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ejYcWRERetM?si=APHSvcbv0m0FWiOk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+#+END_EXPORT

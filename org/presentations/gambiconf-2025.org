@@ -1,0 +1,10 @@
+#+TITLE: Gambiconf 2025 - Criando um "MMO-RPG" com Zig, Erlang, Nix e PostgreSQL (e Emacs)
+#+DATE: 2025-09-27
+#+AUTHOR: Marcos Benevides
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RJWmmI9Vwgw?si=xTPtnkoPNSGzuBG9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+#+END_EXPORT
+
++ Slides available [[https://dont-rely-on-nulls.github.io/gambiconf-2025/presentation.pdf][here]].
