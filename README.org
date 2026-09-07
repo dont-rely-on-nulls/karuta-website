@@ -30,7 +30,7 @@ Then build the site locally:
   make build
 #+end_src
 
-In order to test it, you can run a Python server:
+In order to test it, the flake includes Python so you can run an HTTP server like this:
 
 #+begin_src shell
   cd public && python -m http.server
