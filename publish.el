@@ -1,8 +1,8 @@
-;;; publish.el --- Org-publish DrN's Website -*- lexical-binding: t; -*-
+;;; publish.el --- Org-publish Karuta's Website -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;;;
-;;; Build the Don't Rely on Nulls website from Org-mode sources.
+;;; Build the Karuta website from Org-mode sources.
 ;;; Usage:
 ;;;   Interactive: M-x eval-buffer, then M-x org-publish-all
 ;;;   CLI:         emacs --batch --load publish.el
@@ -49,7 +49,7 @@
 (defvar out-dir (expand-file-name "public" root-dir))
 (defvar out-url (if (string= (getenv "ENVIRONMENT") "dev")
                     (concat out-dir "/")
-                  "https://www.dontrelynulls.org/"))
+                  "https://karuta-lang.org/"))
 
 (defun drn/directory-files (dir)
   (directory-files dir 't "\\.org$"))
@@ -65,7 +65,7 @@
 
 ;;; HTML fragments, replaces %ROOT% with the following:
 ;;;   On dev -> out-dir
-;;;   On prod -> "https://www.dontrelynulls.org"
+;;;   On prod -> "https://karuta-lang.org"
 (defvar root-href (if (string= (getenv "ENVIRONMENT") "dev")
                       (directory-file-name out-dir)
                     (directory-file-name out-url)))
@@ -201,10 +201,10 @@ Entries link to the presentation's own page."
       (insert "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
       (insert "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n")
       (insert "  <channel>\n")
-      (insert "    <title>Don't Rely on Nulls — Blog</title>\n")
+      (insert "    <title>Karuta — Blog</title>\n")
       (insert (format "    <link>%s</link>\n" blog-url))
       (insert (format "    <atom:link href=\"%srss.xml\" rel=\"self\" type=\"application/rss+xml\"/>\n" blog-url))
-      (insert "    <description>Latest blog posts from Don't Rely on Nulls</description>\n")
+      (insert "    <description>Latest blog posts from Karuta</description>\n")
       (insert "    <language>en</language>\n")
       (insert (format "    <lastBuildDate>%s</lastBuildDate>\n" now))
       (dolist (e entries)
