@@ -309,7 +309,7 @@ code {
 .benefit-card:hover {
     border-color: var(--accent-dark);
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(194, 24, 91, 0.1);
+    box-shadow: 0 8px 16px rgba(194, 24, 91, 0.1); /* TODO: don't hardcode stuff */
 }
 
 .benefit-card h3 {
