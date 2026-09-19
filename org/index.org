@@ -1,73 +1,29 @@
--module(karuta_website_handler).
+#+TITLE: Karuta - Logic Programming for the BEAM
+#+OPTIONS: toc:nil title:nil
 
--export([init/2]).
-
-init(Req0, State) ->
-    Html = render_page(),
-    Req = cowboy_req:reply(200,
-        #{<<"content-type">> => <<"text/html; charset=utf-8">>},
-        Html,
-        Req0
-    ),
-    {ok, Req, State}.
-
-render_page() ->
-    [header(), nav(), hero(), what_is_karuta(), relational_types(),
-     prolog_power(), domino_section(), beam_benefits(),
-     about(), examples(), footer()].
-
-header() ->
-    <<"<!DOCTYPE html>
-<html lang=\"en\">
-<head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>Karuta - Logic Programming for the BEAM</title>
-    <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">
-    <link rel=\"stylesheet\" href=\"/static/css/style.css\">
-    <script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@sudodevnull/datastar\"></script>
-</head>
-<body>">>.
-
-nav() ->
-    <<"<nav class=\"navbar\">
-        <div class=\"container\">
-            <div class=\"nav-brand\">
-                <img src=\"/static/images/domino.png\" alt=\"Karuta Logo\" class=\"logo\">
-                <span class=\"brand-name\">Karuta</span>
-            </div>
-            <div class=\"nav-links\">
-                <a href=\"newsletter\">Newsletter</a>
-                <a href=\"#about\">About</a>
-                <a href=\"#examples\">Examples</a>
-                <a href=\"https://github.com/dont-rely-on-nulls/karuta\" target=\"_blank\">GitHub</a>
-            </div>
-        </div>
-    </nav>">>.
-
-hero() ->
-    <<"<section class=\"hero\">
-        <div class=\"container\">
-            <div class=\"hero-content\">
-                <h1 class=\"hero-title\">
-                    <span class=\"gradient-text\">Karuta</span>
+#+BEGIN_EXPORT html
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Karuta</span>
                 </h1>
-                <p class=\"hero-subtitle\">
+                <p class="hero-subtitle">
                     Logic programming meets the BEAM
                 </p>
-                <p class=\"hero-description\">
+                <p class="hero-description">
                     A Prolog-inspired language that brings the power of logic programming
                     to the Erlang Virtual Machine, combining declarative elegance with
                     battle-tested concurrency.
                 </p>
-                <div class=\"hero-actions\">
-                    <a href=\"#examples\" class=\"btn btn-primary\">See Examples</a>
-                    <a href=\"#what-is-karuta\" class=\"btn btn-secondary\">Learn More</a>
+                <div class="hero-actions">
+                    <a href="#examples" class="btn btn-primary">See Examples</a>
+                    <a href="#what-is-karuta" class="btn btn-secondary">Learn More</a>
                 </div>
             </div>
-            <div class=\"hero-code\">
-                <div class=\"code-window\">
-                    <pre><code class=\"language-karuta\">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
+            <div class="hero-code">
+                <div class="code-window">
+                    <pre><code class="language-karuta">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
 
 'factorial loop'[0, Out, Out] :- int[Out].
 'factorial loop'[N, Acc, Out] :-
@@ -79,31 +35,28 @@ factorial[5, Out]?</code></pre>
                 </div>
             </div>
         </div>
-    </section>">>.
-
-what_is_karuta() ->
-    <<"<section id=\"what-is-karuta\" class=\"what-is-karuta\">
-        <div class=\"container\">
-            <div class=\"content-with-logo\">
-                <div class=\"large-logo-container\">
-                    <img src=\"/static/images/domino.png\" alt=\"Karuta Domino Logo\" class=\"large-logo\">
+    </section><section id="what-is-karuta" class="what-is-karuta">
+        <div class="container">
+            <div class="content-with-logo">
+                <div class="large-logo-container">
+                    <img src="/static/images/domino.png" alt="Karuta Domino Logo" class="large-logo">
                 </div>
-                <div class=\"content-text\">
-                    <h2 class=\"section-title\">What is Karuta?</h2>
-                    <p class=\"content-paragraph\">
+                <div class="content-text">
+                    <h2 class="section-title">What is Karuta?</h2>
+                    <p class="content-paragraph">
                         Karuta is a declarative logic programming language that seamlessly marries the
                         elegance of Prolog with the robustness of the Erlang BEAM virtual machine.
                         Named after the traditional Japanese card game that requires quick pattern recognition,
                         Karuta enables developers to express complex relationships and computations through
                         pattern matching and logical inference.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         Unlike imperative languages where you specify <em>how</em> to compute something,
                         Karuta allows you to declare <em>what</em> you want to compute. The language runtime
                         handles the execution strategy, freeing you to focus on the problem domain rather
                         than implementation details.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         Built on top of the battle-tested BEAM VM, Karuta inherits decades of production-proven
                         fault tolerance and massive scalability. Whether you're building intelligent systems,
                         knowledge bases, or complex rule engines, Karuta provides the declarative power you
@@ -112,41 +65,38 @@ what_is_karuta() ->
                 </div>
             </div>
         </div>
-    </section>">>.
-
-relational_types() ->
-    <<"<section id=\"relational-types\" class=\"relational-types\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">Relations as Predicates</h2>
-            <p class=\"section-intro\">
-                In Karuta, relations are not tables—they are predicates in a logical system,
+    </section><section id="relational-types" class="relational-types">
+        <div class="container">
+            <h2 class="section-title">Relations as Predicates</h2>
+            <p class="section-intro">
+                In Karuta, relations are not tablesthey are predicates in a logical system,
                 each representing facts that can be true or false.
             </p>
-            <div class=\"two-column-layout\">
-                <div class=\"column\">
-                    <h3 class=\"subsection-title\">Formal Logical Foundation</h3>
-                    <p class=\"content-paragraph\">
+            <div class="two-column-layout">
+                <div class="column">
+                    <h3 class="subsection-title">Formal Logical Foundation</h3>
+                    <p class="content-paragraph">
                         Karuta builds on relation theory and simple set theory expressible in
                         first-order predicate logic (SST/FOPL). This formal foundation means
-                        your database operations aren't just data transformations—they're
+                        your database operations aren't just data transformationsthey're
                         logical inferences with provable correctness guarantees.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         Each relation is a predicate that states facts about your domain.
                         Querying becomes logical reasoning: asking what must be true given
                         the facts you've asserted. This is the true relational model as
-                        Codd envisioned it—databases as logical systems, not file managers.
+                        Codd envisioned itdatabases as logical systems, not file managers.
                     </p>
                 </div>
-                <div class=\"column\">
-                    <h3 class=\"subsection-title\">Semantic Consistency</h3>
-                    <p class=\"content-paragraph\">
+                <div class="column">
+                    <h3 class="subsection-title">Semantic Consistency</h3>
+                    <p class="content-paragraph">
                         Because relations carry semantic meaning from your conceptual model,
                         Karuta can enforce that your data remains logically consistent. Type
                         checking verifies not just structural correctness, but semantic validity.
                     </p>
-                    <p class=\"content-paragraph\">
-                        Constraints aren't arbitrary rules—they're formal expressions of your
+                    <p class="content-paragraph">
+                        Constraints aren't arbitrary rulesthey're formal expressions of your
                         business logic in predicate logic. The system prevents you from asserting
                         contradictions or violating the meaning you've assigned to your data,
                         catching logical errors at compile time rather than runtime.
@@ -154,14 +104,11 @@ relational_types() ->
                 </div>
             </div>
         </div>
-    </section>">>.
-
-prolog_power() ->
-    <<"<section id=\"prolog-power\" class=\"prolog-power\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">The Power of Prolog</h2>
-            <div class=\"benefits-grid\">
-                <div class=\"benefit-card\">
+    </section><section id="prolog-power" class="prolog-power">
+        <div class="container">
+            <h2 class="section-title">The Power of Prolog</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
                     <h3>Declarative Clarity</h3>
                     <p>
                         Prolog's declarative nature allows you to express what you want to achieve
@@ -169,16 +116,16 @@ prolog_power() ->
                         The inference engine handles the execution strategy automatically.
                     </p>
                 </div>
-                <div class=\"benefit-card\">
+                <div class="benefit-card">
                     <h3>Unification & Pattern Matching</h3>
                     <p>
                         Unification is the most powerful pattern matching you'll ever use. It doesn't
-                        just match patterns—it solves equations, instantiates variables, and discovers
-                        relationships bidirectionally. One predicate can work in multiple \"modes\"
+                        just match patternsit solves equations, instantiates variables, and discovers
+                        relationships bidirectionally. One predicate can work in multiple "modes"
                         automatically.
                     </p>
                 </div>
-                <div class=\"benefit-card\">
+                <div class="benefit-card">
                     <h3>Backtracking & Search</h3>
                     <p>
                         Built-in backtracking provides automatic search through solution spaces.
@@ -186,7 +133,7 @@ prolog_power() ->
                         possibilities for you. Perfect for constraint solving, planning, and puzzles.
                     </p>
                 </div>
-                <div class=\"benefit-card\">
+                <div class="benefit-card">
                     <h3>Natural Recursion</h3>
                     <p>
                         Recursion is the natural way to express iteration in logic programming.
@@ -194,7 +141,7 @@ prolog_power() ->
                         elegance of recursive definitions with the efficiency of loops.
                     </p>
                 </div>
-                <div class=\"benefit-card\">
+                <div class="benefit-card">
                     <h3>Symbolic Computation</h3>
                     <p>
                         Manipulate symbols and structures directly without serialization overhead.
@@ -202,7 +149,7 @@ prolog_power() ->
                         reasons about symbolic information.
                     </p>
                 </div>
-                <div class=\"benefit-card\">
+                <div class="benefit-card">
                     <h3>Knowledge Representation</h3>
                     <p>
                         Express domain knowledge as facts and rules in a form that closely mirrors
@@ -212,43 +159,40 @@ prolog_power() ->
                 </div>
             </div>
         </div>
-    </section>">>.
-
-domino_section() ->
-    <<"<section id=\"domino\" class=\"domino-section\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">Domino: Relations as Logical Predicates</h2>
-            <p class=\"section-intro\">
+    </section><section id="domino" class="domino-section">
+        <div class="container">
+            <h2 class="section-title">Domino: Relations as Logical Predicates</h2>
+            <p class="section-intro">
                 At the heart of Karuta lies Domino, an implementation of the Semantic-Relational Data Model
                 using Mnesia, bringing formal logic to database design on the BEAM.
             </p>
-            <div class=\"domino-content\">
-                <div class=\"domino-block\">
-                    <h3 class=\"subsection-title\">From Conceptual to Logical Models</h3>
-                    <p class=\"content-paragraph\">
-                        Database design begins with conceptual models—descriptions in natural language of
+            <div class="domino-content">
+                <div class="domino-block">
+                    <h3 class="subsection-title">From Conceptual to Logical Models</h3>
+                    <p class="content-paragraph">
+                        Database design begins with conceptual modelsdescriptions in natural language of
                         object types and their defining properties. But computers can only manipulate abstract
                         symbols algebraically. Domino bridges this gap by formalizing conceptual models as
                         logical models using relation theory and first-order predicate logic.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         When you assign the meaning of your conceptual terms (object types, properties) to
                         the abstract symbols of relational theory (domains, attributes, tuples, relations),
                         you create a computable logical model. The symbols acquire interpretation while
-                        maintaining their mathematical properties—enabling both algebraic manipulation
+                        maintaining their mathematical propertiesenabling both algebraic manipulation
                         and semantic reasoning.
                     </p>
                 </div>
-                <div class=\"domino-block\">
-                    <h3 class=\"subsection-title\">Properties as First-Class Types</h3>
-                    <p class=\"content-paragraph\">
+                <div class="domino-block">
+                    <h3 class="subsection-title">Properties as First-Class Types</h3>
+                    <p class="content-paragraph">
                         Domino makes an ontological commitment to properties: objects are recognized
                         and distinguished by their observable, defining properties. When properties
                         persistently co-occur, we infer an object type and give it a name. This is
-                        how human perception actually works—we don't observe \"objectness\" directly,
+                        how human perception actually workswe don't observe "objectness" directly,
                         but infer objects from their properties.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         In Domino, relationships between objects are collective properties at a higher
                         level of abstraction. A relationship among primitive objects becomes a property
                         of the compound object they form together. This unification of properties and
@@ -256,47 +200,44 @@ domino_section() ->
                         database design.
                     </p>
                 </div>
-                <div class=\"domino-block\">
-                    <h3 class=\"subsection-title\">Semantic Constraints as Logic</h3>
-                    <p class=\"content-paragraph\">
-                        Relations in Domino are not passive tables—they are predicates in a logical
+                <div class="domino-block">
+                    <h3 class="subsection-title">Semantic Constraints as Logic</h3>
+                    <p class="content-paragraph">
+                        Relations in Domino are not passive tablesthey are predicates in a logical
                         system. Semantic constraints enforce that your data conforms to your conceptual
                         model, ensuring logical models faithfully represent business rules. These aren't
-                        mere \"integrity constraints\"—they are formal logical expressions that make your
+                        mere "integrity constraints"they are formal logical expressions that make your
                         database a reasoning system.
                     </p>
-                    <p class=\"content-paragraph\">
+                    <p class="content-paragraph">
                         Combined with Karuta's logic programming, Domino turns Mnesia into an active
-                        knowledge base. Your data doesn't just store facts—it reasons about them,
+                        knowledge base. Your data doesn't just store factsit reasons about them,
                         validates itself, and responds to queries expressed in pure logic, all while
                         maintaining ACID guarantees and distributed consistency across the BEAM cluster.
                     </p>
                 </div>
             </div>
         </div>
-    </section>">>.
-
-beam_benefits() ->
-    unicode:characters_to_binary("<section id=\"beam\" class=\"beam-benefits\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">Built on the BEAM</h2>
-            <p class=\"section-intro\">
+    </section><section id="beam" class="beam-benefits">
+        <div class="container">
+            <h2 class="section-title">Built on the BEAM</h2>
+            <p class="section-intro">
                 The BEAM virtual machine has powered critical telecommunications infrastructure
                 for over three decades. Karuta brings logic programming to this proven platform.
             </p>
-            <div class=\"beam-grid\">
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">💥</div>
+            <div class="beam-grid">
+                <div class="beam-card">
+                    <div class="beam-icon">💥</div>
                     <h3>Fault Tolerance</h3>
                     <p>
-                        The BEAM's \"let it crash\" philosophy paired with supervisor trees means
+                        The BEAM's "let it crash" philosophy paired with supervisor trees means
                         your Karuta programs self-heal automatically. Process isolation ensures that
                         failures are contained and recovery is automatic. Build systems that achieve
                         nine-nines availability without complex error handling.
                     </p>
                 </div>
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">📈</div>
+                <div class="beam-card">
+                    <div class="beam-icon">📈</div>
                     <h3>Massive Scalability</h3>
                     <p>
                         The BEAM was designed to handle millions of lightweight processes concurrently.
@@ -305,8 +246,8 @@ beam_benefits() ->
                         single machine, then scale horizontally across clusters.
                     </p>
                 </div>
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">📡</div>
+                <div class="beam-card">
+                    <div class="beam-icon">📡</div>
                     <h3>Hot Code Swapping</h3>
                     <p>
                         Update your running Karuta programs without stopping them. The BEAM's
@@ -315,8 +256,8 @@ beam_benefits() ->
                         a luxury—they're built-in.
                     </p>
                 </div>
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">🧩</div>
+                <div class="beam-card">
+                    <div class="beam-icon">🧩</div>
                     <h3>Distribution First</h3>
                     <p>
                         Built-in distribution means your Karuta knowledge bases can span multiple
@@ -325,8 +266,8 @@ beam_benefits() ->
                         as a single logical system.
                     </p>
                 </div>
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">🕰️</div>
+                <div class="beam-card">
+                    <div class="beam-icon">🕰️</div>
                     <h3>Soft Real-Time</h3>
                     <p>
                         The BEAM's preemptive scheduler ensures low-latency responses even under
@@ -335,8 +276,8 @@ beam_benefits() ->
                         load.
                     </p>
                 </div>
-                <div class=\"beam-card\">
-                    <div class=\"beam-icon\">👀</div>
+                <div class="beam-card">
+                    <div class="beam-icon">👀</div>
                     <h3>Observability</h3>
                     <p>
                         Introspect running systems with the built-in observer, trace message flows,
@@ -347,46 +288,40 @@ beam_benefits() ->
                 </div>
             </div>
         </div>
-    </section>").
-
-about() ->
-    unicode:characters_to_binary("<section id=\"about\" class=\"about\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">Why Karuta?</h2>
-            <div class=\"features-grid\">
-                <div class=\"feature-card\">
-                    <div class=\"feature-icon\">🔍</div>
+    </section><section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Why Karuta?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
                     <h3>Logic Programming</h3>
                     <p>Express complex relationships declaratively with pattern matching and unification</p>
                 </div>
-                <div class=\"feature-card\">
-                    <div class=\"feature-icon\">🟪</div>
+                <div class="feature-card">
+                    <div class="feature-icon">🟪</div>
                     <h3>BEAM Power</h3>
                     <p>Run on the battle-tested Erlang VM with built-in concurrency and fault tolerance</p>
                 </div>
-                <div class=\"feature-card\">
-                    <div class=\"feature-icon\">🎯</div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
                     <h3>Pattern Matching</h3>
                     <p>Leverage powerful pattern matching and list processing inspired by Prolog</p>
                 </div>
-                <div class=\"feature-card\">
-                    <div class=\"feature-icon\">🔄</div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
                     <h3>Tail Recursion</h3>
                     <p>Write efficient recursive algorithms with automatic tail call optimization</p>
                 </div>
             </div>
         </div>
-    </section>").
-
-examples() ->
-    <<"<section id=\"examples\" class=\"examples\">
-        <div class=\"container\">
-            <h2 class=\"section-title\">See Karuta in Action</h2>
-            <div class=\"example-group\">
-                <h3 class=\"example-title\">Factorial</h3>
-                <p class=\"example-description\">A classic example showcasing tail recursion and pattern matching</p>
-                <div class=\"code-window\">
-                    <pre><code class=\"language-karuta\">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
+    </section><section id="examples" class="examples">
+        <div class="container">
+            <h2 class="section-title">See Karuta in Action</h2>
+            <div class="example-group">
+                <h3 class="example-title">Factorial</h3>
+                <p class="example-description">A classic example showcasing tail recursion and pattern matching</p>
+                <div class="code-window">
+                    <pre><code class="language-karuta">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
 
 % A nice tail-recursive definition.
 'factorial loop'[0, Out, Out] :- int[Out].
@@ -399,11 +334,11 @@ examples() ->
 factorial[5, Out]?</code></pre>
                 </div>
             </div>
-            <div class=\"example-group\">
-                <h3 class=\"example-title\">List Operations</h3>
-                <p class=\"example-description\">Working with lists using pattern matching</p>
-                <div class=\"code-window\">
-                    <pre><code class=\"language-karuta\">append[[], Out, Out].
+            <div class="example-group">
+                <h3 class="example-title">List Operations</h3>
+                <p class="example-description">Working with lists using pattern matching</p>
+                <div class="code-window">
+                    <pre><code class="language-karuta">append[[], Out, Out].
 append[[H|Tail], Second, [H|Mid]] :- append[Tail, Second, Mid].
 
 reverse[In, Out] :- 'reverse loop'[In, [], Out].
@@ -416,11 +351,11 @@ append[[1, 2], [3, 4], Out],
 reverse[[1, 2, 3, 4], RevOut]?</code></pre>
                 </div>
             </div>
-            <div class=\"example-group\">
-                <h3 class=\"example-title\">Natural Numbers</h3>
-                <p class=\"example-description\">Peano arithmetic with natural numbers</p>
-                <div class=\"code-window\">
-                    <pre><code class=\"language-karuta\">nat[0] :- int[0].
+            <div class="example-group">
+                <h3 class="example-title">Natural Numbers</h3>
+                <p class="example-description">Peano arithmetic with natural numbers</p>
+                <div class="code-window">
+                    <pre><code class="language-karuta">nat[0] :- int[0].
 nat[succ[N]] :- nat[N].
 
 pluz[Out, 0, Out] :- nat[Out].
@@ -431,13 +366,4 @@ pluz[succ[succ[succ[succ[0]]]], succ[succ[0]], Out]?</code></pre>
                 </div>
             </div>
         </div>
-    </section>">>.
-
-footer() ->
-    <<"<footer class=\"footer\">
-        <div class=\"container\">
-            <p>&copy; 2024 Karuta. Built with logic and love on the BEAM.</p>
-        </div>
-    </footer>
-</body>
-</html>">>.
+#+END_EXPORT

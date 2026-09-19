@@ -1,0 +1,23 @@
+#+TITLE: How to build an Application with modern Technology
+#+DATE: 2022-04-04
+#+AUTHOR: John Doe
+#+FILETAGS: :nextjs:tailwind:
+#+OPTIONS: toc:nil
+
+Nemo vel ad consectetur namut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+
+* Creative Design
+:PROPERTIES:
+:ID:       d3d571f0-212e-4070-8363-fd3a4dd46768
+:PUBDATE:  2026-07-03 Fri 09:16
+:END:
+
+Nam ut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.
+
+#+BEGIN_QUOTE
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+#+END_QUOTE
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
