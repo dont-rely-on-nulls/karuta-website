@@ -25,6 +25,7 @@
 (setq org-export-use-babel t)
 (setq org-src-preserve-indentation t)
 (setq org-src-fontify-natively t)
+(setq org-html-htmlize-output-type 'css)
 (setq make-backup-files nil)
 (setq org-html-validation-link nil)
 (setq org-html-head-include-scripts nil)
@@ -96,8 +97,15 @@
         (match-string 1)
       "")))
 
-(defun drn/generate-blog-list ()
-  "Return HTML list of blog posts, sorted anti-chronologically."
+(defun drn/card (href date title footer)
+  "Return a karuta post card linking to HREF.
+FOOTER is HTML placed at the bottom of the card."
+  (format "\n    <a class=\"pcard\" href=\"%s\"><img src=\"/static/img/card-blank.webp\" alt=\"\" aria-hidden=\"true\"><span class=\"pcard-in\"><time datetime=\"%s\">%s</time><h3>%s</h3>%s</span></a>"
+          href date date title footer))
+
+(defun drn/generate-blog-list (&optional limit)
+  "Return HTML deck of blog posts, sorted anti-chronologically.
+With LIMIT, return only the newest LIMIT posts."
   (let* ((files (drn/directory-files blog-dir))
          (entries '()))
     (dolist (f files)
@@ -106,14 +114,22 @@
         (unless (or (string-prefix-p "." fname)
                     (string= slug "index"))
           (let ((title (drn/get-org-title f))
-                (date  (drn/get-org-date f)))
-            (push (list date title slug) entries)))))
+                (date  (drn/get-org-date f))
+                (tag   (car (split-string (or (drn/get-org-keyword f "FILETAGS") "") ":" t))))
+            (push (list date title slug tag) entries)))))
     (setq entries (sort entries (lambda (a b) (string> (car a) (car b)))))
-    (mapconcat
-     (lambda (e)
-        (format "\n    <article class=\"blog-post\">\n      <h2 class=\"post-title-link\"><a href=\"/blog/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>\n    </article>"
-                (nth 2 e) (nth 1 e) (nth 0 e) (nth 0 e)))
-     entries "")))
+    (when limit
+      (setq entries (seq-take entries limit)))
+    (if (null entries)
+        "<p class=\"empty\">No posts yet.</p>"
+      (concat
+       "<div class=\"deck\">"
+       (mapconcat
+        (lambda (e)
+          (drn/card (format "/blog/%s.html" (nth 2 e)) (nth 0 e) (nth 1 e)
+                    (if (nth 3 e) (format "<span class=\"tag\">%s</span>" (nth 3 e)) "")))
+        entries "")
+       "\n</div>"))))
 
 (defun drn/get-org-keyword (filepath keyword)
   "Extract value of KEYWORD (e.g. \"PDF\") from FILEPATH, or nil."
@@ -141,14 +157,17 @@ Entries link to the presentation's own page."
                 (author (drn/get-org-keyword f "AUTHOR")))
             (push (list date title author slug) entries)))))
     (setq entries (sort entries (lambda (a b) (string> (car a) (car b)))))
-    (mapconcat
-     (lambda (e)
-       (let ((author-html (if (nth 2 e)
-                              (format " by: <span class=\"presenter\">\"%s\"</span>" (nth 2 e))
-                            "")))
-         (format "\n    <article class=\"blog-card\">\n      <h2><a href=\"/presentations/%s.html\">%s</a></h2>\n      <time datetime=\"%s\">%s</time>%s\n    </article>"
-                 (nth 3 e) (nth 1 e) (nth 0 e) (nth 0 e) author-html)))
-     entries "")))
+    (if (null entries)
+        "<p class=\"empty\">No talks yet.</p>"
+      (concat
+       "<div class=\"deck\">"
+       (mapconcat
+        (lambda (e)
+          (drn/card (format "/presentations/%s.html" (nth 3 e)) (nth 0 e) (nth 1 e)
+                    (concat (if (nth 2 e) (format "<span class=\"who\">%s</span>" (nth 2 e)) "")
+                            "<span class=\"tag\">Talk</span>")))
+        entries "")
+       "\n</div>"))))
 
 ;;; org-roam
 (setq org-roam-directory roam-dir)

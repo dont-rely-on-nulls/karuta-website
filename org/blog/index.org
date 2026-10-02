@@ -1,13 +1,17 @@
 #+TITLE: Blog
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil title:nil
 
 #+BEGIN_EXPORT html
-<div class="blog-hero">
-#+END_EXPORT
-Here you'll find our latest content, projects, tutorials and ramblings.
-
-#+BEGIN_EXPORT html
-    <div class="posts-list">
+<div class="full">
+<div class="wrap">
+    <section class="phead">
+        <div>
+            <span class="eyebrow">Blog</span>
+            <h1 class="headline">From<br><span class="acc">the nest</span></h1>
+            <p>Here you'll find our latest content, projects, tutorials and ramblings.</p>
+        </div>
+        <img class="deco art" src="/static/img/nest.webp" alt="" aria-hidden="true">
+    </section>
 #+END_EXPORT
 
 #+begin_src emacs-lisp :exports results :results html
@@ -15,6 +19,6 @@ Here you'll find our latest content, projects, tutorials and ramblings.
 #+end_src
 
 #+BEGIN_EXPORT html
-    </div>
+</div>
 </div>
 #+END_EXPORT
