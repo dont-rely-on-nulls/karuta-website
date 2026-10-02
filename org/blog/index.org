@@ -1,24 +1,25 @@
-#+TITLE: Blog
+#+TITLE: Posts
 #+OPTIONS: toc:nil title:nil
 
-#+BEGIN_EXPORT html
-<div class="full">
-<div class="wrap">
-    <section class="phead">
-        <div>
-            <span class="eyebrow">Blog</span>
-            <h1 class="headline">From<br><span class="acc">the nest</span></h1>
-            <p>Here you'll find our latest content, projects, tutorials and ramblings.</p>
-        </div>
-        <img class="deco art" src="/static/img/nest.webp" alt="" aria-hidden="true">
-    </section>
-#+END_EXPORT
+#+begin_wrap
+#+begin_section .phead
+#+begin_div
+{{{eyebrow(Posts)}}}
 
-#+begin_src emacs-lisp :exports results :results html
-(drn/generate-blog-list)
-#+end_src
+#+begin_h1 .headline
+From\\
+{{{acc(the nest)}}}
+#+end_h1
 
-#+BEGIN_EXPORT html
-</div>
-</div>
-#+END_EXPORT
+Release notes, design notes and tutorials from the people building Karuta and Sakura.
+#+end_div
+
+#+attr_html: :class deco art
+[[file:static/img/nest.webp]]
+#+end_section
+
+#+attr_html: :aria-label All posts
+#+begin_section .all-posts
+{{{deck()}}}
+#+end_section
+#+end_wrap

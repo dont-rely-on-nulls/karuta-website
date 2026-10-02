@@ -1,0 +1,17 @@
+#+TITLE: Unification, explained with cards on a table
+#+DATE: 2026-09-10
+#+FILETAGS: :Tutorial:
+#+DESCRIPTION: How a variable gets its value, one card at a time.
+#+KANA: むすび
+#+SAMPLE: yes
+#+OPTIONS: toc:nil title:nil
+
+When you ask ~origin(sakura, What)~, Karuta looks for clauses whose head can be made equal to your question. ~What~ is an empty slot. Any card that fits fills it.
+
+#+begin_src karuta
+grows(sakura, nest).
+?- grows(sakura, What).
+   What = nest.
+#+end_src
+
+If a card does not fit, the engine puts it back and tries the next one. That is backtracking.

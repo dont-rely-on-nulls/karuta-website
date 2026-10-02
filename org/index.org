@@ -1,309 +1,278 @@
-#+TITLE: Karuta - Logic Programming for the BEAM
+#+TITLE: Karuta Language
 #+OPTIONS: toc:nil title:nil
 
-#+BEGIN_EXPORT html
-<div class="full">
-<div class="wrap">
-    <section class="hero">
-        <div class="hero-left">
-            <h1 class="headline">Logic that remembers.<br><span class="acc">Processes</span> that take flight.</h1>
-            <div class="table">
-                <div class="table-in">
-                    <div class="code">
-                        <span class="eyebrow">factorial.krt</span>
-<pre><code class="language-karuta">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
+#+begin_wrap
+#+begin_section .hero #top
+#+begin_hero-left
+#+begin_h1 .headline
+Logic that remembers.\\
+{{{acc(Processes)}}} that take flight.
+#+end_h1
 
-'factorial loop'[0, Out, Out] :- int[Out].
-'factorial loop'[N, Acc, Out] :-
-    multiply[N, Acc, NewAcc],
-    plus[N, -1, Prev],
-    'factorial loop'[Prev, NewAcc, Out].
+#+begin_table
+#+begin_table-in
+#+begin_code
+{{{eyebrow(nest.krt)}}}
 
-factorial[5, Out]?</code></pre>
-                    </div>
-                    <div class="answers">
-                        <span class="eyebrow">Answers</span>
-                        <div class="proc"><i></i><span><b>Out</b> = 120</span></div>
-                        <p>Each logical computation can run in its own lightweight process, supervised like any other part of an OTP system.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <aside class="hero-right">
-            <div class="stand"><img src="/static/img/owl-yomi.webp" alt="Reading card: a crimson owl perched on a cherry-blossom branch, with a five-line poem in Japanese" width="900" height="1273"></div>
-            <div class="intro">
-                <h2 class="lede">This is Karuta.<br>A logic language for the BEAM.</h2>
-                <p>State facts, write rules, ask questions. Karuta finds the answers with unification and search, and runs them on the same virtual machine as Erlang and Elixir.</p>
-                <div class="cta">
-                    <a class="btn pri" href="#examples">See examples</a>
-                    <a class="btn" href="#story">Read the story</a>
-                </div>
-            </div>
-        </aside>
-    </section>
+#+begin_src karuta
+% facts
+grows(sakura, nest).
+grows(nest, owl).
+grows(owl, flight).
 
-    <section class="pillars" aria-label="Why Karuta">
-        <img class="deco branch-hang" src="/static/img/branch-long.webp" alt="" aria-hidden="true">
-        <div class="pillar">
-            <span class="eyebrow">Declare</span>
-            <h3>Facts and rules</h3>
-            <p>Express complex relationships declaratively. Pattern matching, unification and backtracking come built in.</p>
-        </div>
-        <div class="pillar">
-            <span class="eyebrow">Recurse</span>
-            <h3>Tail calls, for free</h3>
-            <p>Recursion is how logic programs iterate. Karuta optimizes tail-recursive predicates, so recursive definitions run like loops.</p>
-        </div>
-        <div class="pillar">
-            <span class="eyebrow">Run</span>
-            <h3>On the BEAM</h3>
-            <p>Run on the battle-tested Erlang VM, with its processes, supervisors and fault tolerance.</p>
-        </div>
-    </section>
-</div>
+% rules
+origin(X, Y) :- grows(X, Y).
+origin(X, Z) :-
+    grows(X, Y), origin(Y, Z).
 
-<section class="story" id="story">
-    <div class="wrap">
-        <div class="story-head">
-            <div>
-                <span class="eyebrow">How Karuta came to be</span>
-                <h2>Four cards,<br>read in order</h2>
-                <p>In karuta, one card is read aloud and the other is taken from the table. Each round of this story pairs a reading card with the card you grab. Tap a grabbing card to take it.</p>
-            </div>
-            <img class="deco scatter" src="/static/img/eight-cards.webp" alt="" aria-hidden="true" loading="lazy">
-        </div>
-
-        <div class="rounds">
-            <article class="round">
-                <span class="num">I</span>
-                <img class="yomi" src="/static/img/sakura-yomi.webp" alt="Reading card: three cherry blossoms" width="900" height="1273" loading="lazy">
-                <div class="poem">
-                    <span class="eyebrow">Reading card</span>
-                    <blockquote>Even upon fields<br>ruined by the winter's decay,<br>spring has arrived;<br>from the scent of sakura<br>the darkness slowly loosens.</blockquote>
-                    <div class="taken"><span class="eyebrow">Grabbing card</span><blockquote>From the scent of sakura,<br>the darkness slowly loosens.</blockquote></div>
-                </div>
-                <button class="grab" aria-pressed="false"><img src="/static/img/sakura-tori.webp" alt="Grabbing card, written in hiragana" width="600" height="849" loading="lazy"><span class="grab-cap">Take the card</span></button>
-            </article>
-            <article class="round">
-                <span class="num">II</span>
-                <img class="yomi" src="/static/img/nest-yomi.webp" alt="Reading card: a nest holding an egg, crimson feathers and petals" width="900" height="1273" loading="lazy">
-                <div class="poem">
-                    <span class="eyebrow">Reading card</span>
-                    <blockquote>Branches scattered<br>beneath the white morning dew<br>are bound anew;<br>within the nest now rests<br>a quiet and gentle light.</blockquote>
-                    <div class="taken"><span class="eyebrow">Grabbing card</span><blockquote>Within the nest now rests<br>a quiet and gentle light.</blockquote></div>
-                </div>
-                <button class="grab" aria-pressed="false"><img src="/static/img/nest-tori.webp" alt="Grabbing card, written in hiragana" width="600" height="849" loading="lazy"><span class="grab-cap">Take the card</span></button>
-            </article>
-            <article class="round">
-                <span class="num">III</span>
-                <img class="yomi" src="/static/img/owl-yomi.webp" alt="Reading card: a crimson owl on a blossoming branch" width="900" height="1273" loading="lazy">
-                <div class="poem">
-                    <span class="eyebrow">Reading card</span>
-                    <blockquote>Though the shadows<br>cast by dawn upon the branches<br>shift and pass away,<br>the owl of the peak<br>does not let the nest forget.</blockquote>
-                    <div class="taken"><span class="eyebrow">Grabbing card</span><blockquote>The owl of the peak<br>does not let the nest forget.</blockquote></div>
-                </div>
-                <button class="grab" aria-pressed="false"><img src="/static/img/owl-tori.webp" alt="Grabbing card, written in hiragana" width="600" height="849" loading="lazy"><span class="grab-cap">Take the card</span></button>
-            </article>
-            <article class="round">
-                <span class="num">IV</span>
-                <img class="yomi" src="/static/img/flight-yomi.webp" alt="Reading card: two crimson birds flying among blue clouds" width="900" height="1273" loading="lazy">
-                <div class="poem">
-                    <span class="eyebrow">Reading card</span>
-                    <blockquote>Tearing through clouds,<br>toward the long-forgotten skies,<br>the wings ascend;<br>like the morning sun itself,<br>they go illuminating the world.</blockquote>
-                    <div class="taken"><span class="eyebrow">Grabbing card</span><blockquote>Like the morning sun itself,<br>they go illuminating the world.</blockquote></div>
-                </div>
-                <button class="grab" aria-pressed="false"><img src="/static/img/flight-tori.webp" alt="Grabbing card, written in hiragana" width="600" height="849" loading="lazy"><span class="grab-cap">Take the card</span></button>
-            </article>
-        </div>
-    </div>
-</section>
-<div class="flight-band" aria-hidden="true"><img class="deco" src="/static/img/flight.webp" alt="" loading="lazy"></div>
-
-<div class="wrap">
-    <section class="split" id="what-is-karuta">
-        <img class="deco" src="/static/img/four-cards.webp" alt="" aria-hidden="true" loading="lazy">
-        <div>
-            <h2 class="section-title">What is Karuta?</h2>
-            <p>Karuta is a declarative logic programming language that marries the elegance of Prolog with the robustness of the Erlang BEAM virtual machine. It is named after the Japanese card game that rewards quick pattern recognition.</p>
-            <p>Unlike imperative languages where you specify <em>how</em> to compute something, Karuta lets you declare <em>what</em> you want to compute. The runtime handles the execution strategy, so you can focus on the problem domain.</p>
-            <p>Built on the BEAM, Karuta inherits decades of production-proven fault tolerance and scalability. Use it for intelligent systems, knowledge bases and rule engines.</p>
-        </div>
-    </section>
-
-    <section class="band" id="relational-types">
-        <h2 class="section-title">Relations as <span class="acc">predicates</span></h2>
-        <p class="sec-intro">In Karuta, relations are not tables. They are predicates in a logical system, each representing facts that can be true or false.</p>
-        <div class="grid two">
-            <div class="grid-item">
-                <h3>Formal logical foundation</h3>
-                <p>Karuta builds on relation theory and simple set theory expressible in first-order predicate logic (SST/FOPL). Database operations are logical inferences, not only data transformations. Each relation states facts about your domain, and querying is reasoning about what must be true given those facts.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Semantic consistency</h3>
-                <p>Relations carry meaning from your conceptual model, so Karuta can keep your data logically consistent. Constraints are formal expressions of your business logic in predicate logic, and contradictions are caught at compile time rather than at runtime.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="band" id="prolog-power">
-        <h2 class="section-title">The power of Prolog</h2>
-        <div class="grid">
-            <div class="grid-item">
-                <h3>Declarative clarity</h3>
-                <p>Express what you want to achieve rather than how. Write specifications, not implementations; the inference engine picks the execution strategy.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Unification</h3>
-                <p>Unification solves equations, instantiates variables and discovers relationships in both directions. One predicate can work in several modes.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Backtracking and search</h3>
-                <p>Write rules for what a valid solution is, and the runtime explores the possibilities. Good for constraint solving, planning and puzzles.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Natural recursion</h3>
-                <p>Recursion is how logic programs iterate. Tail-recursive predicates are optimized automatically.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Symbolic computation</h3>
-                <p>Manipulate symbols and structures directly. Suited to compilers, interpreters, theorem provers and other systems that reason about symbols.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Knowledge representation</h3>
-                <p>Express domain knowledge as facts and rules that mirror human reasoning. Build expert systems, decision support tools and agents.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="band" id="domino">
-        <h2 class="section-title">Domino</h2>
-        <p class="sec-intro">At the heart of Karuta lies Domino, an implementation of the Semantic-Relational Data Model using Mnesia, bringing formal logic to database design on the BEAM.</p>
-        <div class="grid">
-            <div class="grid-item">
-                <h3>From conceptual to logical models</h3>
-                <p>Database design starts with conceptual models: object types and their defining properties, in natural language. Domino formalizes them as logical models using relation theory and first-order predicate logic. The symbols acquire meaning while keeping their mathematical properties, so they support both algebraic manipulation and semantic reasoning.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Properties as first-class types</h3>
-                <p>Objects are recognized by their observable, defining properties. When properties persistently co-occur, we infer an object type and name it. Relationships between objects are collective properties of the compound object they form, which removes the usual confusion between properties and relationships.</p>
-            </div>
-            <div class="grid-item">
-                <h3>Semantic constraints as logic</h3>
-                <p>Relations in Domino are predicates, and semantic constraints keep your data faithful to your conceptual model. Combined with Karuta, Domino turns Mnesia into an active knowledge base that validates itself and answers queries in pure logic, with ACID guarantees across the BEAM cluster.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="band" id="beam">
-        <h2 class="section-title">Built on <span class="acc">the BEAM</span></h2>
-        <p class="sec-intro">The BEAM has powered critical telecommunications infrastructure for over three decades. Karuta brings logic programming to this proven platform.</p>
-        <div class="grid">
-            <div class="grid-item">
-                <span class="eyebrow">Let it crash</span>
-                <h3>Fault tolerance</h3>
-                <p>Supervisor trees restart what fails. Process isolation keeps failures contained and recovery automatic.</p>
-            </div>
-            <div class="grid-item">
-                <span class="eyebrow">Millions of processes</span>
-                <h3>Scalability</h3>
-                <p>Each logical computation can run in its own lightweight process. Scale on one machine, then across a cluster.</p>
-            </div>
-            <div class="grid-item">
-                <span class="eyebrow">Zero downtime</span>
-                <h3>Hot code swapping</h3>
-                <p>Deploy new versions of your rules while the system keeps running.</p>
-            </div>
-            <div class="grid-item">
-                <span class="eyebrow">One logical system</span>
-                <h3>Distribution first</h3>
-                <p>Knowledge bases span nodes transparently. Mnesia replicates data and processes talk across the network as easily as locally.</p>
-            </div>
-            <div class="grid-item">
-                <span class="eyebrow">Per-process GC</span>
-                <h3>Soft real-time</h3>
-                <p>A preemptive scheduler and per-process garbage collection keep response times steady under load.</p>
-            </div>
-            <div class="grid-item">
-                <span class="eyebrow">Look inside</span>
-                <h3>Observability</h3>
-                <p>Inspect running systems with the observer, trace message flows and debug live production nodes.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="band" id="examples">
-        <h2 class="section-title">Deal your <span class="acc">first hand</span></h2>
-        <div class="examples">
-            <div class="example">
-                <div>
-                    <span class="eyebrow">Example</span>
-                    <h3>Factorial</h3>
-                    <p>Tail recursion and pattern matching.</p>
-                </div>
-                <div class="table"><div class="table-in single"><div class="code">
-<pre><code class="language-karuta">factorial[X, Out] :- int[X], 'factorial loop'[X, 1, Out].
-
-% A nice tail-recursive definition.
-'factorial loop'[0, Out, Out] :- int[Out].
-'factorial loop'[N, Acc, Out] :-
-    multiply[N, Acc, NewAcc],
-    neg[1, -1, Minus],
-    plus[N, Minus, Prev],
-    'factorial loop'[Prev, NewAcc, Out].
-
-factorial[5, Out]?</code></pre>
-                </div></div></div>
-            </div>
-            <div class="example">
-                <div>
-                    <span class="eyebrow">Example</span>
-                    <h3>List operations</h3>
-                    <p>Working with lists using pattern matching.</p>
-                </div>
-                <div class="table"><div class="table-in single"><div class="code">
-<pre><code class="language-karuta">append[[], Out, Out].
-append[[H|Tail], Second, [H|Mid]] :- append[Tail, Second, Mid].
-
-reverse[In, Out] :- 'reverse loop'[In, [], Out].
-
-'reverse loop'[[], Out, Out].
-'reverse loop'[[A | Tail], Acc, Out] :-
-    'reverse loop'[Tail, [A | Acc], Out].
-
-append[[1, 2], [3, 4], Out],
-reverse[[1, 2, 3, 4], RevOut]?</code></pre>
-                </div></div></div>
-            </div>
-            <div class="example">
-                <div>
-                    <span class="eyebrow">Example</span>
-                    <h3>Natural numbers</h3>
-                    <p>Peano arithmetic with natural numbers.</p>
-                </div>
-                <div class="table"><div class="table-in single"><div class="code">
-<pre><code class="language-karuta">nat[0] :- int[0].
-nat[succ[N]] :- nat[N].
-
-pluz[Out, 0, Out] :- nat[Out].
-pluz[0, Out, Out] :- nat[Out].
-pluz[succ[Prev], X, Out] :- pluz[Prev, succ[X], Out].
-
-pluz[succ[succ[succ[succ[0]]]], succ[succ[0]], Out]?</code></pre>
-                </div></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="latest" aria-label="Latest posts">
-        <div class="sec-head"><h2 class="section-title">From the nest</h2><a href="/blog">All posts</a></div>
-#+END_EXPORT
-
-#+begin_src emacs-lisp :exports results :results html
-(drn/generate-blog-list 4)
+?- origin(sakura, What).
 #+end_src
+#+end_code
 
-#+BEGIN_EXPORT html
-    </section>
-</div>
-</div>
-#+END_EXPORT
+#+begin_answers
+{{{eyebrow(Answers)}}}
+
+#+begin_procs
+{{{proc(What,nest,&lt;0.112.0&gt;)}}}
+{{{proc(What,owl,&lt;0.113.0&gt;)}}}
+{{{proc(What,flight,&lt;0.114.0&gt;)}}}
+#+end_procs
+
+Each branch of the search can run as its own lightweight process, supervised like any other part of an OTP system.
+#+end_answers
+#+end_table-in
+#+end_table
+#+end_hero-left
+
+#+begin_aside .hero-right
+#+begin_stand
+#+attr_html: :alt Reading card: a crimson owl perched on a cherry-blossom branch, with a five-line poem in Japanese :width 900 :height 1273
+[[file:static/img/owl-yomi.webp]]
+#+end_stand
+
+#+begin_intro
+#+begin_h2
+This is Karuta.\\
+A logic language for the BEAM.
+#+end_h2
+
+State facts, write rules, ask questions. Karuta finds the answers with unification and search, and runs them on the same virtual machine as Erlang and Elixir.
+
+#+begin_cta
+{{{btn(pri,#install,Get started)}}}
+{{{btn(,#story,Read the story)}}}
+#+end_cta
+#+end_intro
+#+end_aside
+#+end_section
+
+#+attr_html: :aria-label What Karuta gives you
+#+begin_section .pillars #docs
+#+attr_html: :class deco branch-hang
+[[file:static/img/branch-long.webp]]
+
+#+begin_pillar
+{{{eyebrow(Declare)}}}
+{{{h3(Facts and rules)}}}
+
+Describe what is true and let the engine search for what follows. Pattern matching, unification and backtracking come built in.
+#+end_pillar
+
+#+begin_pillar
+{{{eyebrow(Run)}}}
+{{{h3(On the BEAM)}}}
+
+Processes, supervisors and hot code loading work the way you know them. Call Erlang and Elixir modules from a rule with ~call/3~.
+#+end_pillar
+
+#+begin_pillar
+{{{eyebrow(Keep)}}}
+{{{h3(Sakura beside it)}}}
+
+Store facts in Sakura, Karuta's partner database, and query them with the same rules you already wrote. {{{a(/sakura.html,Meet Sakura)}}}.
+#+end_pillar
+#+end_section
+#+end_wrap
+
+#+begin_section .story #story
+#+begin_wrap
+#+begin_story-head
+#+begin_div
+{{{eyebrow(How Karuta came to be)}}}
+
+#+begin_h2
+Four cards,\\
+read in order
+#+end_h2
+
+#+attr_html: :class lead
+In karuta, one card is read aloud and the other is taken from the table. Each round of this story pairs a reading card with the card you grab. Tap a grabbing card to take it.
+#+end_div
+
+#+attr_html: :class deco scatter :loading lazy
+[[file:static/img/eight-cards.webp]]
+#+end_story-head
+
+#+begin_rounds
+#+begin_article .round
+{{{num(I)}}}
+
+#+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
+[[file:static/img/sakura-yomi.webp]]
+
+#+begin_poem
+{{{eyebrow(Reading card)}}}
+
+#+begin_blockquote
+Even upon fields\\
+ruined by the winter's decay,\\
+spring has arrived;\\
+from the scent of sakura\\
+the darkness slowly loosens.
+#+end_blockquote
+
+#+begin_taken
+{{{eyebrow(Grabbing card)}}}
+
+#+begin_blockquote
+From the scent of sakura,\\
+the darkness slowly loosens.
+#+end_blockquote
+#+end_taken
+#+end_poem
+
+{{{grab(sakura)}}}
+#+end_article
+
+#+begin_article .round
+{{{num(II)}}}
+
+#+attr_html: :class yomi :alt Reading card: a nest holding an egg, crimson feathers and petals :width 900 :height 1273 :loading lazy
+[[file:static/img/nest-yomi.webp]]
+
+#+begin_poem
+{{{eyebrow(Reading card)}}}
+
+#+begin_blockquote
+Branches scattered\\
+beneath the white morning dew\\
+are bound anew;\\
+within the nest now rests\\
+a quiet and gentle light.
+#+end_blockquote
+
+#+begin_taken
+{{{eyebrow(Grabbing card)}}}
+
+#+begin_blockquote
+Within the nest now rests\\
+a quiet and gentle light.
+#+end_blockquote
+#+end_taken
+#+end_poem
+
+{{{grab(nest)}}}
+#+end_article
+
+#+begin_article .round
+{{{num(III)}}}
+
+#+attr_html: :class yomi :alt Reading card: a crimson owl on a blossoming branch :width 900 :height 1273 :loading lazy
+[[file:static/img/owl-yomi.webp]]
+
+#+begin_poem
+{{{eyebrow(Reading card)}}}
+
+#+begin_blockquote
+Though the shadows\\
+cast by dawn upon the branches\\
+shift and pass away,\\
+the owl of the peak\\
+does not let the nest forget.
+#+end_blockquote
+
+#+begin_taken
+{{{eyebrow(Grabbing card)}}}
+
+#+begin_blockquote
+The owl of the peak\\
+does not let the nest forget.
+#+end_blockquote
+#+end_taken
+#+end_poem
+
+{{{grab(owl)}}}
+#+end_article
+
+#+begin_article .round
+{{{num(IV)}}}
+
+#+attr_html: :class yomi :alt Reading card: two crimson birds flying among blue clouds :width 900 :height 1273 :loading lazy
+[[file:static/img/flight-yomi.webp]]
+
+#+begin_poem
+{{{eyebrow(Reading card)}}}
+
+#+begin_blockquote
+Tearing through clouds,\\
+toward the long-forgotten skies,\\
+the wings ascend;\\
+like the morning sun itself,\\
+they go illuminating the world.
+#+end_blockquote
+
+#+begin_taken
+{{{eyebrow(Grabbing card)}}}
+
+#+begin_blockquote
+Like the morning sun itself,\\
+they go illuminating the world.
+#+end_blockquote
+#+end_taken
+#+end_poem
+
+{{{grab(flight)}}}
+#+end_article
+#+end_rounds
+#+end_wrap
+#+end_section
+
+#+attr_html: :aria-hidden true
+#+begin_flight-band
+#+attr_html: :class deco :loading lazy
+[[file:static/img/flight.webp]]
+#+end_flight-band
+
+#+begin_wrap
+#+attr_html: :aria-label Latest posts
+#+begin_section .latest
+#+begin_sec-head
+{{{h2(From the nest)}}}
+{{{a(/blog/,All posts)}}}
+#+end_sec-head
+
+{{{deck(4)}}}
+#+end_section
+
+#+begin_section .install #install
+#+begin_install-left
+#+begin_h2
+Deal your\\
+first hand
+#+end_h2
+
+#+begin_term
+{{{term-head(install-cmd)}}}
+
+#+attr_html: :id install-cmd
+#+begin_example
+$ karuta new nest
+$ cd nest && karuta repl
+#+end_example
+#+end_term
+#+end_install-left
+
+#+attr_html: :class deco scene :loading lazy
+[[file:static/img/table-eight.webp]]
+#+end_section
+#+end_wrap

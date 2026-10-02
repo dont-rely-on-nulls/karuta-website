@@ -1,39 +1,34 @@
 <div class="wrap">
-    <img class="deco foot-petals" src="%ROOT%/static/img/petals.webp" alt="" aria-hidden="true" loading="lazy">
-    <div class="footer">
-        <span>&copy; 2024 Karuta · logic programming on the BEAM</span>
-        <nav aria-label="Footer">
-            <a href="%ROOT%/blog">Blog</a>
-            <a href="%ROOT%/docs">Docs</a>
-            <a href="%ROOT%/pages/privacy-policy.html">Privacy</a>
-            <span class="jp">かるた</span>
-        </nav>
-    </div>
+  <img class="deco foot-petals" src="/static/img/petals.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="site-foot">
+    <span>Karuta · logic programming on the BEAM</span>
+    <span class="foot-links"><a href="/blog/">Posts</a><a href="/about.html">About</a><a href="/sakura.html">Sakura</a><span class="jp">かるた · さくら</span></span>
+  </div>
 </div>
 <script>
-(function () {
-    // Colour Karuta source: comments, quoted atoms, variables, operators, atoms.
-    var token = /(%.*$)|('[^'\n]*')|(\b[A-Z_][A-Za-z0-9_]*)|(:-|\?|\|)|(\b[a-z][A-Za-z0-9_]*)/gm;
-    var kinds = ["k-c", "k-a", "k-v", "k-o", "k-a"];
-    var esc = function (s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
-    document.querySelectorAll("code.language-karuta").forEach(function (el) {
-        var src = el.textContent, out = "", last = 0, m;
-        while ((m = token.exec(src))) {
-            out += esc(src.slice(last, m.index));
-            for (var i = 1; i <= 5; i++) if (m[i] !== undefined) break;
-            out += '<span class="' + kinds[i - 1] + '">' + esc(m[0]) + "</span>";
-            last = token.lastIndex;
-        }
-        el.innerHTML = out + esc(src.slice(last));
-    });
+document.addEventListener("click", function (e) {
+  document.querySelectorAll("details[open]").forEach(function (d) {
+    if (!d.contains(e.target)) d.open = false;
+  });
 
-    // Taking a grabbing card straightens it.
-    document.addEventListener("click", function (e) {
-        var g = e.target.closest(".grab");
-        if (!g) return;
-        var on = g.getAttribute("aria-pressed") !== "true";
-        g.setAttribute("aria-pressed", on);
-        g.querySelector(".grab-cap").textContent = on ? "Taken" : "Take the card";
-    });
-})();
+  var grab = e.target.closest(".grab");
+  if (grab) {
+    var on = grab.getAttribute("aria-pressed") !== "true";
+    grab.setAttribute("aria-pressed", on);
+    grab.querySelector(".grab-cap").textContent = on ? "Taken" : "Take the card";
+  }
+
+  var copy = e.target.closest(".copy");
+  if (copy) {
+    var el = document.getElementById(copy.dataset.copy);
+    var text = el.textContent.trim().split("\n").map(function (l) { return l.replace(/^\$ /, ""); }).join("\n");
+    var done = function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy"; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      copy.textContent = "Selected";
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (_) { fallback(); }
+  }
+});
 </script>
