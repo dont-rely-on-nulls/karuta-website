@@ -1,0 +1,15 @@
+#+TITLE: Why Karuta is named after a card game
+#+DATE: 2026-09-24
+#+FILETAGS: :Design:
+#+DESCRIPTION: A query is a poem read aloud. Your facts are the cards on the table.
+#+KANA: かるた
+#+SAMPLE: yes
+#+OPTIONS: toc:nil title:nil
+
+In karuta, a reader recites the first half of a poem and players race to take the card that completes it. Logic programming works the same way: you ask a question and the engine looks for every fact and rule that completes it.
+
+We kept that picture in mind while designing the language. The query is the reading card. Clauses are grabbing cards. Unification is the moment a hand lands on the right card.
+
+* Four cards
+
+The story on the home page follows four cards: a blossom after winter, a rebuilt nest, an owl that remembers, and a flight into open sky. Each one marks a step in how Karuta came to be.

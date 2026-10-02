@@ -1,0 +1,11 @@
+#+TITLE: Introducing Sakura, the partner database
+#+DATE: 2026-08-12
+#+FILETAGS: :Sakura:
+#+DESCRIPTION: Durable facts you query with the rules you already wrote.
+#+KANA: さくら
+#+SAMPLE: yes
+#+OPTIONS: toc:nil title:nil
+
+Sakura stores relations for Karuta programs. You declare a relation once and every fact asserted into it is kept across restarts.
+
+Because Sakura speaks Karuta, there is no separate query language. A rule that reads in-memory facts reads stored ones the same way. {{{a(/sakura.html,Read more about Sakura)}}}.

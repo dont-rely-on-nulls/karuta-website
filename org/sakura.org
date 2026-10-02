@@ -1,0 +1,179 @@
+#+TITLE: Sakura
+#+OPTIONS: toc:nil title:nil
+
+#+begin_page-sakura
+#+begin_fall
+#+attr_html: :class deco
+[[file:static/img/flower-b.webp]]
+
+#+attr_html: :class deco
+[[file:static/img/flower-a.webp]]
+
+#+attr_html: :class deco
+[[file:static/img/flower-c.webp]]
+
+#+attr_html: :class deco
+[[file:static/img/flower-b.webp]]
+#+end_fall
+
+#+begin_wrap
+#+begin_section .hero
+#+begin_hero-left
+{{{badge(Sakura · partner database)}}}
+
+#+begin_h1 .headline
+Facts that bloom\\
+{{{acc(after winter.)}}}
+#+end_h1
+
+#+begin_s-panel
+#+begin_table-in
+#+begin_code
+{{{eyebrow(garden.krt)}}}
+
+#+begin_src karuta
+% a durable relation in Sakura
+:- table blossom/2, sakura.
+
+sakura:assert(blossom(yoshino, april)).
+sakura:assert(blossom(kawazu, february)).
+
+early(Tree) :-
+    blossom(Tree, M), before(M, march).
+
+?- early(Tree).
+#+end_src
+#+end_code
+
+#+begin_answers
+{{{eyebrow(Answers)}}}
+
+#+begin_procs
+{{{proc(Tree,kawazu,node a)}}}
+#+end_procs
+
+Rules read stored facts and in-memory facts the same way. Nothing to translate between a query language and your program.
+#+end_answers
+#+end_table-in
+#+end_s-panel
+#+end_hero-left
+
+#+begin_aside .hero-right
+#+begin_stand
+#+attr_html: :alt Reading card: three cherry blossoms :width 900 :height 1273
+[[file:static/img/sakura-yomi.webp]]
+
+#+attr_html: :class deco cluster
+[[file:static/img/flowers.webp]]
+#+end_stand
+
+#+begin_intro
+{{{h2(Sakura keeps what Karuta knows.)}}}
+
+A deductive database built for Karuta. Store facts, keep them across restarts, and query them with the rules already in your program.
+
+#+begin_cta
+{{{btn(sak,#sakura-install,Add Sakura)}}}
+{{{btn(,/,Back to Karuta)}}}
+#+end_cta
+#+end_intro
+#+end_aside
+#+end_section
+
+#+attr_html: :aria-label What Sakura gives you
+#+begin_section .pillars
+#+begin_pillar
+{{{eyebrow(Store)}}}
+{{{h3(Relations\, not tables)}}}
+
+Declare a relation once with ~:- table~ and Sakura persists every fact you assert into it.
+#+end_pillar
+
+#+begin_pillar
+{{{eyebrow(Ask)}}}
+{{{h3(One language)}}}
+
+Query stored facts with Karuta rules. Recursive queries and joins are ordinary rules.
+#+end_pillar
+
+#+begin_pillar
+{{{eyebrow(Spread)}}}
+{{{h3(Across nodes)}}}
+
+Sakura runs inside your BEAM cluster, so facts live next to the processes that reason about them.
+#+end_pillar
+#+end_section
+
+#+begin_section .rooted
+#+attr_html: :class deco :loading lazy
+[[file:static/img/tree.webp]]
+
+#+begin_div
+{{{eyebrow(Rooted in the BEAM)}}}
+
+#+begin_h2
+One tree,\\
+many branches
+#+end_h2
+
+Every node in your cluster can read the same relations. Facts are written once and reach the processes that need them, wherever those processes run.
+#+end_div
+#+end_section
+#+end_wrap
+
+#+begin_section .story
+#+begin_wrap
+#+begin_s-poem
+#+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
+[[file:static/img/sakura-yomi.webp]]
+
+#+begin_poem
+{{{eyebrow(The first card)}}}
+
+#+begin_blockquote
+Even upon fields\\
+ruined by the winter's decay,\\
+spring has arrived;\\
+from the scent of sakura\\
+the darkness slowly loosens.
+#+end_blockquote
+
+#+begin_taken
+{{{eyebrow(Grabbing card)}}}
+
+#+begin_blockquote
+From the scent of sakura,\\
+the darkness slowly loosens.
+#+end_blockquote
+#+end_taken
+#+end_poem
+
+{{{grab(sakura)}}}
+#+end_s-poem
+#+end_wrap
+#+end_section
+
+#+begin_wrap
+#+begin_section .install #sakura-install
+#+begin_install-left
+#+begin_h2
+Plant\\
+Sakura
+#+end_h2
+
+#+begin_term
+{{{term-head(sakura-cmd)}}}
+
+#+attr_html: :id sakura-cmd
+#+begin_example
+$ karuta add sakura
+$ karuta sakura init ./garden
+#+end_example
+#+end_term
+#+end_install-left
+
+#+attr_html: :class deco scene :loading lazy
+[[file:static/img/table-petals.webp]]
+#+end_section
+#+end_wrap
+#+end_page-sakura

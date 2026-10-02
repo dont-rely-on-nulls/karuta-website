@@ -1,5 +1,34 @@
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2024 Karuta. Built with logic and love on the BEAM.</p>
-    </div>
-</footer>
+<div class="wrap">
+  <img class="deco foot-petals" src="/static/img/petals.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="site-foot">
+    <span>Karuta · logic programming on the BEAM</span>
+    <span class="foot-links"><a href="/blog/">Posts</a><a href="/about.html">About</a><a href="/sakura.html">Sakura</a><span class="jp">かるた · さくら</span></span>
+  </div>
+</div>
+<script>
+document.addEventListener("click", function (e) {
+  document.querySelectorAll("details[open]").forEach(function (d) {
+    if (!d.contains(e.target)) d.open = false;
+  });
+
+  var grab = e.target.closest(".grab");
+  if (grab) {
+    var on = grab.getAttribute("aria-pressed") !== "true";
+    grab.setAttribute("aria-pressed", on);
+    grab.querySelector(".grab-cap").textContent = on ? "Taken" : "Take the card";
+  }
+
+  var copy = e.target.closest(".copy");
+  if (copy) {
+    var el = document.getElementById(copy.dataset.copy);
+    var text = el.textContent.trim().split("\n").map(function (l) { return l.replace(/^\$ /, ""); }).join("\n");
+    var done = function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy"; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      copy.textContent = "Selected";
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (_) { fallback(); }
+  }
+});
+</script>
