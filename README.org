@@ -33,7 +33,7 @@ Then build the site locally:
 In order to test it, the flake includes Python so you can run an HTTP server like this:
 
 #+begin_src shell
-  cd public && python -m http.server
+  make serve
 #+end_src
 
 ** Production build
