@@ -66,8 +66,6 @@ Karuta modules are BEAM modules. They live in your releases, your supervision tr
 Sakura stores facts durably, so knowledge outlives the process that learned it.
 #+end_div
 
-#+attr_html: :class deco branch-rise :loading lazy
-[[file:static/img/branch-rise.webp]]
 #+end_section
 
 #+begin_section .contrib
