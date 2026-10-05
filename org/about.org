@@ -14,8 +14,6 @@ reading {{{acc(and taking)}}}
 Karuta is a logic programming language that runs on the BEAM. It is named after the Japanese card game, because a query works much like a round of play.
 #+end_div
 
-#+attr_html: :class deco art
-[[file:static/img/table-four.webp]]
 #+end_section
 
 #+begin_section .about-grid
