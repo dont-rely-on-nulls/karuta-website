@@ -3,7 +3,6 @@
 #+FILETAGS: :Tutorial:
 #+DESCRIPTION: How a variable gets its value, one card at a time.
 #+KANA: むすび
-#+SAMPLE: yes
 #+OPTIONS: toc:nil title:nil
 
 When you ask ~origin(sakura, What)~, Karuta looks for clauses whose head can be made equal to your question. ~What~ is an empty slot. Any card that fits fills it.

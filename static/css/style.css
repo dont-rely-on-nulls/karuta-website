@@ -249,7 +249,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .post .body h2{font:700 26px/1.15 var(--f-display);font-variation-settings:"wdth" 90;margin-top:14px}
 .post .body pre{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;overflow-x:auto}
 .post .orn{width:72px;margin:44px auto 0}
-.sample{display:inline-block;font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted)}
 
 /* about */
 .about-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding-block:40px 80px;border-top:1.5px solid var(--ink)}

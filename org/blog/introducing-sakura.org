@@ -3,7 +3,6 @@
 #+FILETAGS: :Sakura:
 #+DESCRIPTION: Durable facts you query with the rules you already wrote.
 #+KANA: さくら
-#+SAMPLE: yes
 #+OPTIONS: toc:nil title:nil
 
 Sakura stores relations for Karuta programs. You declare a relation once and every fact asserted into it is kept across restarts.
