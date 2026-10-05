@@ -263,7 +263,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .principles img{width:92px;margin-bottom:18px}
 .principles h3{font:700 22px/1.15 var(--f-display);font-variation-settings:"wdth" 90;margin-bottom:10px}
 .principles p{color:var(--muted)}
-.principles img.branch-rise{position:absolute;right:calc(var(--gut) * -1);bottom:-40px;width:min(240px,22vw);opacity:.95;margin:0}
 .contrib{background:var(--felt-deep);color:var(--on-felt);border-radius:var(--r-lg);padding:clamp(28px,4vw,56px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:center;margin-bottom:96px}
 .contrib h2{font:800 clamp(28px,3.4vw,48px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase}
 .contrib p{color:#cdbda4;margin-top:14px;max-width:46ch}
@@ -288,7 +287,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 @media (max-width:1000px){
   .phead,.about-grid,.rooted,.contrib{grid-template-columns:1fr}
   .principles{grid-template-columns:1fr}
-  .principles img.branch-rise{display:none}
   .install{grid-template-columns:1fr}
   .contrib .nest{justify-self:start}
 }
