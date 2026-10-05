@@ -62,9 +62,6 @@ Rules read stored facts and in-memory facts the same way. Nothing to translate b
 #+begin_stand
 #+attr_html: :alt Reading card: three cherry blossoms :width 900 :height 1273
 [[file:static/img/sakura-yomi.webp]]
-
-#+attr_html: :class deco cluster
-[[file:static/img/flowers.webp]]
 #+end_stand
 
 #+begin_intro
