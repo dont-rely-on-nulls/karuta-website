@@ -107,7 +107,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .intro h2{font:500 clamp(22px,2vw,28px)/1.18 var(--f-display);font-variation-settings:"wdth" 92;letter-spacing:-.01em}
 .intro p{margin-top:12px;color:var(--muted);max-width:44ch}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--f-body);padding:14px 20px;border-radius:999px;text-decoration:none;border:1.5px solid var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--f-body);padding:14px 20px;border-radius:8px;text-decoration:none;border:1.5px solid var(--ink)}
 .btn.pri{background:var(--owl);border-color:var(--owl);color:var(--on-owl)}
 .btn:hover{transform:translateY(-1px)}
 
