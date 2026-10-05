@@ -150,7 +150,6 @@ LIMIT is a string; when it is a number, show only that many posts."
         ("eyebrow"   . "@@html:<span class=\"eyebrow\">$1</span>@@")
         ("h2"        . "@@html:<h2>$1</h2>@@")
         ("h3"        . "@@html:<h3>$1</h3>@@")
-        ("num"       . "@@html:<span class=\"num\">$1</span>@@")
         ("a"         . "@@html:<a href=\"$1\">$2</a>@@")
         ("btn"       . "@@html:<a class=\"btn $1\" href=\"$2\">$3</a>@@")
         ("badge"     . "@@html:<span class=\"s-badge\">$1</span>@@")

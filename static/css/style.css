@@ -126,9 +126,8 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .story-head h2{font:800 clamp(36px,5vw,72px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase;margin-top:16px}
 .story-head p{color:#cdbda4;max-width:42ch}
 .story .eyebrow{color:#cdbda4}
-.round{display:grid;grid-template-columns:72px clamp(200px,22vw,300px) minmax(0,1fr) minmax(140px,210px);gap:clamp(20px,3vw,48px);align-items:center;padding-block:48px;border-top:1px solid rgba(240,225,204,.16)}
+.round{display:grid;grid-template-columns:clamp(200px,22vw,300px) minmax(0,1fr) minmax(140px,210px);gap:clamp(20px,3vw,48px);align-items:center;padding-block:48px;border-top:1px solid rgba(240,225,204,.16)}
 .round:last-child{border-bottom:1px solid rgba(240,225,204,.16)}
-.num{font:800 64px/1 var(--f-display);font-variation-settings:"wdth" 70;color:#d9837a;align-self:start}
 .yomi{width:100%;border-radius:8px;display:block;box-shadow:0 26px 40px -24px #000}
 .poem{min-width:0}
 .poem .eyebrow{display:block;margin-bottom:14px}
@@ -168,7 +167,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .hero,.story-head,.install{grid-template-columns:1fr}
   .hero-right{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:end}
   .round{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr) 150px}
-  .num{display:none}
   .s-poem{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr)}
   .s-poem .grab{display:none}
 }
