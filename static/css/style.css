@@ -56,10 +56,8 @@ p{margin:0}
 .site-head{position:relative;z-index:5}
 .top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px 0}
 .brand{display:flex;align-items:center;gap:20px;text-decoration:none}
-.mark{width:84px;aspect-ratio:1/1;flex:none;background:var(--felt);border-radius:var(--r-sm);padding:7px;position:relative;
-  box-shadow:inset 0 0 0 1.5px var(--felt-deep)}
-.mark span{display:grid;place-items:center;height:100%;background:#f0e1cc;border-radius:3px;box-shadow:0 0 0 1.5px #263224;
-  font:700 38px/1 var(--f-jp);color:#8e4541}
+.mark{width:84px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
+.mark img{position: relative;}
 .mark small{position:absolute;left:10px;bottom:-1px;transform:translateY(100%);font:600 10px/1.6 var(--f-mono);letter-spacing:.18em;color:var(--muted)}
 .brand-line{font:500 clamp(18px,1.9vw,26px)/1.12 var(--f-display);font-variation-settings:"wdth" 92;letter-spacing:-.01em}
 .nav{display:flex;align-items:center;gap:6px}
@@ -186,7 +184,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .round .yomi{grid-column:1/-1;width:min(260px,70%)}
   .s-poem{grid-template-columns:1fr}
   .s-poem .yomi{width:min(260px,70%)}
-  .mark{width:64px}.mark span{font-size:28px}
+  .mark{width:64px}
 }
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr}
@@ -277,7 +275,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 
 /* sakura extras */
 .page-sakura .hero-right .stand{position:relative}
-.page-sakura .cluster{position:absolute;left:-16%;top:-5%;width:48%;filter:drop-shadow(0 14px 18px rgba(38,50,36,.3))}
 .fall{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
 .fall img{position:absolute;top:-60px;width:34px;opacity:.9;animation:fall linear infinite}
 .fall img:nth-child(1){left:58%;animation-duration:17s;animation-delay:-3s}
@@ -298,7 +295,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .install{grid-template-columns:1fr}
   .contrib .nest{justify-self:start}
 }
-@media (max-width:760px){.branch-hang{width:220px;bottom:-60px}.page-sakura .cluster{width:48%;left:-6%}}
+@media (max-width:760px){.branch-hang{width:220px;bottom:-60px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fall{display:none}}
 
 /* ---------- plain Org pages (docs) ---------- */
