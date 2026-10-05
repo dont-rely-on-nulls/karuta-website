@@ -251,14 +251,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .post .orn{width:72px;margin:44px auto 0}
 
 /* about */
-.about-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding-block:40px 80px;border-top:1.5px solid var(--ink)}
-.about-grid>img{width:100%}
-.about-grid h2{font:800 clamp(30px,3.6vw,52px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:20px}
-.about-grid p{color:var(--muted);max-width:52ch}
-.about-grid p+p{margin-top:14px}
-.map{display:grid;grid-template-columns:auto 1fr;gap:14px 20px;margin-top:24px;align-items:baseline}
-.map dt{font:600 12px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--owl)}
-.map dd{margin:0}
 .principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;padding-block:24px 96px;position:relative}
 .principles img{width:92px;margin-bottom:18px}
 .principles h3{font:700 22px/1.15 var(--f-display);font-variation-settings:"wdth" 90;margin-bottom:10px}
@@ -285,7 +277,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .s-branch{position:absolute;left:0;right:0;top:-10px;width:100%;max-width:none;opacity:.9}
 
 @media (max-width:1000px){
-  .phead,.about-grid,.rooted,.contrib{grid-template-columns:1fr}
+  .phead,.rooted,.contrib{grid-template-columns:1fr}
   .principles{grid-template-columns:1fr}
   .install{grid-template-columns:1fr}
   .contrib .nest{justify-self:start}
