@@ -3,7 +3,6 @@
 #+FILETAGS: :Internals:
 #+DESCRIPTION: What changes when search can use the whole BEAM scheduler.
 #+KANA: つばさ
-#+SAMPLE: yes
 #+OPTIONS: toc:nil title:nil
 
 A search tree has branches that do not depend on each other. On the BEAM, independent work is what processes are for.

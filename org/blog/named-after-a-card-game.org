@@ -3,7 +3,6 @@
 #+FILETAGS: :Design:
 #+DESCRIPTION: A query is a poem read aloud. Your facts are the cards on the table.
 #+KANA: かるた
-#+SAMPLE: yes
 #+OPTIONS: toc:nil title:nil
 
 In karuta, a reader recites the first half of a poem and players race to take the card that completes it. Logic programming works the same way: you ask a question and the engine looks for every fact and rule that completes it.
