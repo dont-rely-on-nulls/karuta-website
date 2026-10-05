@@ -118,38 +118,6 @@ Every node in your cluster can read the same relations. Facts are written once a
 #+end_section
 #+end_wrap
 
-#+begin_section .story
-#+begin_wrap
-#+begin_s-poem
-#+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
-[[file:static/img/sakura-yomi.webp]]
-
-#+begin_poem
-{{{eyebrow(The first card)}}}
-
-#+begin_blockquote
-Even upon fields\\
-ruined by the winter's decay,\\
-spring has arrived;\\
-from the scent of sakura\\
-the darkness slowly loosens.
-#+end_blockquote
-
-#+begin_taken
-{{{eyebrow(Grabbing card)}}}
-
-#+begin_blockquote
-From the scent of sakura,\\
-the darkness slowly loosens.
-#+end_blockquote
-#+end_taken
-#+end_poem
-
-{{{grab(sakura)}}}
-#+end_s-poem
-#+end_wrap
-#+end_section
-
 #+begin_wrap
 #+begin_section .install #sakura-install
 #+begin_install-left
