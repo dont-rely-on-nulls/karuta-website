@@ -39,6 +39,7 @@
               citeproc
               htmlize
               ox-rss
+              tuareg
             ]
             ++ (with epkgs.elpaPackages; [
               org
