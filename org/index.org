@@ -120,7 +120,7 @@ In karuta, one card is read aloud and the other is taken from the table. Each ro
 [[file:static/img/sakura-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Even upon fields\\
@@ -131,7 +131,7 @@ the darkness slowly loosens.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 From the scent of sakura,\\
@@ -149,7 +149,7 @@ the darkness slowly loosens.
 [[file:static/img/nest-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Branches scattered\\
@@ -160,7 +160,7 @@ a quiet and gentle light.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Within the nest now rests\\
@@ -178,7 +178,7 @@ a quiet and gentle light.
 [[file:static/img/owl-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Though the shadows\\
@@ -189,7 +189,7 @@ does not let the nest forget.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 The owl of the peak\\
@@ -207,7 +207,7 @@ does not let the nest forget.
 [[file:static/img/flight-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Tearing through clouds,\\
@@ -218,7 +218,7 @@ they go illuminating the world.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Like the morning sun itself,\\
