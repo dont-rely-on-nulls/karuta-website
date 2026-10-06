@@ -207,7 +207,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .install-left{display:grid;gap:28px;min-width:0}
 .install .scene{width:100%}
 .site-foot{position:relative}
-.foot-petals{width:min(560px,80%);margin:0 auto -12px;opacity:.9}
+.foot-petals{width:min(448px,64%);margin:0 auto 27px;opacity:.9}
 
 /* home: latest posts */
 .latest{padding-block:24px 96px}
