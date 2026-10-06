@@ -153,7 +153,7 @@ LIMIT is a string; when it is a number, show only that many posts."
         ("btn"       . "@@html:<a class=\"btn $1\" href=\"$2\">$3</a>@@")
         ("badge"     . "@@html:<span class=\"s-badge\">$1</span>@@")
         ("proc"      . "@@html:<div class=\"proc\"><i></i><span><b>$1</b> = $2</span><s>$3</s></div>@@")
-        ("grab"      . "@@html:<button class=\"grab\" aria-pressed=\"false\"><img src=\"/static/img/$1-tori.webp\" alt=\"Grabbing card, written in hiragana\" width=\"600\" height=\"849\" loading=\"lazy\"><span class=\"grab-cap\">Take the card</span></button>@@")
+        ("grab"      . "@@html:<button class=\"grab\"><img src=\"/static/img/$1-tori.webp\" alt=\"Grabbing card, written in hiragana\" width=\"600\" height=\"849\" loading=\"lazy\"></button>@@")
         ("term-head" . "@@html:<div class=\"row\"><span class=\"eyebrow\">Terminal</span><button class=\"copy\" data-copy=\"$1\">Copy</button></div>@@")
         ("deck"      . "(eval (drn/blog-deck $1))")))
 

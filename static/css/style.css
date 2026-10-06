@@ -138,9 +138,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .grab img{display:block;width:100%;border-radius:6px;box-shadow:0 18px 30px -18px #000}
 .round:nth-child(odd) .grab{transform:rotate(4deg)}
 .round:nth-child(even) .grab{transform:rotate(-3deg)}
-.grab:hover,.grab[aria-pressed="true"]{transform:rotate(0) translateY(-10px) scale(1.04)}
-.grab-cap{display:block;margin-top:12px;text-align:center;font:600 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:#cdbda4}
-.grab[aria-pressed="true"] .grab-cap{color:#d9837a}
+.grab:hover{transform:rotate(0) translateY(-10px) scale(1.04)}
 
 /* ---------- install ---------- */
 .install{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding-block:96px;align-items:center}
