@@ -269,6 +269,6 @@ $ cd nest && karuta repl
 #+end_install-left
 
 #+attr_html: :class deco scene :loading lazy
-[[file:static/img/table-eight.webp]]
+[[file:static/img/four-cards.webp]]
 #+end_section
 #+end_wrap
