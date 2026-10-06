@@ -275,7 +275,6 @@ markup: links, images, macros and line breaks."
 <h1>%s</h1>
 <div class=\"meta\"><time datetime=\"%s\">%s</time><b>%s</b></div>
 <div class=\"body\">%s</div>
-<img class=\"deco orn\" src=\"/static/img/flower-a.webp\" alt=\"\" aria-hidden=\"true\">
 </article></div>"
               (plist-get post :title)
               (plist-get post :date) (drn/format-date (plist-get post :date))
