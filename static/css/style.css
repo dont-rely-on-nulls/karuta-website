@@ -148,7 +148,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .term .row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
 .copy{font:600 12px/1 var(--f-mono);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 
-.site-foot{border-top:1.5px solid var(--ink);padding-block:28px 40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;color:var(--muted);font-size:14px}
+.site-foot{border-top:1.5px solid var(--ink);padding-block:28px 40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;color:var(--muted);font-size:14px}
 .site-foot .jp{font-family:var(--f-jp)}
 .foot-links{display:flex;gap:18px;flex-wrap:wrap}
 
