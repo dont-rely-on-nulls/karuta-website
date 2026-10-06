@@ -11,13 +11,6 @@ document.addEventListener("click", function (e) {
     if (!d.contains(e.target)) d.open = false;
   });
 
-  var grab = e.target.closest(".grab");
-  if (grab) {
-    var on = grab.getAttribute("aria-pressed") !== "true";
-    grab.setAttribute("aria-pressed", on);
-    grab.querySelector(".grab-cap").textContent = on ? "Taken" : "Take the card";
-  }
-
   var copy = e.target.closest(".copy");
   if (copy) {
     var el = document.getElementById(copy.dataset.copy);
