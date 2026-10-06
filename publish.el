@@ -26,6 +26,7 @@
 (require 'ox-publish)
 (require 'ox-rss)
 (require 'seq)
+(require 'tuareg)
 
 ;;; Global org-mode settings
 (setq org-confirm-babel-evaluate nil)
@@ -438,7 +439,60 @@ Replaces 'static/' with '../static/' based on page depth from root."
 
         ("all" :components ("css" "images" "site"))))
 
+;;; Colors
+(deftheme karuta)
+
+(let ((com  "#7d6c59")
+      (atom "#c4507a")
+      (var  "#8e4541")
+      (op   "#2f5a2a"))
+  (custom-theme-set-faces
+   'karuta
+   `(font-lock-comment-face       ((t (:foreground ,com))))
+   `(font-lock-string-face        ((t (:foreground ,atom))))
+   `(font-lock-variable-name-face ((t (:foreground ,var))))
+   `(font-lock-keyword-face       ((t (:foreground ,op :weight bold))))
+
+   '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face))))
+   '(font-lock-doc-face               ((t (:inherit font-lock-comment-face))))
+   '(font-lock-doc-markup-face        ((t (:inherit font-lock-comment-face))))
+
+   '(font-lock-constant-face              ((t (:inherit font-lock-string-face))))
+   '(font-lock-number-face                ((t (:inherit font-lock-string-face))))
+   '(font-lock-escape-face                ((t (:inherit font-lock-string-face))))
+   '(font-lock-builtin-face               ((t (:inherit font-lock-string-face))))
+   '(font-lock-regexp-face                ((t (:inherit font-lock-string-face))))
+   '(font-lock-regexp-grouping-backslash  ((t (:inherit font-lock-string-face))))
+   '(font-lock-regexp-grouping-construct  ((t (:inherit font-lock-string-face))))
+
+   '(font-lock-variable-use-face  ((t (:inherit font-lock-variable-name-face))))
+   '(font-lock-function-name-face ((t (:inherit font-lock-variable-name-face))))
+   '(font-lock-function-call-face ((t (:inherit font-lock-variable-name-face))))
+   '(font-lock-type-face          ((t (:inherit font-lock-variable-name-face))))
+   '(font-lock-property-name-face ((t (:inherit font-lock-variable-name-face))))
+   '(font-lock-property-use-face  ((t (:inherit font-lock-variable-name-face))))
+
+   '(font-lock-operator-face          ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-punctuation-face       ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-bracket-face           ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-delimiter-face         ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-misc-punctuation-face  ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-preprocessor-face      ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-negation-char-face     ((t (:inherit font-lock-keyword-face))))
+   '(font-lock-warning-face           ((t (:inherit font-lock-keyword-face))))
+
+   '(tuareg-font-lock-governing-face            ((t (:inherit font-lock-keyword-face))))
+   '(tuareg-font-lock-operator-face             ((t (:inherit font-lock-keyword-face))))
+   '(tuareg-font-lock-multistage-face           ((t (:inherit font-lock-keyword-face))))
+   '(tuareg-font-lock-attribute-face            ((t (:inherit font-lock-preprocessor-face))))
+   '(tuareg-font-lock-extension-node-face       ((t (:inherit font-lock-preprocessor-face))))
+   '(tuareg-font-lock-infix-extension-node-face ((t (:inherit font-lock-preprocessor-face))))
+   '(tuareg-font-lock-module-face               ((t (:inherit font-lock-type-face))))
+   '(tuareg-font-lock-constructor-face          ((t (:inherit font-lock-constant-face))))
+   '(tuareg-font-lock-label-face                ((t (:inherit font-lock-constant-face))))))
+
 ;;; Build
+(enable-theme 'karuta)
 (notes/sync-db-if-ci)
 (org-publish-all t)
 
