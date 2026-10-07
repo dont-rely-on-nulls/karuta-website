@@ -120,14 +120,13 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .pillar code{font:500 13.5px var(--f-mono);background:var(--paper-2);padding:2px 6px;border-radius:4px;color:var(--ink)}
 
 /* ---------- story ---------- */
-.story{background:var(--felt-deep);color:var(--on-felt);padding-block:96px 110px;
+.story{background:var(--felt-deep);color:var(--on-felt);padding-block:96px 0px;
   background-image:radial-gradient(circle at 1px 1px,rgba(240,225,204,.06) 1px,transparent 1.4px);background-size:7px 7px}
 .story-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:end;margin-bottom:64px}
 .story-head h2{font:800 clamp(36px,5vw,72px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase;margin-top:16px}
 .story-head p{color:#cdbda4;max-width:42ch}
 .story .eyebrow{color:#cdbda4}
 .round{display:grid;grid-template-columns:clamp(200px,22vw,300px) minmax(0,1fr) minmax(140px,210px);gap:clamp(20px,3vw,48px);align-items:center;padding-block:48px;border-top:1px solid rgba(240,225,204,.16)}
-.round:last-child{border-bottom:1px solid rgba(240,225,204,.16)}
 .yomi{width:100%;border-radius:8px;display:block;box-shadow:0 26px 40px -24px #000}
 .poem{min-width:0}
 .poem .eyebrow{display:block;margin-bottom:14px}
@@ -200,8 +199,8 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .story{position:relative;overflow:hidden}
 .story-head .scatter{width:100%;max-width:560px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
 .story-head .lead{margin-top:20px}
-.flight-band{position:relative;height:clamp(120px,16vw,220px);margin-top:-1px;background:linear-gradient(var(--felt-deep),var(--bg))}
-.flight-band img{position:absolute;left:50%;transform:translateX(-50%);bottom:-30%;width:min(760px,80vw);animation:glide 14s ease-in-out infinite alternate}
+.flight-band{position:relative;background:linear-gradient(var(--felt-deep),var(--bg));padding-block:24px 0px}
+.flight-band img{position:relative;left:50%;transform:translateX(-50%);width:min(760px,80vw);animation:glide 14s ease-in-out infinite alternate}
 @keyframes glide{from{transform:translate(-54%,6px)}to{transform:translate(-46%,-8px)}}
 .install{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
 .install-left{display:grid;gap:28px;min-width:0}
