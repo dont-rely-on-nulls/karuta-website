@@ -261,14 +261,20 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .contrib .btn{border-color:#f0e1cc;color:#f0e1cc;margin-top:22px}
 
 /* sakura extras */
+.page-sakura{position:relative}
 .page-sakura .hero-right .stand{position:relative}
-.fall{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
-.fall img{position:absolute;top:-60px;width:34px;opacity:.9;animation:fall linear infinite}
-.fall img:nth-child(1){left:58%;animation-duration:17s;animation-delay:-3s}
-.fall img:nth-child(2){left:72%;width:26px;animation-duration:21s;animation-delay:-11s}
-.fall img:nth-child(3){left:88%;width:30px;animation-duration:19s;animation-delay:-7s}
-.fall img:nth-child(4){left:40%;width:22px;animation-duration:24s;animation-delay:-16s}
-@keyframes fall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(60px,110vh) rotate(260deg)}}
+.fall{position:absolute;inset:0;pointer-events:none;z-index:2}
+.fall .flower-wrapper{position:absolute;width:34px;opacity:.9}
+.fall .flower-wrapper:nth-child(1){left:28%;animation:85s linear -3s infinite fall}
+.fall .flower-wrapper:nth-child(2){left:42%;width:26px;animation: 105s linear -11s infinite fall}
+.fall .flower-wrapper:nth-child(3){left:58%;width:30px;animation: 95s linear -7s infinite fall}
+.fall .flower-wrapper:nth-child(4){left:10%;width:22px;animation: 120s linear -16s infinite fall}
+.fall img:nth-child(1){animation: 17s linear -3s infinite rotate}
+.fall img:nth-child(2){animation: 26s linear -11s infinite rotate}
+.fall img:nth-child(3){animation: 22s linear -7s infinite rotate}
+.fall img:nth-child(4){animation: 34s linear -16s infinite rotate}
+@keyframes fall{0%{top:-300px;transform:translate(0, 0)}100%{top:calc(100% + 300px);transform:translate(180px, 0)}}
+@keyframes rotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .rooted{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:24px 96px}
 .rooted img{width:100%}
 .rooted h2{font:800 clamp(30px,3.6vw,52px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:18px;margin-top:14px}
