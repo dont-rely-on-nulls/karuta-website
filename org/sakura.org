@@ -3,17 +3,27 @@
 
 #+begin_page-sakura
 #+begin_fall
+
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-b.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-a.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-c.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-b.webp]]
+#+end_flower-wrapper
+
 #+end_fall
 
 #+begin_wrap
