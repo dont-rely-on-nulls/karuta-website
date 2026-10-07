@@ -121,10 +121,20 @@ Every node in your cluster can read the same relations. Facts are written once a
 #+begin_wrap
 #+begin_section .install #sakura-install
 #+begin_install-left
+
+#+begin_plant-sakura
+
+#+begin_icon
+#+attr_html: :class deco :loading lazy
+[[file:static/img/simple-tree.png]]
+#+end_icon
+
 #+begin_h2
 Plant\\
 Sakura
 #+end_h2
+
+#+end_plant-sakura
 
 #+begin_term
 {{{term-head(sakura-cmd)}}}
@@ -137,8 +147,6 @@ $ karuta sakura init ./garden
 #+end_term
 #+end_install-left
 
-#+attr_html: :class deco scene :loading lazy
-[[file:static/img/table-petals.webp]]
 #+end_section
 #+end_wrap
 #+end_page-sakura

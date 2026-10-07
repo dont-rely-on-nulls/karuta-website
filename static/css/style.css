@@ -204,6 +204,9 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 @keyframes glide{from{transform:translate(-54%,6px)}to{transform:translate(-46%,-8px)}}
 .install{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
 .install-left{display:grid;gap:28px;min-width:0}
+.plant-sakura{display:flex;gap:10px}
+.plant-sakura>.icon{contain:size;align-self:stretch;aspect-ratio:1/1}
+.plant-sakura>.icon>img{display:block;height:100%;width:auto}
 .install .scene{width:100%}
 .site-foot{position:relative}
 .foot-petals{width:min(364px,52%);margin:0 auto 27px;opacity:.9}
