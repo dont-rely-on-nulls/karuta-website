@@ -45,7 +45,7 @@
 *{box-sizing:border-box}
 img{height:auto;max-width:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
-.wrap{max-width:1440px;margin:0 auto;padding-inline:var(--gut)}
+.wrap{position:relative;max-width:1440px;margin:0 auto;padding-inline:var(--gut)}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--owl);outline-offset:3px;border-radius:4px}
 h1,h2,h3{text-wrap:balance;margin:0}
@@ -53,7 +53,7 @@ p{margin:0}
 .eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
 /* ---------- top: brand + menu ---------- */
-.site-head{position:relative;z-index:5}
+.site-head{position:relative;z-index:5;padding-bottom:80px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px 0}
 .brand{display:flex;align-items:center;gap:20px;text-decoration:none}
 .mark{width:84px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
@@ -194,7 +194,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 /* ---------- illustration placement ---------- */
 .deco{pointer-events:none;user-select:none;display:block}
 .pillars{position:relative}
-.branch-hang{position:absolute;right:calc(var(--gut) * -1);bottom:-170px;width:min(400px,34vw);z-index:0}
+.branch-hang{position:absolute;right:0;bottom:0;width:min(220px, 50vw)}
 .pillar{position:relative;z-index:1}
 .story{position:relative;overflow:hidden}
 .story-head .scatter{width:100%;max-width:560px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
@@ -210,6 +210,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .install .scene{width:100%}
 .site-foot{position:relative}
 .foot-petals{width:min(364px,52%);margin:0 auto 27px;opacity:.9}
+.branch-rise{position:absolute;left:0;top:-60px;width:min(100px,25vw)}
 
 /* home: latest posts */
 .latest{padding-block:24px 96px}
@@ -287,7 +288,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .install{grid-template-columns:1fr}
   .contrib .nest{justify-self:start}
 }
-@media (max-width:760px){.branch-hang{width:220px;bottom:-60px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fall{display:none}}
 
 /* ---------- plain Org pages (docs) ---------- */
