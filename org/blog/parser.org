@@ -1,6 +1,6 @@
 #+TITLE: Parser
 #+DATE: 2026-10-07
-#+FILETAGS: :parser: :design:
+#+FILETAGS: :design:
 #+DESCRIPTION: Explaining the how and the why of our parser.
 #+KANA: よみ
 #+OPTIONS: toc:nil title:nil
