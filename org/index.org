@@ -68,8 +68,6 @@ State facts, write rules, ask questions. Karuta finds the answers with unificati
 
 #+attr_html: :aria-label What Karuta gives you
 #+begin_section .pillars #docs
-#+attr_html: :class deco branch-hang
-[[file:static/img/branch-long.webp]]
 
 #+begin_pillar
 {{{eyebrow(Declare)}}}
