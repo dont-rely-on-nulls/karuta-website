@@ -126,7 +126,9 @@ top_level <- whitespace_and_comments (clause whitespace_and_comments)*
 
 clause <-
   holds whitespace_and_comments directive
-  / !holds func whitespace_and_comments (query / !query declaration)
+  / !holds func whitespace_and_comments
+    (&(question_mark / comma) query /
+     !(question_mark / comma) declaration)
     whitespace_and_comments
 
 query <-
@@ -160,7 +162,7 @@ func_label <- (atom colon)* (quoted_atom / atom)
 
 atom <- [a-z] ([a-zA-Z0-9] / '_' / '-')*
 variable <- ('_' / [A-Z]) ([a-zA-Z0-9] / '_')*
-quoted_atom <- '\'' (!'\'' !'\n' .)* '\''
+quoted_atom <- "'" (!"'" !'\n' .)* "'"
 
 integer <- '-'? [0-9]+
 
@@ -172,10 +174,11 @@ list_tail <-
   comma whitespace_and_comments expr whitespace_and_comments list_tail
   / !comma (pipe whitespace_and_comments expr)? whitespace_and_comments right_bracket
 
+single_element <- whitespace_and_comments expr
+
 karuta_elements <- left_bracket
-  whitespace_and_comments right_bracket
-  / !(whitespace_and_comments right_bracket)
-    sigle_element karuta_elements_loop
+  (whitespace_and_comments right_bracket /
+   !(whitespace_and_comments right_bracket single_element) karuta_elements_loop)
 
 karuta_elements_loop <-
   whitespace_and_comments comma expr karuta_elements_loop
@@ -183,9 +186,8 @@ karuta_elements_loop <-
     whitespace_and_comments right_bracket
 
 prolog_elements <- left_paren
-  whitespace_and_comments right_paren
-  / !(whitespace_and_comments right_paren)
-    sigle_element prolog_elements_loop
+  (whitespace_and_comments right_paren /
+   !(whitespace_and_comments right_paren) single_element prolog_elements_loop)
 
 prolog_elements_loop <-
   whitespace_and_comments comma expr prolog_elements_loop
@@ -197,19 +199,17 @@ whitespace_and_comments <- whitespace
    / !percent (hash percent expr whitespace_and_comments
                / !(hash percent)))
 
-whitespace <-
-  horizontal_whitespace whitespace
-  / !horizontal_whitespace (newline whitespace / !newline)
+whitespace <- horizontal_whitespace? (newline whitespace / !newline)
 
 newline <- '\n' / '\r\n'
 line <- newline / (. line / !.)
 
-horizontal_whitespace <- (' ' / '\t')
+horizontal_whitespace <- (' ' / '\t')+
 
 colon <- ':'
 percent <- '%'
 hash <- '#'
-single_quote <- '''
+single_quote <- "'"
 comma <- ','
 period <- '.'
 pipe <- '|'
