@@ -58,7 +58,7 @@ p{margin:0}
 .brand{display:flex;align-items:center;gap:20px;text-decoration:none}
 .mark{width:84px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
 .mark img{position: relative;}
-.mark small{position:absolute;left:10px;bottom:-1px;transform:translateY(100%);font:600 10px/1.6 var(--f-mono);letter-spacing:.18em;color:var(--muted)}
+.mark small{position:absolute;bottom:0;transform:translateY(100%);font:600 10px/1.6 var(--f-mono);letter-spacing:.18em;color:var(--muted)}
 .brand-line{font:500 clamp(18px,1.9vw,26px)/1.12 var(--f-display);font-variation-settings:"wdth" 92;letter-spacing:-.01em}
 .nav{display:flex;align-items:center;gap:6px}
 .nav>a,.nav summary{font:500 15px/1 var(--f-body);text-decoration:none;padding:10px 14px;border-radius:999px;cursor:pointer;list-style:none}
