@@ -135,7 +135,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .poem blockquote{margin:0;font:400 clamp(20px,1.9vw,27px)/1.45 var(--f-display);font-variation-settings:"wdth" 96;letter-spacing:-.005em;color:#f6ead8}
 .poem .taken{margin-top:26px;padding-top:18px;border-top:1px dashed rgba(240,225,204,.28)}
 .poem .taken blockquote{font-size:clamp(17px,1.4vw,20px);color:#e9b7b0}
-.grab{appearance:none;background:none;border:0;padding:0;cursor:pointer;justify-self:end;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.grab{appearance:none;background:none;border:0;padding:0;justify-self:end;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
 .grab img{display:block;width:100%;border-radius:6px;box-shadow:0 18px 30px -18px #000}
 .round:nth-child(odd) .grab{transform:rotate(4deg)}
 .round:nth-child(even) .grab{transform:rotate(-3deg)}
