@@ -1,5 +1,5 @@
 #+TITLE: Parser
-#+DATE: 2026-10-09
+#+DATE: 2026-10-10
 #+FILETAGS: :design:
 #+DESCRIPTION: Explaining the how and the why of our parser.
 #+KANA: よみ
@@ -35,84 +35,103 @@ We do intend to improve our error messages, but we have other priorities right n
 
 ** Source Code Location
 
-Because Karuta's compiler needs to report intelligible error messages with source code location, our parser
-leverages a type which is an alias for the type ~Lexing.position~ provided in the standard library
-[[https://ocaml.org/manual/5.4/api/Lexing.html][Lexing module]], located in ~Location~ module:
+Karuta's compiler needs to keep track of source code locations for error reporting. Originally
+we were using the ~Lexing.position~ type from the standard library, but we recently switched
+to custom types instead. These are implemented in the ~Location~.
+
+To begin with, the ~coordinate~ type is used to save the numerical coordinates for a source code position.
 
 #+BEGIN_SRC ocaml
-type t = Lexing.position
-(** Alias to standard library's Lexing.position type. Our type has the same
-    fields as the original ones, which have the following description (official
-    documentation):
+type coordinate = {
+  offset : int;
+      (** Offset from the start of the file to the current position. *)
+  line_offset : int;
+      (** Offset from the start of the file to the start of the current line. *)
+  line : int;  (** Line number. 1-based. *)
+}
+(** A coordinate in source code. It has no knowledge of which file it belongs
+    to.
 
-    pos_fname is the file name; pos_lnum is the line number; pos_bol is the
-    offset of the beginning of the line (number of characters between the
-    beginning of the lexbuf and the beginning of the line); pos_cnum is the
-    offset of the position (number of characters between the beginning of the
-    lexbuf and the position). The difference between pos_cnum and pos_bol is the
-    character offset within the line (i.e. the column number, assuming each
-    character is one column wide). *)
+    It is possible to recover the column number by doing offset - line_offset.
+*)
 #+END_SRC
 
-This type is used to save half of the full location information. In order to save the /entire/ location, i.e., where it begins
-and where it ends, we use the following type everywhere in the code base:
+A ~coordinate~ can be combined with a filename to give us a ~point~. A ~point~ allows us
+to identify a source position in some particular file. The parser state has one of these
+to keep track of where it is.
 
 #+BEGIN_SRC ocaml
-type location = {
-  startl : t;  (** Beginning of region *)
-  endl : t;  (** End of region *)
+type point = { filename : string; coordinate : coordinate }
+(** This type represents a point in source code. It is isomorphic to
+    Lexing.position, but with better names for the fields. *)
+#+END_SRC
+
+If we combine two ~coordinate~s instead of one, we get a ~region~. A ~region~ has a
+beginning and an end, and is what we use to actually report errors.
+
+#+BEGIN_SRC ocaml
+type region = {
+  filename : string;  (** File name *)
+  startl : coordinate;  (** Beginning of region *)
+  endl : coordinate;  (** End of region *)
 }
 (** Source code location. Locations delimit a source code region. *)
 #+END_SRC
 
-In the future, we have interest on embedding the source filename into this type as well.
-You can attach a location to an arbitrary type with the following type:
+We can attach a ~region~ to an arbitrary value using the ~with_location~ type constructor:
 
 #+BEGIN_SRC ocaml
 type 'a with_location = {
   content : 'a;  (** Generic type payload *)
-  loc : location;  (** Associated location, with a beginning and end. *)
+  loc : region;  (** Associated location, with a beginning and end. *)
 }
 (** Parametric type to add a location to any other type. Used to indicate the
     source code region where the payload originated. *)
 #+END_SRC
 
-Our parser uses several helper functions to manipulate the location more conveniently:
+Additionally, our parser uses several helper functions to manipulate the location more conveniently:
 
 #+BEGIN_SRC ocaml
-let step n loc = { loc with pos_cnum = loc.pos_cnum + n }
+let step n coordinate = { coordinate with offset = coordinate.offset + n }
 
-let jump loc = { loc with pos_bol = loc.pos_cnum; pos_lnum = loc.pos_lnum + 1 }
+let jump_n n coordinate =
+  if n = 0 then coordinate
+  else
+    {
+      coordinate with
+      line_offset = coordinate.offset;
+      line = coordinate.line + n;
+    }
 
-let jump_n n loc =
-  if n = 0 then loc
-  else { loc with pos_bol = loc.pos_cnum; pos_lnum = loc.pos_lnum + n }
-
-let plus_str str loc =
-  step (String.length str) loc
+let plus_str str coordinate =
+  coordinate
+  |> step (String.length str)
   |> jump_n
        (String.fold_left (fun n -> function '\n' -> n + 1 | _ -> n) 0 str)
+
+let delimit { filename; coordinate = startl } { coordinate = endl; _ } v =
+  { content = v; loc = { filename; startl; endl } }
 #+END_SRC
 
 We elided the comments to save space; you can read them on the source code for more details.
 
 ** Parsing
 
-There are two main types used in the act of parsing. Let's start with ~parser_state~:
+There are two main types used during parsing. Let's start with ~parser_state~:
 
 #+BEGIN_SRC ocaml
-type parser_state = { remaining : BatSubstring.t; loc : Location.t }
+type parser_state = { remaining : BatSubstring.t; loc : Location.point }
 #+END_SRC
 
-The type ~parser_state~ holds the bookkeeping required to parse source files. ~remaining~ is the portion of the source file that we haven't parsed yet,
-represented as a ~BatSubstring.t~ (so we have constant-time slicing).
-~loc~ is the (half) location (~Location.t~) representing the point in the file where the parser state is currently at.
+The type ~parser_state~ holds the bookkeeping required to parse source files. ~remaining~ is the
+portion of the source file that we haven't parsed yet, represented as a ~BatSubstring.t~ for
+constant-time slicing. ~loc~ is the the point in the file where the parser is currently sitting.
 
 #+BEGIN_SRC ocaml
 type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
 #+END_SRC
 
-The type ~parser_state~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].
+The type ~parser~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].
 In particular, it can be seen as a composition of the [[https://wiki.haskell.org/State_Monad][state]] monad with the [[https://en.wikipedia.org/wiki/Result_type][either/result]] monad.
 
 The entry point of the parser is the function ~Parser.parse~, which corresponds in the grammar to the ~start~ symbol.
