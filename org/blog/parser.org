@@ -1,0 +1,245 @@
+#+TITLE: Parser
+#+DATE: 2026-10-10
+#+FILETAGS: :design:
+#+DESCRIPTION: Explaining the how and the why of our parser.
+#+KANA: よみ
+#+OPTIONS: toc:nil title:nil
+
+* Strategy
+
+We parse the Karuta code using a hand-written [[https://en.wikipedia.org/wiki/Recursive_descent_parser][recursive-descent parser]]. The implementation
+is based on a grammar written using the [[https://bford.info/pub/lang/peg.pdf][PEG]] formalism, but since we factor out some common structures into
+high-level helper functions we end up with a flavor of [[https://en.wikipedia.org/wiki/Parser_combinator][parser combinators]]. While some of those helper functions
+behave like PEG primitives, others are in fact syntactic sugar and should be thought of as a layer of macros on top of the base PEG semantics.
+As a side note, the entire parser is pedantic about [[https://en.wikisource.org/wiki/Lambda:_The_Ultimate_GOTO][proper tail-calls]]; we use OCaml's proper tail-calls
+in such a way that any parsing expression which would be in tail position in the grammar is in fact a tail-call in OCaml.
+
+The parser is written in a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][monadic style]]: a parser is a function taking a parser state and returning either a parse result together with
+the next parser state, or an error. [[https://en.wikipedia.org/wiki/Applicative_functor][Applicative-style]] operators could be derived from the monadic ones, but we don't currently use this approach.
+
+#+BEGIN_SRC ocaml
+type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
+#+END_SRC
+
+The full code of the parser is located in ~lib/Parser.ml~.
+
+* Disclaimer
+
+We recognize that our syntax errors are /bad/, i.e., our parser does not take into consideration the *semantics* of the language, which leads to
+frustrating error messages in most situations. For example, pretty much /everything/ in our language is a functor (in the Prolog sense, not
+the ML sense), and we parse it as such. Any syntax error will therefore note take into account /what you are trying to do/.
+
+We do intend to improve our error messages, but we have other priorities right now. Contributions on this front are welcome.
+
+* Types
+
+** Source Code Location
+
+Karuta's compiler needs to keep track of source code locations for error reporting. Originally
+we were using the ~Lexing.position~ type from the standard library, but we recently switched
+to custom types instead. These are implemented in the ~Location~.
+
+To begin with, the ~coordinate~ type is used to save the numerical coordinates for a source code position.
+
+#+BEGIN_SRC ocaml
+type coordinate = {
+  offset : int;
+      (** Offset from the start of the file to the current position. *)
+  line_offset : int;
+      (** Offset from the start of the file to the start of the current line. *)
+  line : int;  (** Line number. 1-based. *)
+}
+(** A coordinate in source code. It has no knowledge of which file it belongs
+    to.
+
+    It is possible to recover the column number by doing offset - line_offset.
+*)
+#+END_SRC
+
+A ~coordinate~ can be combined with a filename to give us a ~point~. A ~point~ allows us
+to identify a source position in some particular file. The parser state has one of these
+to keep track of where it is.
+
+#+BEGIN_SRC ocaml
+type point = { filename : string; coordinate : coordinate }
+(** This type represents a point in source code. It is isomorphic to
+    Lexing.position, but with better names for the fields. *)
+#+END_SRC
+
+If we combine two ~coordinate~s instead of one, we get a ~region~. A ~region~ has a
+beginning and an end, and is what we use to actually report errors.
+
+#+BEGIN_SRC ocaml
+type region = {
+  filename : string;  (** File name *)
+  startl : coordinate;  (** Beginning of region *)
+  endl : coordinate;  (** End of region *)
+}
+(** Source code location. Locations delimit a source code region. *)
+#+END_SRC
+
+We can attach a ~region~ to an arbitrary value using the ~with_location~ type constructor:
+
+#+BEGIN_SRC ocaml
+type 'a with_location = {
+  content : 'a;  (** Generic type payload *)
+  loc : region;  (** Associated location, with a beginning and end. *)
+}
+(** Parametric type to add a location to any other type. Used to indicate the
+    source code region where the payload originated. *)
+#+END_SRC
+
+Additionally, our parser uses several helper functions to manipulate the location more conveniently:
+
+#+BEGIN_SRC ocaml
+let step n coordinate = { coordinate with offset = coordinate.offset + n }
+
+let jump_n n coordinate =
+  if n = 0 then coordinate
+  else
+    {
+      coordinate with
+      line_offset = coordinate.offset;
+      line = coordinate.line + n;
+    }
+
+let plus_str str coordinate =
+  coordinate
+  |> step (String.length str)
+  |> jump_n
+       (String.fold_left (fun n -> function '\n' -> n + 1 | _ -> n) 0 str)
+
+let delimit { filename; coordinate = startl } { coordinate = endl; _ } v =
+  { content = v; loc = { filename; startl; endl } }
+#+END_SRC
+
+We elided the comments to save space; you can read them on the source code for more details.
+
+** Parsing
+
+There are two main types used during parsing. Let's start with ~parser_state~:
+
+#+BEGIN_SRC ocaml
+type parser_state = { remaining : BatSubstring.t; loc : Location.point }
+#+END_SRC
+
+The type ~parser_state~ holds the bookkeeping required to parse source files. ~remaining~ is the
+portion of the source file that we haven't parsed yet, represented as a ~BatSubstring.t~ for
+constant-time slicing. ~loc~ is the the point in the file where the parser is currently sitting.
+
+#+BEGIN_SRC ocaml
+type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
+#+END_SRC
+
+The type ~parser~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].
+In particular, it can be seen as a composition of the [[https://wiki.haskell.org/State_Monad][state]] monad with the [[https://en.wikipedia.org/wiki/Result_type][either/result]] monad.
+
+The entry point of the parser is the function ~Parser.parse~, which corresponds in the grammar to the ~start~ symbol.
+
+* Grammar
+
+This is the complete formal grammar for the language. In the source code, you'll find the functions implementing each
+grammar clause commented with the corresponding clause, but you can read it here in one place.
+
+#+BEGIN_SRC peg
+start <- top_level !.
+top_level <- whitespace_and_comments (clause whitespace_and_comments)*
+
+clause <-
+  holds whitespace_and_comments directive
+  / !holds func whitespace_and_comments
+    (&(question_mark / comma) query /
+     !(question_mark / comma) declaration)
+    whitespace_and_comments
+
+query <-
+  question_mark
+  / !question_mark whitespace_and_comments comma
+    whitespace_and_comments func whitespace_and_comments query
+
+declaration <- (holds whitespace_and_comments declaration_body)?
+  whitespace_and_comments period
+
+declaration_body <- func whitespace_and_comments
+  (comma whitespace_and_comments declaration_body / !comma)
+
+directive <- func
+ (whitespace_and_comments
+  left_curly_brace top_level right_curly_brace
+  whitespace_and_comments)*
+ period whitespace_and_comments
+
+expr <- whitespace_and_comments
+  (integer
+   / !integer (variable
+               / !variable (func
+                            / !func list)))
+
+func <- func_label
+ ((&left_bracket / &left_paren) (prolog_elements / karuta_elements)
+  / !(&left_bracket / &left_paren))
+
+func_label <- (atom colon)* (quoted_atom / atom)
+
+atom <- [a-z] ([a-zA-Z0-9] / '_' / '-')*
+variable <- ('_' / [A-Z]) ([a-zA-Z0-9] / '_')*
+quoted_atom <- "'" (!"'" !'\n' .)* "'"
+
+integer <- '-'? [0-9]+
+
+list <- left_bracket whitespace_and_comments
+  (right_bracket
+   / !right_bracket expr whitespace_and_comments list_tail)
+
+list_tail <-
+  comma whitespace_and_comments expr whitespace_and_comments list_tail
+  / !comma (pipe whitespace_and_comments expr)? whitespace_and_comments right_bracket
+
+single_element <- whitespace_and_comments expr
+
+karuta_elements <- left_bracket
+  (whitespace_and_comments right_bracket /
+   !(whitespace_and_comments right_bracket single_element) karuta_elements_loop)
+
+karuta_elements_loop <-
+  whitespace_and_comments comma expr karuta_elements_loop
+  / !(whitespace_and_comments comma expr)
+    whitespace_and_comments right_bracket
+
+prolog_elements <- left_paren
+  (whitespace_and_comments right_paren /
+   !(whitespace_and_comments right_paren) single_element prolog_elements_loop)
+
+prolog_elements_loop <-
+  whitespace_and_comments comma expr prolog_elements_loop
+  / !(whitespace_and_comments comma expr)
+    whitespace_and_comments right_paren
+
+whitespace_and_comments <- whitespace
+  (percent line whitespace_and_comments
+   / !percent (hash percent expr whitespace_and_comments
+               / !(hash percent)))
+
+whitespace <- horizontal_whitespace? (newline whitespace / !newline)
+
+newline <- '\n' / '\r\n'
+line <- newline / (. line / !.)
+
+horizontal_whitespace <- (' ' / '\t')+
+
+colon <- ':'
+percent <- '%'
+hash <- '#'
+single_quote <- "'"
+comma <- ','
+period <- '.'
+pipe <- '|'
+question_mark <- '?'
+left_paren <- '('
+right_paren <- ')'
+left_bracket <- '['
+right_bracket <- ']'
+left_curly_brace <- '{'
+right_curly_brace <- '}'
+holds <- ':-'
+#+END_SRC
