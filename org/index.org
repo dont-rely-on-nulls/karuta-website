@@ -68,8 +68,6 @@ State facts, write rules, ask questions. Karuta finds the answers with unificati
 
 #+attr_html: :aria-label What Karuta gives you
 #+begin_section .pillars #docs
-#+attr_html: :class deco branch-hang
-[[file:static/img/branch-long.webp]]
 
 #+begin_pillar
 {{{eyebrow(Declare)}}}
@@ -115,13 +113,12 @@ In karuta, one card is read aloud and the other is taken from the table. Each ro
 
 #+begin_rounds
 #+begin_article .round
-{{{num(I)}}}
 
 #+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
 [[file:static/img/sakura-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Even upon fields\\
@@ -132,7 +129,7 @@ the darkness slowly loosens.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 From the scent of sakura,\\
@@ -145,13 +142,12 @@ the darkness slowly loosens.
 #+end_article
 
 #+begin_article .round
-{{{num(II)}}}
 
 #+attr_html: :class yomi :alt Reading card: a nest holding an egg, crimson feathers and petals :width 900 :height 1273 :loading lazy
 [[file:static/img/nest-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Branches scattered\\
@@ -162,7 +158,7 @@ a quiet and gentle light.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Within the nest now rests\\
@@ -175,13 +171,12 @@ a quiet and gentle light.
 #+end_article
 
 #+begin_article .round
-{{{num(III)}}}
 
 #+attr_html: :class yomi :alt Reading card: a crimson owl on a blossoming branch :width 900 :height 1273 :loading lazy
 [[file:static/img/owl-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Though the shadows\\
@@ -192,7 +187,7 @@ does not let the nest forget.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 The owl of the peak\\
@@ -205,13 +200,12 @@ does not let the nest forget.
 #+end_article
 
 #+begin_article .round
-{{{num(IV)}}}
 
 #+attr_html: :class yomi :alt Reading card: two crimson birds flying among blue clouds :width 900 :height 1273 :loading lazy
 [[file:static/img/flight-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Tearing through clouds,\\
@@ -222,7 +216,7 @@ they go illuminating the world.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Like the morning sun itself,\\
@@ -273,6 +267,6 @@ $ cd nest && karuta repl
 #+end_install-left
 
 #+attr_html: :class deco scene :loading lazy
-[[file:static/img/table-eight.webp]]
+[[file:static/img/four-cards.webp]]
 #+end_section
 #+end_wrap

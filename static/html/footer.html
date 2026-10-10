@@ -1,7 +1,9 @@
 <div class="wrap">
+  <img class="deco branch-rise" src="/static/img/branch-rise.webp" alt="" aria-hidden="true" loading="lazy">
   <img class="deco foot-petals" src="/static/img/petals.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="site-foot">
     <span>Karuta · logic programming on the BEAM</span>
+    <span>Powered by <a href="https://dontrelynulls.org/" target="_blank" rel="noopener noreferrer">Don't rely on Nulls</a></span>
     <span class="foot-links"><a href="/blog/">Posts</a><a href="/about.html">About</a><a href="/sakura.html">Sakura</a><span class="jp">かるた · さくら</span></span>
   </div>
 </div>
@@ -10,13 +12,6 @@ document.addEventListener("click", function (e) {
   document.querySelectorAll("details[open]").forEach(function (d) {
     if (!d.contains(e.target)) d.open = false;
   });
-
-  var grab = e.target.closest(".grab");
-  if (grab) {
-    var on = grab.getAttribute("aria-pressed") !== "true";
-    grab.setAttribute("aria-pressed", on);
-    grab.querySelector(".grab-cap").textContent = on ? "Taken" : "Take the card";
-  }
 
   var copy = e.target.closest(".copy");
   if (copy) {

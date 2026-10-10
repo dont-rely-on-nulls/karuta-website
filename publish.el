@@ -115,8 +115,7 @@
         :date    (drn/get-org-date filepath)
         :tag     (car (split-string (or (drn/get-org-keyword filepath "FILETAGS") "") ":" t))
         :excerpt (or (drn/get-org-keyword filepath "DESCRIPTION") "")
-        :kana    (or (drn/get-org-keyword filepath "KANA") "")
-        :sample  (drn/get-org-keyword filepath "SAMPLE")))
+        :kana    (or (drn/get-org-keyword filepath "KANA") "")))
 
 (defun drn/blog-posts ()
   "Return all blog posts, newest first."
@@ -151,12 +150,11 @@ LIMIT is a string; when it is a number, show only that many posts."
         ("eyebrow"   . "@@html:<span class=\"eyebrow\">$1</span>@@")
         ("h2"        . "@@html:<h2>$1</h2>@@")
         ("h3"        . "@@html:<h3>$1</h3>@@")
-        ("num"       . "@@html:<span class=\"num\">$1</span>@@")
         ("a"         . "@@html:<a href=\"$1\">$2</a>@@")
         ("btn"       . "@@html:<a class=\"btn $1\" href=\"$2\">$3</a>@@")
         ("badge"     . "@@html:<span class=\"s-badge\">$1</span>@@")
         ("proc"      . "@@html:<div class=\"proc\"><i></i><span><b>$1</b> = $2</span><s>$3</s></div>@@")
-        ("grab"      . "@@html:<button class=\"grab\" aria-pressed=\"false\"><img src=\"/static/img/$1-tori.webp\" alt=\"Grabbing card, written in hiragana\" width=\"600\" height=\"849\" loading=\"lazy\"><span class=\"grab-cap\">Take the card</span></button>@@")
+        ("grab"      . "@@html:<button class=\"grab\"><img src=\"/static/img/$1-tori.webp\" alt=\"Grabbing card, written in hiragana\" width=\"600\" height=\"849\" loading=\"lazy\"></button>@@")
         ("term-head" . "@@html:<div class=\"row\"><span class=\"eyebrow\">Terminal</span><button class=\"copy\" data-copy=\"$1\">Copy</button></div>@@")
         ("deck"      . "(eval (drn/blog-deck $1))")))
 
@@ -276,14 +274,12 @@ markup: links, images, macros and line breaks."
       (format "<div class=\"wrap\"><article class=\"post\">
 <a class=\"back\" href=\"/blog/\">← All posts</a>
 <h1>%s</h1>
-<div class=\"meta\"><time datetime=\"%s\">%s</time><b>%s</b>%s</div>
+<div class=\"meta\"><time datetime=\"%s\">%s</time><b>%s</b></div>
 <div class=\"body\">%s</div>
-<img class=\"deco orn\" src=\"/static/img/flower-a.webp\" alt=\"\" aria-hidden=\"true\">
 </article></div>"
               (plist-get post :title)
               (plist-get post :date) (drn/format-date (plist-get post :date))
               (or (plist-get post :tag) "")
-              (if (plist-get post :sample) "<span class=\"sample\">Sample post</span>" "")
               contents))))
 
 (org-export-define-derived-backend 'karuta-html 'html

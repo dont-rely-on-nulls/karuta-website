@@ -3,17 +3,27 @@
 
 #+begin_page-sakura
 #+begin_fall
+
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-b.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-a.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-c.webp]]
+#+end_flower-wrapper
 
+#+begin_flower-wrapper
 #+attr_html: :class deco
 [[file:static/img/flower-b.webp]]
+#+end_flower-wrapper
+
 #+end_fall
 
 #+begin_wrap
@@ -62,9 +72,6 @@ Rules read stored facts and in-memory facts the same way. Nothing to translate b
 #+begin_stand
 #+attr_html: :alt Reading card: three cherry blossoms :width 900 :height 1273
 [[file:static/img/sakura-yomi.webp]]
-
-#+attr_html: :class deco cluster
-[[file:static/img/flowers.webp]]
 #+end_stand
 
 #+begin_intro
@@ -121,45 +128,23 @@ Every node in your cluster can read the same relations. Facts are written once a
 #+end_section
 #+end_wrap
 
-#+begin_section .story
-#+begin_wrap
-#+begin_s-poem
-#+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
-[[file:static/img/sakura-yomi.webp]]
-
-#+begin_poem
-{{{eyebrow(The first card)}}}
-
-#+begin_blockquote
-Even upon fields\\
-ruined by the winter's decay,\\
-spring has arrived;\\
-from the scent of sakura\\
-the darkness slowly loosens.
-#+end_blockquote
-
-#+begin_taken
-{{{eyebrow(Grabbing card)}}}
-
-#+begin_blockquote
-From the scent of sakura,\\
-the darkness slowly loosens.
-#+end_blockquote
-#+end_taken
-#+end_poem
-
-{{{grab(sakura)}}}
-#+end_s-poem
-#+end_wrap
-#+end_section
-
 #+begin_wrap
 #+begin_section .install #sakura-install
 #+begin_install-left
+
+#+begin_plant-sakura
+
+#+begin_icon
+#+attr_html: :class deco :loading lazy
+[[file:static/img/simple-tree.png]]
+#+end_icon
+
 #+begin_h2
 Plant\\
 Sakura
 #+end_h2
+
+#+end_plant-sakura
 
 #+begin_term
 {{{term-head(sakura-cmd)}}}
@@ -172,8 +157,6 @@ $ karuta sakura init ./garden
 #+end_term
 #+end_install-left
 
-#+attr_html: :class deco scene :loading lazy
-[[file:static/img/table-petals.webp]]
 #+end_section
 #+end_wrap
 #+end_page-sakura
