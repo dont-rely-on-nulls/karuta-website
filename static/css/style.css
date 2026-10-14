@@ -195,7 +195,8 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 /* ---------- illustration placement ---------- */
 .deco{pointer-events:none;user-select:none;display:block}
 .pillars{position:relative}
-.branch-hang{position:absolute;right:0;bottom:0;width:min(220px, 50vw)}
+.branch-hang-wrapper{display:flex;justify-content:flex-end}
+.branch-hang{width:min(220px, 50vw);align-self:flex-end}
 .pillar{position:relative;z-index:1}
 .story{position:relative;overflow:hidden}
 .story-head .scatter{width:100%;max-width:560px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
