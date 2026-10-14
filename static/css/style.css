@@ -168,6 +168,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .s-poem{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr)}
   .s-poem .grab{display:none}
 }
+.foot-petals{width:284px;margin:0 auto 27px;opacity:.9}
 @media (max-width:760px){
   .nav>a,.nav .dd{display:none}
   .nav .menu-btn{display:block}
@@ -182,6 +183,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .s-poem .yomi{width:min(260px,70%)}
   .mark{width:64px}
   .mark small{font-size:10px}
+  .foot-petals{width:164px}
 }
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr}
@@ -212,7 +214,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .plant-sakura>.icon>img{display:block;height:100%;width:auto}
 .install .scene{width:100%}
 .site-foot{position:relative}
-.foot-petals{width:min(364px,52%);margin:0 auto 27px;opacity:.9}
 .branch-rise{position:absolute;left:0;top:-60px;width:min(100px,25vw)}
 
 /* home: latest posts */
