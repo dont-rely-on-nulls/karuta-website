@@ -123,7 +123,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 
 /* ---------- story ---------- */
 .story{background:var(--felt-deep);color:var(--on-felt);padding-block:96px 0px}
-.story-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:end;margin-bottom:64px}
+.story-head{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1.1fr);gap:28px;align-items:end;margin-bottom:64px}
 .story-head h2{font:800 clamp(36px,5vw,72px)/.92 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;text-transform:uppercase;margin-top:16px}
 .story-head p{color:#cdbda4;max-width:42ch}
 .story .eyebrow{color:#cdbda4}
@@ -161,8 +161,11 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .s-poem{display:grid;grid-template-columns:clamp(200px,22vw,300px) minmax(0,1fr) minmax(140px,200px);gap:clamp(20px,3vw,48px);align-items:center}
 .btn.sak{background:var(--sakura);border-color:var(--sakura);color:var(--on-owl)}
 
+.install .scene{width:468px;justify-self:end}
+
 @media (max-width:1000px){
   .hero,.story-head,.install{grid-template-columns:1fr}
+  .install .scene{justify-self:center}
   .hero-right{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:end}
   .round{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr) 150px}
   .s-poem{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr)}
@@ -202,7 +205,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .branch-hang{width:min(220px, 50vw);align-self:flex-end}
 .pillar{position:relative;z-index:1}
 .story{position:relative;overflow:hidden}
-.story-head .scatter{width:100%;max-width:560px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
+.story-head .scatter{width:100%;max-width:896px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
 .story-head .lead{margin-top:20px}
 .flight-band{position:relative;background:linear-gradient(var(--felt-deep),var(--bg));padding:60px 0}
 .flight-band img{position:relative;left:50%;transform:translateX(-50%);width:min(760px,80vw);animation:glide 14s ease-in-out infinite alternate}
@@ -212,7 +215,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .plant-sakura{display:flex;gap:10px}
 .plant-sakura>.icon{contain:size;align-self:stretch;aspect-ratio:1/1}
 .plant-sakura>.icon>img{display:block;height:100%;width:auto}
-.install .scene{width:100%}
 .site-foot{position:relative}
 .branch-rise{position:absolute;left:0;top:-60px;width:min(100px,25vw)}
 
