@@ -29,7 +29,7 @@
   --gut:clamp(16px,2.4vw,32px);
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+/* @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#141912; --paper:#1f261c; --paper-2:#283123; --line:#36412f;
   --ink:#f0e1cc; --muted:#b9a88f; --felt:#4b7343; --felt-deep:#0e130c; --on-felt:#f0e1cc;
   --owl:#d9837a; --owl-soft:#8e4541; --on-owl:#1c100e; --gold:#e1c25e;
@@ -42,7 +42,7 @@
   --owl:#d9837a; --owl-soft:#8e4541; --on-owl:#1c100e; --gold:#e1c25e;
   --sakura:#f19bbb; --sakura-tint:#3a2630;
   --c-com:#8f8270; --c-atom:#a9cf8e; --c-var:#e99a91; --c-op:#e1c25e;
-  color-scheme:dark}
+  color-scheme:dark} */
 
 *{box-sizing:border-box}
 img{height:auto;max-width:100%}
