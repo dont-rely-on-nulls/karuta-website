@@ -58,9 +58,9 @@ p{margin:0}
 .site-head{position:relative;z-index:5;padding-bottom:80px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px 0}
 .brand{display:flex;align-items:center;gap:20px;text-decoration:none}
-.mark{width:84px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
+.mark{width:140px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
 .mark img{position: relative;}
-.mark small{position:absolute;bottom:0;transform:translateY(100%);font:600 10px/1.6 var(--f-mono);letter-spacing:.18em;color:var(--muted)}
+.mark small{position:absolute;bottom:0;transform:translateY(100%);font:600 16px/1.6 var(--f-mono);letter-spacing:.18em;color:var(--muted)}
 .brand-line{font:500 clamp(18px,1.9vw,26px)/1.12 var(--f-display);font-variation-settings:"wdth" 92;letter-spacing:-.01em}
 .nav{display:flex;align-items:center;gap:6px}
 .nav>a,.nav summary{font:500 18px/1 var(--f-body);text-decoration:none;padding:10px 14px;border-radius:var(--button-border-radius);cursor:pointer;list-style:none}
@@ -181,6 +181,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .s-poem{grid-template-columns:1fr}
   .s-poem .yomi{width:min(260px,70%)}
   .mark{width:64px}
+  .mark small{font-size:10px}
 }
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr}
