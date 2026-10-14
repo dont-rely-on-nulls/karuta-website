@@ -55,7 +55,7 @@ p{margin:0}
 .eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
 /* ---------- top: brand + menu ---------- */
-.site-head{position:relative;z-index:5;padding-bottom:80px}
+.site-head{position:relative;z-index:5;padding-bottom:0}
 .top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px 0}
 .brand{display:flex;align-items:center;gap:20px;text-decoration:none}
 .mark{width:140px;display:flex;justify-content:center;align-items:center;padding:7px;position:relative;}
@@ -172,6 +172,10 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .s-poem .grab{display:none}
 }
 .foot-petals{width:284px;margin:0 auto 27px;opacity:.9}
+.branch-hang{width:490px;align-self:flex-end}
+.branch-rise{position:absolute;left:-12px;bottom:-10px;width:200px;z-index:-1}
+.branch-rise-wrapper{position:relative}
+#postamble{position:relative;padding-top:150px}
 @media (max-width:760px){
   .nav>a,.nav .dd{display:none}
   .nav .menu-btn{display:block}
@@ -187,6 +191,9 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .mark{width:64px}
   .mark small{font-size:10px}
   .foot-petals{width:164px}
+  .branch-hang{width:min(290px, calc(100vw - var(--gut)))}
+  .site-head{padding-bottom:30px}
+  .branch-rise{width:150px;bottom:50px}
 }
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr}
@@ -202,7 +209,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .deco{pointer-events:none;user-select:none;display:block}
 .pillars{position:relative}
 .branch-hang-wrapper{display:flex;justify-content:flex-end}
-.branch-hang{width:min(220px, 50vw);align-self:flex-end}
 .pillar{position:relative;z-index:1}
 .story{position:relative;overflow:hidden}
 .story-head .scatter{width:100%;max-width:896px;justify-self:end;margin-top:12px;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45))}
@@ -216,7 +222,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .plant-sakura>.icon{contain:size;align-self:stretch;aspect-ratio:1/1}
 .plant-sakura>.icon>img{display:block;height:100%;width:auto}
 .site-foot{position:relative}
-.branch-rise{position:absolute;left:0;top:-60px;width:min(100px,25vw)}
 
 /* home: latest posts */
 .latest{padding-block:24px 96px}
@@ -304,5 +309,4 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 #content>[class^="outline-2"] p{margin-bottom:16px}
 #content>[class^="outline-2"] pre{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;overflow-x:auto}
 
-#postamble{position:relative}
 #footer-separator{border-bottom:1.5px solid var(--ink)}
