@@ -134,6 +134,8 @@ type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
 The type ~parser~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].
 In particular, it can be seen as a composition of the [[https://wiki.haskell.org/State_Monad][state]] monad with the [[https://en.wikipedia.org/wiki/Result_type][either/result]] monad.
 
+We use a very straightforward recursive-descent strategy with no memoization. Most functions in the ~Parser~ module are either implementations of primitive PEG semantics, composition operators implementing our parser combinator strategy, or implementations of grammar clauses. Please refer to the grammar for the full specification of the language.
+
 The entry point of the parser is the function ~Parser.parse~, which corresponds in the grammar to the ~start~ symbol.
 
 * Grammar
