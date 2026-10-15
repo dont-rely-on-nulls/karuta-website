@@ -197,7 +197,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 }
 .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px}
 @media (max-width:519px){
-  .all-posts .deck{justify-items:center}
+  .deck{justify-items:center}
   .pcard{width:70%}
 }
 @media (max-width:480px){
