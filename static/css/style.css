@@ -210,7 +210,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .branch-rise{width:150px;bottom:50px}
 }
 .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px}
-@media (max-width:519px){
+@media (max-width:550px){
   .deck{justify-items:center;grid-template-columns:1fr}
   .pcard{width:70%}
 }
