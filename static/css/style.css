@@ -195,6 +195,11 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .site-head{padding-bottom:30px}
   .branch-rise{width:150px;bottom:50px}
 }
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px}
+@media (max-width:519px){
+  .all-posts .deck{justify-items:center}
+  .pcard{width:70%}
+}
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr}
   .stand{max-width:300px}
@@ -230,7 +235,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .sec-head a{font-weight:600}
 
 /* post cards built on the blank karuta frame */
-.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px}
 .pcard{position:relative;aspect-ratio:600/893;text-decoration:none;color:#2a2622;display:block;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
 .pcard:nth-child(4n+1){transform:rotate(-1.5deg)}.pcard:nth-child(4n+2){transform:rotate(1deg)}.pcard:nth-child(4n+3){transform:rotate(-.5deg)}.pcard:nth-child(4n){transform:rotate(1.8deg)}
 .pcard:hover,.pcard:focus-visible{transform:translateY(-8px) rotate(0)}
