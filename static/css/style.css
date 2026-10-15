@@ -45,7 +45,7 @@
   color-scheme:dark} */
 
 *{box-sizing:border-box}
-img{height:auto;max-width:100%}
+img{height:auto;max-width:100%;-webkit-user-drag: none;user-select: none}
 body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
 .wrap{position:relative;max-width:1440px;margin:0 auto;padding-inline:var(--gut)}
 a{color:inherit}
