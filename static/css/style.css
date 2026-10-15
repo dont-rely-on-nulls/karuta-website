@@ -214,6 +214,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .round{grid-template-columns:1fr}
   .grab{justify-self:start;width:140px}
   .brand-line{font-size:16px}
+  .install .scene{width:52%}
 }
 .mobile-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:20;width:min(280px,calc(100vw - 32px));background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:8px;display:grid}
 .mobile-menu a{padding:12px 14px;border-radius:10px;text-decoration:none;font-weight:500;font-size:18px}
