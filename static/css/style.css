@@ -161,7 +161,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .s-poem{display:grid;grid-template-columns:clamp(200px,22vw,300px) minmax(0,1fr) minmax(140px,200px);gap:clamp(20px,3vw,48px);align-items:center}
 .btn.sak{background:var(--sakura);border-color:var(--sakura);color:var(--on-owl)}
 
-.install .scene{width:468px;justify-self:end}
+.install .scene{width:65%;justify-self:end}
 
 @media (max-width:1000px){
   #install {
