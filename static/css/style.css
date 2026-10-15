@@ -164,6 +164,12 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .install .scene{width:468px;justify-self:end}
 
 @media (max-width:1000px){
+  #install {
+    padding-top: 14px;
+  }
+  #install .scene {
+    padding-bottom: 82px;
+  }
   #install > :nth-child(1) {
     grid-column: 1;
     grid-row: 2;
@@ -173,7 +179,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
     grid-row: 1;
   }
   .hero,.story-head,.install{grid-template-columns:1fr}
-  .install .scene{justify-self:center}
+  .install .scene{justify-self:center;width:52%}
   .hero-right{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:end}
   .round{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr) 150px}
   .s-poem{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr)}
@@ -205,7 +211,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 }
 .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px}
 @media (max-width:519px){
-  .deck{justify-items:center}
+  .deck{justify-items:center;grid-template-columns:1fr}
   .pcard{width:70%}
 }
 @media (max-width:480px){
@@ -214,7 +220,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .round{grid-template-columns:1fr}
   .grab{justify-self:start;width:140px}
   .brand-line{font-size:16px}
-  .install .scene{width:52%}
 }
 .mobile-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:20;width:min(280px,calc(100vw - 32px));background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:8px;display:grid}
 .mobile-menu a{padding:12px 14px;border-radius:10px;text-decoration:none;font-weight:500;font-size:18px}
