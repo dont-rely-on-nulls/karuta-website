@@ -272,7 +272,8 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .post .body,.post .body [class^="outline"]{display:grid;gap:20px}
 .post .body{margin-top:36px;font-size:17.5px;line-height:1.7}
 .post .body h2{font:700 26px/1.15 var(--f-display);font-variation-settings:"wdth" 90;margin-top:14px}
-.post .body pre{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;overflow-x:auto}
+.post .body pre{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;overflow-x:auto;scrollbar-width:none}
+.post .body pre::-webkit-scrollbar{display:none}
 
 /* about */
 .principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;padding-block:24px 96px;position:relative}
