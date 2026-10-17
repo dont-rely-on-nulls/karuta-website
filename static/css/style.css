@@ -325,4 +325,5 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 
 #footer-separator{border-bottom:1.5px solid var(--ink)}
 
-.org-src-container{overflow-x:scroll}
+.org-src-container{overflow-x:scroll;scrollbar-width:none}
+.org-src-container::-webkit-scrollbar{display:none}
