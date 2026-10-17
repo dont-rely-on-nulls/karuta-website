@@ -212,7 +212,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 }
 .deck{display:grid;justify-content:center;grid-template-columns:repeat(auto-fill, minmax(200px, min(290px, 20vw)));gap:28px}
 @media (max-width:480px){
-  .hero-right{grid-template-columns:1fr}
+  .hero-right{grid-template-columns:1fr;justify-items:center}
   .stand{max-width:300px}
   .brand-line{font-size:16px}
 }
