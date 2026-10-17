@@ -1,5 +1,5 @@
 #+TITLE: Parser
-#+DATE: 2026-10-14
+#+DATE: 2026-10-17
 #+FILETAGS: :design:
 #+DESCRIPTION: Explaining the how and the why of our parser.
 #+KANA: よみ
