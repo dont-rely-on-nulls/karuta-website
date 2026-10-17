@@ -11,7 +11,7 @@ From\\
 {{{acc(the nest)}}}
 #+end_h1
 
-Release notes, design notes and tutorials from the people building Karuta and Sakura.
+Pearls of wisdom, experience reports, and tutorials from the people building Karuta and Sakura. Let these posts vanish your fear of contributing!
 #+end_div
 
 #+attr_html: :class deco art

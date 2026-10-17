@@ -152,6 +152,7 @@ LIMIT is a string; when it is a number, show only that many posts."
         ("h3"        . "@@html:<h3>$1</h3>@@")
         ("a"         . "@@html:<a href=\"$1\">$2</a>@@")
         ("btn"       . "@@html:<a class=\"btn $1\" href=\"$2\">$3</a>@@")
+        ("ext-btn"   . "@@html:<a class=\"btn $1\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"$2\">$3</a>@@")
         ("badge"     . "@@html:<span class=\"s-badge\">$1</span>@@")
         ("proc"      . "@@html:<div class=\"proc\"><i></i><span><b>$1</b> = $2</span><s>$3</s></div>@@")
         ("grab"      . "@@html:<button class=\"grab\"><img src=\"/static/img/$1-tori.webp\" alt=\"Grabbing card, written in hiragana\" width=\"600\" height=\"849\" loading=\"lazy\"></button>@@")
