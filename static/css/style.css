@@ -323,3 +323,5 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 #content>[class^="outline-2"] pre{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;overflow-x:auto}
 
 #footer-separator{border-bottom:1.5px solid var(--ink)}
+
+.org-src-container{overflow-x:scroll}
