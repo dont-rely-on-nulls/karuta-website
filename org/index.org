@@ -89,7 +89,7 @@ Use modules and signatures to accomplish real encapsulation and modularity. ML f
 
 #+begin_pillar
 {{{eyebrow(Persistance)}}}
-{{{h3(Sakura beside it)}}}
+{{{h3(Sakura besides it)}}}
 
 Store facts in Sakura, our partner database, and query them with the same syntax you are used to in Karuta. {{{a(/sakura.html,Meet Sakura)}}}.
 #+end_pillar
