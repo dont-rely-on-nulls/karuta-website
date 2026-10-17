@@ -39,19 +39,20 @@ Facts that bloom\\
 #+begin_s-panel
 #+begin_table-in
 #+begin_code
-{{{eyebrow(garden.krt)}}}
+{{{eyebrow(db.skr)}}}
 
 #+begin_src karuta
-% a durable relation in Sakura
-:- table blossom/2, sakura.
+% schemas as modules
+:- module[public] {
+  % a durable relation in Sakura
+  :- sakura:persisted {
+    relation[Name].
+    attribute[Relation_name, Attr_name, Domain_name].
+  }.
+}.
 
-sakura:assert(blossom(yoshino, april)).
-sakura:assert(blossom(kawazu, february)).
-
-early(Tree) :-
-    blossom(Tree, M), before(M, march).
-
-?- early(Tree).
+% query the database 
+db:public:attribute['predicate', Attr, Domain]?  
 #+end_src
 #+end_code
 
@@ -59,10 +60,12 @@ early(Tree) :-
 {{{eyebrow(Answers)}}}
 
 #+begin_procs
-{{{proc(Tree,kawazu,node a)}}}
+{{{proc(Attr,'name',)}}}
+{{{proc(Domain,'relations',)}}}
 #+end_procs
 
-Rules read stored facts and in-memory facts the same way. Nothing to translate between a query language and your program.
+Persisted predicates follow the same theory the application-layer ones do: relational theory. Even better:
+properties like totality being targeted by Sakura.
 #+end_answers
 #+end_table-in
 #+end_s-panel
@@ -75,13 +78,14 @@ Rules read stored facts and in-memory facts the same way. Nothing to translate b
 #+end_stand
 
 #+begin_intro
-{{{h2(Sakura keeps what Karuta knows.)}}}
+{{{h2(Sakura keeps; Karuta can know.)}}}
 
-A deductive database built for Karuta. Store facts, keep them across restarts, and query them with the rules already in your program.
+A tailored made version of Karuta for the database: Sakura.
+Leverage properties like totality and relational algebra happening on the disk.
 
 #+begin_cta
-{{{btn(sak,#sakura-install,Add Sakura)}}}
-{{{btn(,/,Back to Karuta)}}}
+{{{btn(sak,#sakura-contribute,Contribute to Sakura)}}}
+{{{ext-btn(rnt,https://dontrelynulls.org/RNTWebsite,RNT)}}}
 #+end_cta
 #+end_intro
 #+end_aside
@@ -90,24 +94,26 @@ A deductive database built for Karuta. Store facts, keep them across restarts, a
 #+attr_html: :aria-label What Sakura gives you
 #+begin_section .pillars
 #+begin_pillar
-{{{eyebrow(Store)}}}
+{{{eyebrow(Kernel)}}}
 {{{h3(Relations\, not tables)}}}
 
-Declare a relation once with ~:- table~ and Sakura persists every fact you assert into it.
+Sakura is a subsystem leveraging the RNT kernel; a Windows-NT-inspired kernel with relational as building blocks.
 #+end_pillar
 
 #+begin_pillar
-{{{eyebrow(Ask)}}}
-{{{h3(One language)}}}
+{{{eyebrow(One language)}}}
+{{{h3(Everywhere)}}}
 
-Query stored facts with Karuta rules. Recursive queries and joins are ordinary rules.
+Shared *syntax* for the language entities that are *semantically* the same.
+Karuta being embeddable in RNT is planned! Stored procedures are coming!
 #+end_pillar
 
 #+begin_pillar
-{{{eyebrow(Spread)}}}
-{{{h3(Across nodes)}}}
+{{{eyebrow(Database)}}}
+{{{h3(Properties)}}}
 
-Sakura runs inside your BEAM cluster, so facts live next to the processes that reason about them.
+The persisted data is *finite*. Hence, *totality* can be exploited. More guarantees the better.
+A database that halts makes the world a better place.
 #+end_pillar
 #+end_section
 
@@ -116,21 +122,23 @@ Sakura runs inside your BEAM cluster, so facts live next to the processes that r
 [[file:static/img/tree.webp]]
 
 #+begin_div
-{{{eyebrow(Rooted in the BEAM)}}}
+{{{eyebrow(Rooted in Theory)}}}
 
 #+begin_h2
 One tree,\\
 many branches
 #+end_h2
 
-Every node in your cluster can read the same relations. Facts are written once and reach the processes that need them, wherever those processes run.
+Researchers like Fabian Pascal, Edgar F. Codd, C.J Date, and David McGovern paved the
+foundation for the study of the applied theory of relational databases. We are here to learn
+and materialize their findings in a software artifact.
 #+end_div
 #+end_section
 #+end_wrap
 
 #+begin_wrap
-#+begin_section .install #sakura-install
-#+begin_install-left
+#+begin_section .contribute #sakura-contribute
+#+begin_contribute-left
 
 #+begin_plant-sakura
 
@@ -151,11 +159,10 @@ Sakura
 
 #+attr_html: :id sakura-cmd
 #+begin_example
-$ karuta add sakura
-$ karuta sakura init ./garden
+$ git clone https://src.symbolic.engineering/Sakura/
 #+end_example
 #+end_term
-#+end_install-left
+#+end_contribute-left
 
 #+end_section
 #+end_wrap
