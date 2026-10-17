@@ -14,27 +14,6 @@ reading {{{acc(and taking)}}}
 Karuta is a logic programming language that runs on the BEAM. It is named after the Japanese card game, because a query works much like a round of play.
 #+end_div
 
-#+attr_html: :class deco art
-[[file:static/img/table-four.webp]]
-#+end_section
-
-#+begin_section .about-grid
-#+attr_html: :class deco :loading lazy
-[[file:static/img/four-cards.webp]]
-
-#+begin_div
-{{{h2(Why the name)}}}
-
-In a round of karuta, a reader recites a poem from one card. The players race to find the card on the table that completes it and take it.
-
-A Karuta program plays the same game. Your question is read aloud, and the engine searches the table of facts and rules for every card that matches.
-
-#+attr_html: :class map
-- Reading card :: The query you ask
-- Grabbing cards :: Facts and rules in your program
-- Taking a card :: Unification: a match binds the variables
-- Many players :: Search branches running as BEAM processes
-#+end_div
 #+end_section
 
 #+attr_html: :aria-label Principles
@@ -66,8 +45,6 @@ Karuta modules are BEAM modules. They live in your releases, your supervision tr
 Sakura stores facts durably, so knowledge outlives the process that learned it.
 #+end_div
 
-#+attr_html: :class deco branch-rise :loading lazy
-[[file:static/img/branch-rise.webp]]
 #+end_section
 
 #+begin_section .contrib
