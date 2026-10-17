@@ -138,6 +138,27 @@ We use a very straightforward recursive-descent strategy with no memoization. Mo
 
 The entry point of the parser is the function ~Parser.parse~, which corresponds in the grammar to the ~start~ symbol.
 
+** Parser Errors
+
+By far, this is the weakest part of the compiler. Right now, we only have three possible errors in ~Parse.parse~:
+
+#+BEGIN_SRC ocaml
+type expr_errors =
+  [ `ExpectedLowercase of Location.point
+  | `UnexpectedEOF
+  | `WrongPrefix of Location.point * string ]
+#+END_SRC
+
+Unfortunately, these errors are not very informative to users of the compiler.
+
+~ExpectedLowercase~ can occur when we hit an invalid top-level clause. In the grammar, we check for directives first and then try to parse a declaration, which must start with a functor. This is probably the lowest hanging fruit for improvement.
+
+~WrongPrefix~ can occur whenever we expect some particular token (usually punctuation, such as a period or comma) but get something else instead.
+
+~UnexpectedEOF~ is supposed to occur if there's a missing close delimiter (quote, bracket, or curly brace), but with the way the grammar is currently defined this is very unlikely.
+
+Improving the situation here is in our TODO list.
+
 * Grammar
 
 This is the complete formal grammar for the language. In the source code, you'll find the functions implementing each
