@@ -37,7 +37,7 @@ We do intend to improve our error messages, but we have other priorities right n
 
 Karuta's compiler needs to keep track of source code locations for error reporting. Originally
 we were using the ~Lexing.position~ type from the standard library, but we recently switched
-to custom types instead. These are implemented in the ~Location~.
+to custom types instead. These are implemented in the ~Location~ module.
 
 To begin with, the ~coordinate~ type is used to save the numerical coordinates for a source code position.
 
