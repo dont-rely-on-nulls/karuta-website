@@ -80,7 +80,7 @@ properties like totality being targeted by Sakura.
 #+begin_intro
 {{{h2(Sakura keeps; Karuta can know.)}}}
 
-A tailored made version of Karuta for the database: Sakura.
+A tailor-made version of Karuta for the database: Sakura.
 Leverage properties like totality and relational algebra happening on the disk.
 
 #+begin_cta
@@ -97,7 +97,8 @@ Leverage properties like totality and relational algebra happening on the disk.
 {{{eyebrow(Kernel)}}}
 {{{h3(Relations\, not tables)}}}
 
-Sakura is a subsystem leveraging the RNT kernel; a Windows-NT-inspired kernel with relational as building blocks.
+Sakura is a subsystem leveraging the RNT kernel; a Windows-NT-inspired kernel built using *relations*.
+Sakure may interact with other RNT-based subsystems in the future.
 #+end_pillar
 
 #+begin_pillar
@@ -112,7 +113,7 @@ Karuta being embeddable in RNT is planned! Stored procedures are coming!
 {{{eyebrow(Database)}}}
 {{{h3(Properties)}}}
 
-The persisted data is *finite*. Hence, *totality* can be exploited. More guarantees the better.
+Persisted data is *finite*. Hence, *totality* can be exploited. The more guarantees the better.
 A database that halts makes the world a better place.
 #+end_pillar
 #+end_section

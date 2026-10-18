@@ -37,7 +37,7 @@ unrelated and is a concern of the language implementers.
 {{{h3(Uniformity)}}}
 
 Application-layer and persistance-layer predicates are /semantically/ the same.
-Therefore, we have an *uniform* syntax to with both. No string manipulation and no ORMs; built-in from the start.
+Therefore, we have a *uniform* syntax to with deal both. No string manipulation and no ORMs; built-in from the start.
 #+end_div
 
 #+begin_div
