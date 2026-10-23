@@ -2,12 +2,12 @@
 #+OPTIONS: toc:nil title:nil
 
 #+begin_wrap
-#+begin_section .phead
+#+begin_section .phead .about-page
 #+begin_div
 {{{eyebrow(About)}}}
 
 #+begin_h1 .headline
-Built on top of\\
+Based on\\
 {{{acc(theory)}}} and {{{acc(patience)}}}
 #+end_h1
 
