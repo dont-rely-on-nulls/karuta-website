@@ -29,4 +29,13 @@ document.addEventListener("click", function (e) {
     try { navigator.clipboard.writeText(text).then(done, fallback); } catch (_) { fallback(); }
   }
 });
+
+const element = document.querySelector(".nest-wrapper>.icon");
+  
+const observer = new ResizeObserver(() => {
+  element.style.width = `${element.offsetHeight * 1.592}px`;
+});
+
+observer.observe(element);
+
 </script>
