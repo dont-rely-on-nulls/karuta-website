@@ -218,6 +218,8 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .branch-hang{width:min(290px, calc(100vw - var(--gut)))}
   .site-head{padding-bottom:30px}
   .branch-rise{width:150px;bottom:50px}
+  .nav .contact {background:inherit;border-color:inherit;color:inherit}
+  .nav > a.contact:hover {background: inherit;}
 }
 .deck{display:grid;justify-content:center;grid-template-columns:repeat(auto-fill, minmax(200px, min(290px, 20vw)));gap:28px}
 @media (max-width:480px){
