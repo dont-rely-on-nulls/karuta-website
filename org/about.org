@@ -7,8 +7,8 @@
 {{{eyebrow(About)}}}
 
 #+begin_h1 .headline
-Based on\\
-{{{acc(theory)}}} and {{{acc(patience)}}}
+Based on {{{acc(theory)}}}\\
+and {{{acc(patience)}}}
 #+end_h1
 
 Karuta is the product of developers interested in /theory-based/ software, i.e., software that aims to
