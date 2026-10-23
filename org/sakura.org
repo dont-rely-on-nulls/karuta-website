@@ -143,11 +143,6 @@ and materialize their findings in a software artifact.
 
 #+begin_plant-sakura
 
-#+begin_icon
-#+attr_html: :class deco :loading lazy
-[[file:static/img/simple-tree.png]]
-#+end_icon
-
 #+begin_h2
 Plant\\
 Sakura
@@ -165,6 +160,9 @@ $ git clone https://src.symbolic.engineering/Sakura/
 #+end_term
 #+end_contribute-left
 
+
+#+attr_html: :class deco scene :loading lazy
+[[file:static/img/flowers.webp]]
 #+end_section
 #+end_wrap
 #+end_page-sakura

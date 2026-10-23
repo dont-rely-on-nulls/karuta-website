@@ -179,11 +179,11 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   #contribute .scene {
     padding-bottom: 82px;
   }
-  #contribute > :nth-child(1) {
+  .contribute > :nth-child(1) {
     grid-column: 1;
     grid-row: 2;
   }
-  #contribute > :nth-child(2) {
+  .contribute > :nth-child(2) {
     grid-column: 1;
     grid-row: 1;
   }
@@ -338,3 +338,5 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 #footer-separator{border-bottom:1.5px solid var(--ink)}
 
 .org-src-container{overflow-x:scroll}
+
+#sakura-contribute img{filter:none}
