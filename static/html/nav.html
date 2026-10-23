@@ -29,6 +29,7 @@
         </div>
       </details>
       <a href="/about.html" data-page="about">About</a>
+      <a class="contact" href="#" data-download-email>Contact</a>
       <details class="dd menu-btn"><summary>Menu</summary>
         <div class="mobile-menu">
           <a href="/">Home</a>
@@ -38,6 +39,7 @@
           <a href="/sakura.html">Sakura Database</a>
           <a href="https://github.com/dont-rely-on-nulls/karuta-mode" target="_blank" rel="noopener noreferrer">karuta-mode</a>
           <a href="/about.html">About</a>
+          <a class="contact" href="#" data-download-email>Contact</a>
         </div>
       </details>
     </nav>
@@ -46,3 +48,34 @@
 <div class="branch-hang-wrapper">
   <img class="deco branch-hang" src="/static/img/branch-long.webp" alt="">
 </div>
+<script>
+  document.querySelectorAll("[data-download-email]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const template = [
+        "To: contact@dontrelynulls.org",
+        "Subject: Karuta and Sakura",
+        "From: your@email.com",
+        "",
+        "--thanks for contributing--",
+        ""
+      ].join("\n");
+
+      const blob = new Blob([template], {
+        type: "text/plain;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = "welcome-to-karuta";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  });
+</script>
