@@ -266,7 +266,6 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 
 /* page heads (posts, about) */
 .phead{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center;padding-block:40px 56px}
-.phead-image {display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: center;}
 .phead .headline{font-size:clamp(40px,5.6vw,84px);margin-top:16px}
 .phead p{color:var(--muted);max-width:48ch;margin-top:18px;font-size:19px}
 .phead .art{width:100%}
