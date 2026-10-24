@@ -89,7 +89,7 @@ p{margin:0}
 
 /* ---------- hero ---------- */
 .hero{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px;padding-block:40px 64px}
-.hero-left{display:flex;flex-direction:column;gap:28px;min-width:0}
+.hero-left{margin-top:-100px;display:flex;flex-direction:column;gap:28px;min-width:0}
 .headline{font:800 clamp(40px,6.3vw,96px)/.9 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.035em;text-transform:uppercase}
 .headline .acc{color:var(--owl)}
 .table{flex:1;min-height:340px;background:var(--owl);border-radius:var(--r-lg);padding:14px;display:grid;box-shadow:inset 0 0 0 2px var(--felt-deep)}
@@ -190,6 +190,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
   .hero,.story-head,.contribute{grid-template-columns:1fr}
   .contribute .scene{justify-self:center;width:52%}
   .hero-right{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:end}
+  .hero-left{margin-top:0px;display:flex;flex-direction:column;gap:28px;min-width:0}
   .round{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr) 150px}
   .s-poem{grid-template-columns:clamp(170px,24vw,240px) minmax(0,1fr)}
   .s-poem .grab{display:none}
@@ -224,6 +225,7 @@ pre{margin:0;font:400 14.5px/1.75 var(--f-mono);color:var(--ink)}
 .deck{display:grid;justify-content:center;grid-template-columns:repeat(auto-fill, minmax(200px, min(290px, 20vw)));gap:28px}
 @media (max-width:480px){
   .hero-right{grid-template-columns:1fr;justify-items:center}
+  .hero-left{margin-top:0px;display:flex;flex-direction:column;gap:28px;min-width:0}
   .stand{max-width:300px}
   .brand-line{font-size:16px}
 }

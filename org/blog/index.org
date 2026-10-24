@@ -2,26 +2,34 @@
 #+OPTIONS: toc:nil title:nil
 
 #+begin_wrap
-#+begin_section .phead
-#+begin_div
+#+begin_section .hero
+#+begin_hero-left
 {{{eyebrow(Posts)}}}
-
-#+begin_nest-wrapper
-
-#+begin_icon
-#+attr_html: :class deco
-[[file:static/img/nest.webp]]
-#+end_icon
 
 #+begin_h1 .headline
 From\\
 {{{acc(the nest)}}}
 #+end_h1
 
-#+end_nest-wrapper
+Well-documented source code /assumes/ the existence of prior decisions. You will know its intricate
+details, what its arguments mean, and what it does, but you will hit a block: why does this function exist?
+Why is it doing things like /this/ instead of like /that/? How does it fit in the bigger picture of
+this module? To answer /those/ is the purpose of this section:
+pearls of wisdom, experience reports, and tutorials from what we are building, explaining the
+top-level foundations that trigger all the code that is written.
 
-Pearls of wisdom, experience reports, and tutorials from the people building Karuta and Sakura. Let these posts vanish your fear of contributing!
-#+end_div
+Knowing Functional Programming and OCaml's specific abstractions combined with these posts
+should be enough anyone to start! Let these posts vanish your fear of contributing! If you need more, we are more
+than willing to help you via e-mail or in our Discord server!
+
+#+end_hero-left
+
+#+begin_aside .hero-right
+#+begin_stand
+#+attr_html: :alt Reading card: a nest holding an egg, crimson feathers and petals :width 900 :height 1273
+[[file:static/img/nest-yomi.webp]]
+#+end_stand
+#+end_aside
 
 #+end_section
 
