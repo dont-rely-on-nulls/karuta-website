@@ -15,11 +15,11 @@ Well-documented source code /assumes/ the existence of prior decisions. You will
 details, what its arguments mean, and what it does, but you will hit a block: why does this function exist?
 Why is it doing things like /this/ instead of like /that/? How does it fit in the bigger picture of
 this module? To answer /those/ is the purpose of this section:
-pearls of wisdom, experience reports, and tutorials from what we are building, explaining the
-top-level foundations that trigger all the code that is written.
+pearls of wisdom, experience reports, and tutorials from what we are building,
+detailing the chosen top-level foundations that trigger all the written code.
 
 Knowing Functional Programming and OCaml's specific abstractions combined with these posts
-should be enough anyone to start! Let these posts vanish your fear of contributing! If you need more, we are more
+should be enough for anyone to start! Let these posts vanish your fear of contributing! If you need more, we are more
 than willing to help you via e-mail or in our Discord server!
 
 #+end_hero-left
