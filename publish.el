@@ -488,12 +488,25 @@ Replaces 'static/' with '../static/' based on page depth from root."
    '(tuareg-font-lock-constructor-face          ((t (:inherit font-lock-constant-face))))
    '(tuareg-font-lock-label-face                ((t (:inherit font-lock-constant-face))))))
 
-;;; Build
-(enable-theme 'karuta)
-(notes/sync-db-if-ci)
-(org-publish-all t)
+(defun drn/build ()
+  (enable-theme 'karuta)
+  (notes/sync-db-if-ci)
+  (org-publish-all t)
 
-(message "Website build complete!")
+  (message "Website build complete!"))
+
+;; WIP
+(defun drn/non-indent-position ()
+  (let ((elem (org-element-at-point)))
+    (eq 'src-block (car elem))))
+
+(defun drn/format ()
+  (push 'drn/non-indent-position fill-nobreak-predicate)
+  (dolist (file (directory-files-recursively org-dir "\\.org$"))
+    (save-excursion
+      (find-file file)
+      (fill-region (point-min) (point-max))
+      (save-buffer))))
 
 (provide 'publish)
 ;;; publish.el ends here

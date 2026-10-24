@@ -18,7 +18,7 @@ build: $(OUT_DIR)/index.html
 $(OUT_DIR)/index.html: $(SOURCES) $(OUT_DIR)/.environment
 	@$(EMACS) --batch \
 		--eval "(setq debug-on-error t)" \
-		--load publish.el \
+		--load publish.el  --eval "(drn/build)" \
 		2>&1 | tee build.log
 
 # Only rewritten when ENVIRONMENT changes, so switching dev/prod forces a rebuild.
@@ -34,3 +34,9 @@ serve: build
 clean:
 	@rm -rf $(OUT_DIR) build.log
 	@echo "✓ Cleaned"
+
+format:
+	@$(EMACS) --batch \
+		--eval "(setq debug-on-error t)" \
+		--load publish.el  --eval "(drn/format)" \
+		2>&1 | tee build.log
