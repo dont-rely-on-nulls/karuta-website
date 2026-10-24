@@ -5,27 +5,31 @@
 #+begin_section .hero #top
 #+begin_hero-left
 #+begin_h1 .headline
-Logic that remembers.\\
-{{{acc(Processes)}}} that take flight.
+Logic based on theory.\\
+{{{acc(Relations)}}} that take flight.
 #+end_h1
 
 #+begin_table
 #+begin_table-in
 #+begin_code
-{{{eyebrow(nest.krt)}}}
+{{{eyebrow(main.krt)}}}
 
 #+begin_src karuta
-% facts
-grows(sakura, nest).
-grows(nest, owl).
-grows(owl, flight).
+% entry point
+factorial[X, Out] :-
+  karuta:nat[X],
+  'factorial loop'[X, 1, Out].
 
-% rules
-origin(X, Y) :- grows(X, Y).
-origin(X, Z) :-
-    grows(X, Y), origin(Y, Z).
+% arity overloading
+'factorial loop'[0, Out, Out] :- karuta:nat[Out].
+'factorial loop'[N, Acc, Out] :-
+  karuta:nat[N],
+  karuta:mult[N, Acc, NewAcc],
+  karuta:minus[N, 1, Prev],
+  'factorial loop'[Prev, NewAcc, Out].
 
-?- origin(sakura, What).
+% query with conjuction
+factorial[5, Out1], factorial[6, Out2]?
 #+end_src
 #+end_code
 
@@ -33,12 +37,11 @@ origin(X, Z) :-
 {{{eyebrow(Answers)}}}
 
 #+begin_procs
-{{{proc(What,nest,&lt;0.112.0&gt;)}}}
-{{{proc(What,owl,&lt;0.113.0&gt;)}}}
-{{{proc(What,flight,&lt;0.114.0&gt;)}}}
+{{{proc(Out1,120,)}}}
+{{{proc(Out2,720,)}}}
 #+end_procs
 
-Each branch of the search can run as its own lightweight process, supervised like any other part of an OTP system.
+We compile Karuta to our µKanren runtime implementation in LFE, thus allowing logic programming in the BEAM.
 #+end_answers
 #+end_table-in
 #+end_table
@@ -47,7 +50,7 @@ Each branch of the search can run as its own lightweight process, supervised lik
 #+begin_aside .hero-right
 #+begin_stand
 #+attr_html: :alt Reading card: a crimson owl perched on a cherry-blossom branch, with a five-line poem in Japanese :width 900 :height 1273
-[[file:static/img/owl-yomi.webp]]
+[[file:static/img/owl-card.webp]]
 #+end_stand
 
 #+begin_intro
@@ -56,10 +59,11 @@ This is Karuta.\\
 A logic language for the BEAM.
 #+end_h2
 
-State facts, write rules, ask questions. Karuta finds the answers with unification and search, and runs them on the same virtual machine as Erlang and Elixir.
+State facts, write constraints, ask questions. Karuta finds the answers with unification and search, on application or database, and
+runs them on the BEAM via Kanren primitives.
 
 #+begin_cta
-{{{btn(pri,#install,Get started)}}}
+{{{btn(pri,#contribute,Contribute)}}}
 {{{btn(,#story,Read the story)}}}
 #+end_cta
 #+end_intro
@@ -68,28 +72,26 @@ State facts, write rules, ask questions. Karuta finds the answers with unificati
 
 #+attr_html: :aria-label What Karuta gives you
 #+begin_section .pillars #docs
-#+attr_html: :class deco branch-hang
-[[file:static/img/branch-long.webp]]
 
 #+begin_pillar
-{{{eyebrow(Declare)}}}
-{{{h3(Facts and rules)}}}
+{{{eyebrow(Declarativeness)}}}
+{{{h3(Facts and predicates)}}}
 
-Describe what is true and let the engine search for what follows. Pattern matching, unification and backtracking come built in.
+State what is true and let the engine search for what follows. Pattern matching, unification and backtracking as the foundation.
 #+end_pillar
 
 #+begin_pillar
-{{{eyebrow(Run)}}}
-{{{h3(On the BEAM)}}}
+{{{eyebrow(ML)}}}
+{{{h3(Modules and signatures)}}}
 
-Processes, supervisors and hot code loading work the way you know them. Call Erlang and Elixir modules from a rule with ~call/3~.
+Use modules and signatures to accomplish real encapsulation and modularity. ML functors are also on the short horizon!
 #+end_pillar
 
 #+begin_pillar
-{{{eyebrow(Keep)}}}
-{{{h3(Sakura beside it)}}}
+{{{eyebrow(Persistance)}}}
+{{{h3(Sakura besides it)}}}
 
-Store facts in Sakura, Karuta's partner database, and query them with the same rules you already wrote. {{{a(/sakura.html,Meet Sakura)}}}.
+Store facts in Sakura, our partner database, and query them with the same syntax you are used to in Karuta. {{{a(/sakura.html,Meet Sakura)}}}.
 #+end_pillar
 #+end_section
 #+end_wrap
@@ -102,11 +104,13 @@ Store facts in Sakura, Karuta's partner database, and query them with the same r
 
 #+begin_h2
 Four cards,\\
-read in order
+a meaningful\\
+journey
 #+end_h2
 
 #+attr_html: :class lead
-In karuta, one card is read aloud and the other is taken from the table. Each round of this story pairs a reading card with the card you grab. Tap a grabbing card to take it.
+In karuta, one card is read aloud and the other is taken. Each pair is a chapter on an uprising story: starting from frustration and disbelief
+and ending with hope and a dream for a better future.
 #+end_div
 
 #+attr_html: :class deco scatter :loading lazy
@@ -115,13 +119,12 @@ In karuta, one card is read aloud and the other is taken from the table. Each ro
 
 #+begin_rounds
 #+begin_article .round
-{{{num(I)}}}
 
 #+attr_html: :class yomi :alt Reading card: three cherry blossoms :width 900 :height 1273 :loading lazy
 [[file:static/img/sakura-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Even upon fields\\
@@ -132,7 +135,7 @@ the darkness slowly loosens.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 From the scent of sakura,\\
@@ -145,13 +148,12 @@ the darkness slowly loosens.
 #+end_article
 
 #+begin_article .round
-{{{num(II)}}}
 
 #+attr_html: :class yomi :alt Reading card: a nest holding an egg, crimson feathers and petals :width 900 :height 1273 :loading lazy
 [[file:static/img/nest-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Branches scattered\\
@@ -162,7 +164,7 @@ a quiet and gentle light.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Within the nest now rests\\
@@ -175,13 +177,12 @@ a quiet and gentle light.
 #+end_article
 
 #+begin_article .round
-{{{num(III)}}}
 
 #+attr_html: :class yomi :alt Reading card: a crimson owl on a blossoming branch :width 900 :height 1273 :loading lazy
 [[file:static/img/owl-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Though the shadows\\
@@ -192,7 +193,7 @@ does not let the nest forget.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 The owl of the peak\\
@@ -205,13 +206,12 @@ does not let the nest forget.
 #+end_article
 
 #+begin_article .round
-{{{num(IV)}}}
 
 #+attr_html: :class yomi :alt Reading card: two crimson birds flying among blue clouds :width 900 :height 1273 :loading lazy
 [[file:static/img/flight-yomi.webp]]
 
 #+begin_poem
-{{{eyebrow(Reading card)}}}
+{{{eyebrow(Yomifuda)}}}
 
 #+begin_blockquote
 Tearing through clouds,\\
@@ -222,7 +222,7 @@ they go illuminating the world.
 #+end_blockquote
 
 #+begin_taken
-{{{eyebrow(Grabbing card)}}}
+{{{eyebrow(Torifuda)}}}
 
 #+begin_blockquote
 Like the morning sun itself,\\
@@ -254,25 +254,24 @@ they go illuminating the world.
 {{{deck(4)}}}
 #+end_section
 
-#+begin_section .install #install
-#+begin_install-left
+#+begin_section .contribute #contribute
+#+begin_contribute-left
 #+begin_h2
 Deal your\\
 first hand
 #+end_h2
 
 #+begin_term
-{{{term-head(install-cmd)}}}
+{{{term-head(contribute-cmd)}}}
 
-#+attr_html: :id install-cmd
+#+attr_html: :id contribute-cmd
 #+begin_example
-$ karuta new nest
-$ cd nest && karuta repl
+$ git clone https://github.com/dont-rely-on-nulls/karuta
 #+end_example
 #+end_term
-#+end_install-left
+#+end_contribute-left
 
 #+attr_html: :class deco scene :loading lazy
-[[file:static/img/table-eight.webp]]
+[[file:static/img/four-cards.webp]]
 #+end_section
 #+end_wrap

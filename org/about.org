@@ -2,39 +2,19 @@
 #+OPTIONS: toc:nil title:nil
 
 #+begin_wrap
-#+begin_section .phead
+#+begin_section .phead .about-page
 #+begin_div
 {{{eyebrow(About)}}}
 
 #+begin_h1 .headline
-A game of\\
-reading {{{acc(and taking)}}}
+Based on {{{acc(theory)}}}\\
+and {{{acc(patience)}}}
 #+end_h1
 
-Karuta is a logic programming language that runs on the BEAM. It is named after the Japanese card game, because a query works much like a round of play.
+Karuta is the product of developers interested in /theory-based/ software, i.e., software that aims to
+faithfully implement what the theory builds. Relational theory is our guiding star.
 #+end_div
 
-#+attr_html: :class deco art
-[[file:static/img/table-four.webp]]
-#+end_section
-
-#+begin_section .about-grid
-#+attr_html: :class deco :loading lazy
-[[file:static/img/four-cards.webp]]
-
-#+begin_div
-{{{h2(Why the name)}}}
-
-In a round of karuta, a reader recites a poem from one card. The players race to find the card on the table that completes it and take it.
-
-A Karuta program plays the same game. Your question is read aloud, and the engine searches the table of facts and rules for every card that matches.
-
-#+attr_html: :class map
-- Reading card :: The query you ask
-- Grabbing cards :: Facts and rules in your program
-- Taking a card :: Unification: a match binds the variables
-- Many players :: Search branches running as BEAM processes
-#+end_div
 #+end_section
 
 #+attr_html: :aria-label Principles
@@ -43,38 +23,40 @@ A Karuta program plays the same game. Your question is read aloud, and the engin
 #+attr_html: :class deco :loading lazy
 [[file:static/img/flower-c.webp]]
 
-{{{h3(Say what is true)}}}
+{{{h3(Logical and Denotational)}}}
 
-Programs describe the world as facts and rules. How the answer is found is the engine's job.
+Pay attention to *what* actually matters to solve your problem.
+Let the runtime figure out the *how*; operational details are completely
+unrelated and is a concern of the language implementers.
 #+end_div
 
 #+begin_div
 #+attr_html: :class deco :loading lazy
 [[file:static/img/flower-a.webp]]
 
-{{{h3(Fit the BEAM)}}}
+{{{h3(Uniformity)}}}
 
-Karuta modules are BEAM modules. They live in your releases, your supervision trees and your clusters.
+Application-layer and persistance-layer predicates are /semantically/ the same.
+Therefore, we have a *uniform* syntax to deal with both. No string manipulation and no ORMs; built-in from the start.
 #+end_div
 
 #+begin_div
 #+attr_html: :class deco :loading lazy
 [[file:static/img/flower-b.webp]]
 
-{{{h3(Keep what you know)}}}
+{{{h3(Free as in Freedom)}}}
 
-Sakura stores facts durably, so knowledge outlives the process that learned it.
+Let us build our relational cathedral together, bazaar-style. If you share our mission and honestly want to help that's enough. We teach you the rest: OCaml, logic and everything else.
 #+end_div
 
-#+attr_html: :class deco branch-rise :loading lazy
-[[file:static/img/branch-rise.webp]]
 #+end_section
 
 #+begin_section .contrib
 #+begin_div
 {{{h2(Build the nest with us)}}}
 
-Karuta is young. Read the story, try the examples, and tell us where the language should grow next.
+Karuta is young. Read the story, checkout the repository, try the examples, and
+help us on this decade-long journey.
 
 {{{btn(,/blog/,Read the posts)}}}
 #+end_div
