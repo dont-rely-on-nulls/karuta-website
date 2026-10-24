@@ -115,6 +115,7 @@
         :date    (drn/get-org-date filepath)
         :tag     (car (split-string (or (drn/get-org-keyword filepath "FILETAGS") "") ":" t))
         :excerpt (or (drn/get-org-keyword filepath "DESCRIPTION") "")
+        :project    (or (drn/get-org-keyword filepath "PROJECT") "")
         :kana    (or (drn/get-org-keyword filepath "KANA") "")))
 
 (defun drn/blog-posts ()
@@ -129,10 +130,32 @@
 
 (defun drn/post-card (post)
   "Return the karuta card linking to POST."
-  (format "<a class=\"pcard\" href=\"/blog/%s.html\"><img src=\"/static/img/card-blank.webp\" alt=\"\" aria-hidden=\"true\"><span class=\"jp\" aria-hidden=\"true\">%s</span><span class=\"pcard-in\"><time datetime=\"%s\">%s</time><h3>%s</h3><p>%s</p><span class=\"tag\">%s</span></span></a>"
-          (plist-get post :slug) (plist-get post :kana)
-          (plist-get post :date) (drn/format-date (plist-get post :date))
-          (plist-get post :title) (plist-get post :excerpt) (or (plist-get post :tag) "")))
+  (let ((post-icon
+         (if (equal (plist-get post :project) "SAKURA")
+             "<img class=\"post-icon\" src=\"/static/img/simple-tree.png\" alt=\"\">"
+           "")))
+    (format
+     (concat
+      "<a class=\"pcard\" href=\"/blog/%s.html\">"
+      "<img src=\"/static/img/card-blank.webp\" alt=\"\" aria-hidden=\"true\">"
+      "<span class=\"jp\" aria-hidden=\"true\">%s</span>"
+      "<span class=\"pcard-in\">"
+      "<time datetime=\"%s\">%s</time>"
+      "<h3>%s</h3>"
+      "<p>%s</p>"
+      "%s"
+      "<span class=\"tag\">%s</span>"
+      "</span>"
+      "</a>")
+     (plist-get post :slug)
+     (plist-get post :kana)
+     (plist-get post :date)
+     (drn/format-date (plist-get post :date))
+     (plist-get post :title)
+     (plist-get post :excerpt)
+     post-icon
+     (or (plist-get post :tag) ""))))
+
 
 (defun drn/blog-deck (limit)
   "Return the deck of post cards as an Org HTML snippet.
