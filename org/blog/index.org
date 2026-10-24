@@ -11,12 +11,12 @@ From\\
 {{{acc(the nest)}}}
 #+end_h1
 
-Well-documented source code /assumes/ the existence of prior decisions. You will know its intricate
-details, what its arguments mean, and what it does, but you will hit a block: why does this function exist?
+Well-documented source code /assumes/ the existence of prior decisions. When you at a function, you will know its intricate
+details, what its arguments mean, and what it does, but you will hit a block: /why/ does this function exist?
 Why is it doing things like /this/ instead of like /that/? How does it fit in the bigger picture of
-this module? To answer /those/ is the purpose of this section:
-pearls of wisdom, experience reports, and tutorials from what we are building,
-detailing the chosen top-level foundations that trigger all the written code.
+this module? To answer /those/ is the purpose of this page:
+pearls of wisdom, experience reports, and tutorials from what we are building in Karuta and Sakura,
+detailing the chosen top-level foundations that triggerred all the written code.
 
 Knowing Functional Programming and OCaml's specific abstractions combined with these posts
 should be enough for anyone to start! Let these posts vanish your fear of contributing! If you need more, we are more
