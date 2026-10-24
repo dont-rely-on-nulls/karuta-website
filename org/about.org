@@ -2,8 +2,8 @@
 #+OPTIONS: toc:nil title:nil
 
 #+begin_wrap
-#+begin_section .phead .about-page
-#+begin_div
+#+begin_section .hero
+#+begin_hero-left
 {{{eyebrow(About)}}}
 
 #+begin_h1 .headline
@@ -11,9 +11,19 @@ Based on {{{acc(theory)}}}\\
 and {{{acc(patience)}}}
 #+end_h1
 
-Karuta is the product of developers interested in /theory-based/ software, i.e., software that aims to
-faithfully implement what the theory builds. Relational theory is our guiding star.
-#+end_div
+Karuta is the product of developers who have repeatedly encountered the same gap between
+what software theory promises and what software practice delivers. We believe this gap is not
+inevitable, and by building software that faithfully implements what theory teaches, we can
+spend less effort fighting accidental complexity and more time solving the problems that matter.
+
+#+end_hero-left
+
+#+begin_aside .hero-right
+#+begin_stand
+#+attr_html: :alt Reading card: Reading card: two crimson birds flying among blue clouds :width 900 :height 1273
+[[file:static/img/flight-yomi.webp]]
+#+end_stand
+#+end_aside
 
 #+end_section
 
