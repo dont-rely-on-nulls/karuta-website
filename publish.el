@@ -143,8 +143,10 @@
       "<time datetime=\"%s\">%s</time>"
       "<h3>%s</h3>"
       "<p>%s</p>"
+      "<div class=\"card-bottom\">"
       "%s"
       "<span class=\"tag\">%s</span>"
+      "</div>"
       "</span>"
       "</a>")
      (plist-get post :slug)
