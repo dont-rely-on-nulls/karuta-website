@@ -10,7 +10,7 @@ PORT ?= 8000
 OUT_DIR := public
 SOURCES := publish.el $(shell find org static -type f)
 
-.PHONY: build serve clean FORCE
+.PHONY: build serve clean format FORCE
 
 build: $(OUT_DIR)/index.html
 
@@ -27,6 +27,12 @@ $(OUT_DIR)/.environment: FORCE | $(OUT_DIR)
 
 $(OUT_DIR):
 	@mkdir -p $@
+
+format:
+	emacs --batch \
+		--eval "(setq debug-on-error t)" \
+		--load format.el \
+		--eval "(fmt/format-org-directory \".\")"
 
 serve: build
 	python3 -m http.server --directory $(OUT_DIR) $(PORT)

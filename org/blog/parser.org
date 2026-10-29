@@ -7,15 +7,16 @@
 
 * Strategy
 
-We parse the Karuta code using a hand-written [[https://en.wikipedia.org/wiki/Recursive_descent_parser][recursive-descent parser]]. The implementation
-is based on a grammar written using the [[https://bford.info/pub/lang/peg.pdf][PEG]] formalism, but since we factor out some common structures into
-high-level helper functions we end up with a flavor of [[https://en.wikipedia.org/wiki/Parser_combinator][parser combinators]]. While some of those helper functions
-behave like PEG primitives, others are in fact syntactic sugar and should be thought of as a layer of macros on top of the base PEG semantics.
-As a side note, the entire parser is pedantic about [[https://en.wikisource.org/wiki/Lambda:_The_Ultimate_GOTO][proper tail-calls]]; we use OCaml's proper tail-calls
-in such a way that any parsing expression which would be in tail position in the grammar is in fact a tail-call in OCaml.
+We parse the Karuta code using a hand-written [[https://en.wikipedia.org/wiki/Recursive_descent_parser][recursive-descent parser]]. The implementation is based on a grammar written
+using the [[https://bford.info/pub/lang/peg.pdf][PEG]] formalism, but since we factor out some common structures into high-level helper functions we end up with
+a flavor of [[https://en.wikipedia.org/wiki/Parser_combinator][parser combinators]]. While some of those helper functions behave like PEG primitives, others are in fact
+syntactic sugar and should be thought of as a layer of macros on top of the base PEG semantics.  As a side note, the
+entire parser is pedantic about [[https://en.wikisource.org/wiki/Lambda:_The_Ultimate_GOTO][proper tail-calls]]; we use OCaml's proper tail-calls in such a way that any parsing
+expression which would be in tail position in the grammar is in fact a tail-call in OCaml.
 
-The parser is written in a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][monadic style]]: a parser is a function taking a parser state and returning either a parse result together with
-the next parser state, or an error. [[https://en.wikipedia.org/wiki/Applicative_functor][Applicative-style]] operators could be derived from the monadic ones, but we don't currently use this approach.
+The parser is written in a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][monadic style]]: a parser is a function taking a parser state and returning either a parse
+result together with the next parser state, or an error. [[https://en.wikipedia.org/wiki/Applicative_functor][Applicative-style]] operators could be derived from the monadic
+ones, but we don't currently use this approach.
 
 #+BEGIN_SRC ocaml
 type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
@@ -25,19 +26,21 @@ The full code of the parser is located in ~lib/Parser.ml~.
 
 * Disclaimer
 
-We recognize that our syntax errors are /bad/, i.e., our parser does not take into consideration the *semantics* of the language, which leads to
-frustrating error messages in most situations. For example, pretty much /everything/ in our language is a functor (in the Prolog sense, not
-the ML sense), and we parse it as such. Any syntax error will therefore note take into account /what you are trying to do/.
+We recognize that our syntax errors are /bad/, i.e., our parser does not take into consideration the *semantics* of the
+language, which leads to frustrating error messages in most situations. For example, pretty much /everything/ in our
+language is a functor (in the Prolog sense, not the ML sense), and we parse it as such. Any syntax error will therefore
+note take into account /what you are trying to do/.
 
-We do intend to improve our error messages, but we have other priorities right now. Contributions on this front are welcome.
+We do intend to improve our error messages, but we have other priorities right now. Contributions on this front are
+welcome.
 
 * Types
 
 ** Source Code Location
 
-Karuta's compiler needs to keep track of source code locations for error reporting. Originally
-we were using the ~Lexing.position~ type from the standard library, but we recently switched
-to custom types instead. These are implemented in the ~Location~ module.
+Karuta's compiler needs to keep track of source code locations for error reporting. Originally we were using the
+~Lexing.position~ type from the standard library, but we recently switched to custom types instead. These are
+implemented in the ~Location~ module.
 
 To begin with, the ~coordinate~ type is used to save the numerical coordinates for a source code position.
 
@@ -56,9 +59,8 @@ type coordinate = {
 *)
 #+END_SRC
 
-A ~coordinate~ can be combined with a filename to give us a ~point~. A ~point~ allows us
-to identify a source position in some particular file. The parser state has one of these
-to keep track of where it is.
+A ~coordinate~ can be combined with a filename to give us a ~point~. A ~point~ allows us to identify a source position
+in some particular file. The parser state has one of these to keep track of where it is.
 
 #+BEGIN_SRC ocaml
 type point = { filename : string; coordinate : coordinate }
@@ -66,8 +68,8 @@ type point = { filename : string; coordinate : coordinate }
     Lexing.position, but with better names for the fields. *)
 #+END_SRC
 
-If we combine two ~coordinate~s instead of one, we get a ~region~. A ~region~ has a
-beginning and an end, and is what we use to actually report errors.
+If we combine two ~coordinate~s instead of one, we get a ~region~. A ~region~ has a beginning and an end, and is what we
+use to actually report errors.
 
 #+BEGIN_SRC ocaml
 type region = {
@@ -123,18 +125,20 @@ There are two main types used during parsing. Let's start with ~parser_state~:
 type parser_state = { remaining : BatSubstring.t; loc : Location.point }
 #+END_SRC
 
-The type ~parser_state~ holds the bookkeeping required to parse source files. ~remaining~ is the
-portion of the source file that we haven't parsed yet, represented as a ~BatSubstring.t~ for
-constant-time slicing. ~loc~ is the the point in the file where the parser is currently sitting.
+The type ~parser_state~ holds the bookkeeping required to parse source files. ~remaining~ is the portion of the source
+file that we haven't parsed yet, represented as a ~BatSubstring.t~ for constant-time slicing. ~loc~ is the the point in
+the file where the parser is currently sitting.
 
 #+BEGIN_SRC ocaml
 type ('a, 'e) parser = parser_state -> ('a * parser_state, 'e) result
 #+END_SRC
 
-The type ~parser~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].
-In particular, it can be seen as a composition of the [[https://wiki.haskell.org/State_Monad][state]] monad with the [[https://en.wikipedia.org/wiki/Result_type][either/result]] monad.
+The type ~parser~ is a [[https://en.wikipedia.org/wiki/Monad_(functional_programming)][Monad]].  In particular, it can be seen as a composition of the [[https://wiki.haskell.org/State_Monad][state]] monad with the [[https://en.wikipedia.org/wiki/Result_type][either/result]]
+monad.
 
-We use a very straightforward recursive-descent strategy with no memoization. Most functions in the ~Parser~ module are either implementations of primitive PEG semantics, composition operators implementing our parser combinator strategy, or implementations of grammar clauses. Please refer to the grammar for the full specification of the language.
+We use a very straightforward recursive-descent strategy with no memoization. Most functions in the ~Parser~ module are
+either implementations of primitive PEG semantics, composition operators implementing our parser combinator strategy, or
+implementations of grammar clauses. Please refer to the grammar for the full specification of the language.
 
 The entry point of the parser is the function ~Parser.parse~, which corresponds in the grammar to the ~start~ symbol.
 
@@ -151,11 +155,15 @@ type expr_errors =
 
 Unfortunately, these errors are not very informative to users of the compiler.
 
-~ExpectedLowercase~ can occur when we hit an invalid top-level clause. In the grammar, we check for directives first and then try to parse a declaration, which must start with a functor. This is probably the lowest hanging fruit for improvement.
+~ExpectedLowercase~ can occur when we hit an invalid top-level clause. In the grammar, we check for directives first and
+then try to parse a declaration, which must start with a functor. This is probably the lowest hanging fruit for
+improvement.
 
-~WrongPrefix~ can occur whenever we expect some particular token (usually punctuation, such as a period or comma) but get something else instead.
+~WrongPrefix~ can occur whenever we expect some particular token (usually punctuation, such as a period or comma) but
+get something else instead.
 
-~UnexpectedEOF~ is supposed to occur if there's a missing close delimiter (quote, bracket, or curly brace), but with the way the grammar is currently defined this is very unlikely.
+~UnexpectedEOF~ is supposed to occur if there's a missing close delimiter (quote, bracket, or curly brace), but with the
+way the grammar is currently defined this is very unlikely.
 
 Improving the situation here is in our TODO list.
 
