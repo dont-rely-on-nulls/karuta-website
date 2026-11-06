@@ -51,8 +51,8 @@ Facts that bloom\\
   }.
 }.
 
-% query the database 
-db:public:attribute['predicate', Attr, Domain]?  
+% query the database
+db:public:attribute['predicate', Attr, Domain]?
 #+end_src
 #+end_code
 
@@ -85,7 +85,7 @@ Leverage properties like totality and relational algebra happening on the disk.
 
 #+begin_cta
 {{{btn(sak,#sakura-contribute,Contribute to Sakura)}}}
-{{{ext-btn(rnt,https://dontrelynulls.org/RNTWebsite,RNT)}}}
+{{{ext-btn(rnt,https://dontrelynulls.org/rnt,RNT)}}}
 #+end_cta
 #+end_intro
 #+end_aside
