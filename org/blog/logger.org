@@ -1,5 +1,9 @@
-#+TITLE: Logger #+DATE: 2026-11-09 #+FILETAGS: :design: #+DESCRIPTION: The multiple decisions on our
-logger.  #+KANA: レポート#+OPTIONS: toc:nil title:nil
+#+TITLE: Logger
+#+DATE: 2026-11-09
+#+FILETAGS: :design:
+#+DESCRIPTION: The multiple decisions on our logger.
+#+KANA: レポート
+#+OPTIONS: toc:nil title:nil
 
 * Strategy
 
@@ -36,8 +40,7 @@ Karuta's CLI allows the user to change the log levels via ~--log-level~ flag.
 
 * Logger as a Functor
 
-Naturally, our logger is a [[https://ocaml.org/docs/functors][ML functor]]. Couple of reasons for
-this modeling:
+Naturally, our logger is a [[https://ocaml.org/docs/functors][ML functor]]. Couple of reasons for this modeling:
 
 - Formatting of the log messages should be flexible, e.g., maybe we will format the logs in XML
   instead of whatever we use for the terminal nowdays.
@@ -45,9 +48,8 @@ this modeling:
   the network via XML instead of whatever we use for ~stdout~ nowdays.
 
 As a side-quest bonus, this strategy also allows us to test the logger throughout the compiler via
-unit testing instead of integration tests, i.e., all effects you would perform you can make it
-[[https://en.wikipedia.org/wiki/Purely_functional_programming][pure]] by just swaping the module
-argument to the functor.
+unit testing instead of integration tests, i.e., all effects you would perform you can make it [[https://en.wikipedia.org/wiki/Purely_functional_programming][pure]]
+by just swaping the module argument to the functor.
 
 ** OUTPUT
 
@@ -69,8 +71,7 @@ module type WRITE = sig val in_file : string -> (unit -> 'a) -> 'a
   val flush : unit -> unit end
 #+END_SRC
 
-A module argument with signature ~WRITE~ depends on ~eio~: we use
-[[https://ocaml-multicore.github.io/eio/eio/Eio/Fiber/index.html][fibers]] to
+A module argument with signature ~WRITE~ depends on ~eio~: we use [[https://ocaml-multicore.github.io/eio/eio/Eio/Fiber/index.html][fibers]] to
 [[https://en.wikipedia.org/wiki/Scope_(computer_programming)#Dynamic_scope][dynamically scope]] the
 file (via the call of ~in_file~) in which the logs are associeated to, thus allowing isolating each
 log level per thread in our concurrent-compilation model. The same strategy is used for the minimum
@@ -235,9 +236,8 @@ let with_min_level level = let (module L) = get_current_module () in L.with_min_
 
 Finally, as you may have noticed, ~debug~ here receives an optional ~pos_pair~ argument. What is
 there for? That is to allow us to have the /compiler's souce code location/ being logged via the use
-of [[https://ocaml.org/docs/metaprogramming][ppx]], in our case ~ppx_logger~.  This preprocessor
-trick is adding the locations automatically for us at
-[[https://en.wikipedia.org/wiki/Compile_time][compile-time]] when calling ~Logger.debug~.
+of [[https://ocaml.org/docs/metaprogramming][ppx]], in our case ~ppx_logger~.  This preprocessor trick is adding the locations automatically for
+us at [[https://en.wikipedia.org/wiki/Compile_time][compile-time]] when calling ~Logger.debug~.
 
 
 
