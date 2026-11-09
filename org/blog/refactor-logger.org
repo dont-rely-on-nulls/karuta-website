@@ -55,7 +55,7 @@ Instead, [[https://github.com/dont-rely-on-nulls/karuta/pull/71][we've decided o
 Our decision-making was the following: keep the type system with the business rules of the /compiler/.
 Reporting errors, which is the final cause to consider returning them, is not part of the compilation
 process /but/ user experience and logging. In a certain sense, it is similar to our philosophy with
-[[file:logger][the logger]]: let us not pollute our types by threading the logger everywhere,
+[[file:logger.html][the logger]]: let us not pollute our types by threading the logger everywhere,
 this has nothing to do with the actual act of compilation.
 
 Exceptions came in handy to make this feature [[https://en.wikipedia.org/wiki/Orthogonality_(programming)][orthogonal]]: types would be dedicated for the compiler's business
@@ -73,7 +73,7 @@ just failed to compile. Not a problem! Adjust the ~step~ function in the compile
 Given that we won't be passing the error information down the road for future logging, it begs the question:
 What do we do with the in-place logs while also keeping them deterministic in a concurrent context? That is when
 we decided to make the logger accumulate its logs with dynamically scoped bindings! You check details of that
-in [[file:logger][here]]. We flush the logger when we are about to do the survivors ~exit 1~ in the ~executor~ or
+in [[file:logger.html][here]]. We flush the logger when we are about to do the survivors ~exit 1~ in the ~executor~ or
 in ~main.ml~.
 
 * Conclusion
