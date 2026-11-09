@@ -1,0 +1,82 @@
+#+TITLE: Exceptions?
+#+DATE: 2026-11-10
+#+FILETAGS: :refactor:
+#+DESCRIPTION: An anecdote of exceptions saving our logger from a huge refactor.
+#+KANA: エクセプト
+#+OPTIONS: toc:nil title:nil
+
+* Context
+
+Up until most recently, the Karuta compiler exited (with status code ~1~) immediately upon
+the first ~Logger.error~. That is not great for user experience: if multiple files have errors
+the first one you encounter will stop the entire compilation process.
+
+So, [[https://github.com/dont-rely-on-nulls/karuta/pull/66][with a by-demand dependency graph compilation (lazy) in place]], how do you solve this situation?
+
+* Error as Values
+
+Naturally, we considered the current trend, popularized by functional languages: use errors as values!
+What started as a simple feature in Haskell, and the ML-family is now present even in more popular languages
+like Go and Zig; the explicit and intentional pursue of treating errors just like any other value in
+your programming language, running away from Java-like exceptions.
+
+In our case the roadmap would be quite simple: every ~exit 1~ in the OCaml compiler would simply be replaced with
+a polymorphic variant return value, thus allowing us to restrict all the possible errors each function would
+be allowed to return, much like our parser does:
+
+#+BEGIN_SRC ocaml
+type expr_errors =
+  [ `ExpectedLowercase of Location.point
+  | `UnexpectedEOF
+  | `WrongPrefix of Location.point * string ]
+#+END_SRC
+
+The variant would be /open/ thus allowing us to combine them for a unified error treatment.
+Any additional variants that come in the future would be catched by the compiler at compile time blocking compilation.
+Sounds like a great plan.
+
+* The Big Problem
+
+The "problem" with the aforementioned strategy would be the /size/ of the refactoring.
+Every function and function call would have to be changed, alongside most of the compiler's
+types. And worse of all:
+a strategy to accumulate errors would have to be introduced given that now errors need
+to accumulate. What about doing this concurrently?
+
+What about logging? If we are returning errors, should we keep the logging in place for convenience?
+Wouldn't be better to log only when we treat the accumulated errors later?
+
+These questions posed a requirement for new and extensive machinery in the compiler to make it happen.
+
+* Our savior: Exceptions
+
+Instead, [[https://github.com/dont-rely-on-nulls/karuta/pull/71][we've decided on using exceptions]], which is suppose to be the least preferable approach?
+
+Our decision-making was the following: keep the type system with the business rules of the /compiler/.
+Reporting errors, which is the final cause to consider returning them, is not part of the compilation
+process /but/ user experience and logging. In a certain sense, it is similar to our philosophy with
+[[file:logger][the logger]]: let us not pollute our types by threading the logger everywhere,
+this has nothing to do with the actual act of compilation.
+
+Exceptions came in handy to make this feature [[https://en.wikipedia.org/wiki/Orthogonality_(programming)][orthogonal]]: types would be dedicated for the compiler's business
+whilst exceptions would serve the purpose of communicating an error.
+
+* Being even more Lazy
+
+To make this happen we leveraged the lazy import system we developed before. Hence, concurrent compilation
+will also follow by-demand semantics just like we did for imports. However, this means that when a thread
+fails to compile its sister threads need to be informed about this problem because maybe their dependency
+just failed to compile. Not a problem! Adjust the ~step~ function in the compiler's functor and done!
+
+* Logger Tweaks
+
+Given that we won't be passing the error information down the road for future logging, it begs the question:
+What do we do with the in-place logs while also keeping them deterministic in a concurrent context? That is when
+we decided to make the logger accumulate its logs with dynamically scoped bindings! You check details of that
+in [[file:logger][here]]. We flush the logger when we are about to do the survivors ~exit 1~ in the ~executor~ or
+in ~main.ml~.
+
+* Conclusion
+
+This solution greately diminished the size of the refactoring with just a few strategic ~try/catches~ in code, whilst
+keeping the in-place logging strategy intact.
