@@ -91,7 +91,7 @@ mutable data structure to be latter inspected by the testing suite.
 #+BEGIN_SRC ocaml
 (** Module signature of what the logger functor should provide.
 
-    This should be the only set of functions the compiler use. *)
+    This should be the only set of functions the compiler uses. *)
 module type API = sig
   val error : Location.region -> string -> unit
 
