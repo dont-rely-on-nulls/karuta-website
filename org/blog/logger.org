@@ -1,0 +1,288 @@
+#+TITLE: Logger
+#+DATE: 2026-11-09
+#+FILETAGS: :design:
+#+DESCRIPTION: The multiple decisions on our logger.
+#+KANA: レポート
+#+OPTIONS: toc:nil title:nil
+
+* Strategy
+
+A logger is a program or part of a program that /reports/ messages to the user throughout the
+compiler's pipeline. In a certain sense, it is the most important part of a compiler: this is a
+crucial part of the compiler's UI, in which without it is impossible to provide good user
+experience.
+
+Our logger is very quirky. Starting with its requirements:
+
+1. There must be a way to report messages with associated source code location and without it.
+2. We do not want to thread the logger across all our functions and/or within all the types.
+3. There must be a way to change log levels for supressing the logs if necessary.
+4. It must be concurrency-safe.
+
+Requirement 2 puts us into using the logger just as simple function calls instead of dealing with it
+as a separate data structure. However, requirements 3 and 4 combined forbid us from using a global
+mutable logger to change the log levels; that would not be thread-safe. This is where [[https://github.com/ocaml-multicore/eio][eio]] comes
+in. Let us go into more detail.
+
+* Levels
+
+#+BEGIN_SRC ocaml
+module Level = struct
+  type t = Debug | Info | Warning | Error | Unreachable
+  [@@deriving ord, enumerate, show { with_path = false }]
+
+  let default = Info
+end
+#+END_SRC
+
+Levels are modelled via the above [[https://en.wikipedia.org/wiki/Algebraic_data_type][ADT]] type and this is the log level we shall be able to change. By
+default, the minimum log level is ~Info~, i.e., all logs that happen /below/ it will not be logged.
+
+Karuta's CLI allows the user to change the log levels via ~--log-level~ flag.
+
+* Logger as a Functor
+
+Naturally, our logger is a [[https://ocaml.org/docs/functors][ML functor]]. Couple of reasons for this modeling:
+
+- Formatting of the log messages should be flexible, e.g., maybe we will format the logs in XML
+  instead of whatever we use for the terminal nowdays.
+- Writing operations (message dispatch) should be flexible, e.g., maybe we will send the logs via
+  the network via XML instead of whatever we use for ~stdout~ nowdays.
+
+As a side-quest bonus, this strategy also allows us to test the logger throughout the compiler via
+unit testing instead of integration tests, i.e., all effects you would perform you can make it [[https://en.wikipedia.org/wiki/Purely_functional_programming][pure]]
+by just swaping the module argument to the functor.
+
+** OUTPUT
+
+#+BEGIN_SRC ocaml
+module type OUTPUT = sig
+  val format_message : Level.t -> Location.region option -> string -> string
+end
+#+END_SRC
+
+A single function is necessary for formatting because providing location is optional: requirement 1
+is accomplished.
+
+** WRITE
+
+#+BEGIN_SRC ocaml
+module type WRITE = sig
+  val in_file : string -> (unit -> 'a) -> 'a
+
+  val export : string -> unit
+
+  val flush : unit -> unit
+end
+#+END_SRC
+
+A module argument with signature ~WRITE~ depends on ~eio~: we use [[https://ocaml-multicore.github.io/eio/eio/Eio/Fiber/index.html][fibers]] to [[https://en.wikipedia.org/wiki/Scope_(computer_programming)#Dynamic_scope][dynamically scope]] the
+file (via the call of ~in_file~) in which the logs are associeated to, thus allowing isolating each
+log level per thread in our concurrent-compilation model. The same strategy is used for the minimum
+log level; we just use a different fiber key for it.
+
+The function ~export~ simply adds the log message into a pool of logs controlled by the current
+fiber key in scope (again, dynamically). Finally, ~flush~ runs on this pool with the intent of
+executing an effect. For unit testing, this flush operations should just save its content into a
+mutable data structure to be latter inspected by the testing suite.
+
+** API
+
+#+BEGIN_SRC ocaml
+(** Module signature of what the logger functor should provide.
+
+    This should be the only set of functions the compiler uses. *)
+module type API = sig
+  val error : Location.region -> string -> unit
+
+  val simply_error : string -> unit
+
+  val warning : Location.region -> string -> unit
+
+  val simply_warning : string -> unit
+
+  val unreachable : Location.region -> string -> unit
+
+  val simply_unreachable : string -> unit
+
+  val info : Location.region -> string -> unit
+
+  val simply_info : string -> unit
+
+  val debug : Location.region -> string -> unit
+
+  val simply_debug : string -> unit
+
+  val with_min_level : 'a. Level.t -> (unit -> 'a) -> 'a
+
+  val flush : unit -> unit
+
+  val in_file : string -> (unit -> 'a) -> 'a
+end
+#+END_SRC
+
+Every logging function must receive ~Location.region~ as argument with its prefixed ~simply_~
+counterpart requiring only the log message.
+
+As previously mentioned, the function ~with_min_level~ executes the same fiber-based mechanism as
+explained for ~in_file~ but for minimum log level.
+
+* Terminal
+
+#+BEGIN_SRC ocaml
+(** Currently this is the single available output for the logger functor.
+
+    This implementation assumes a terminal-like environment. *)
+module Terminal : OUTPUT = struct
+  type color = Red | Yellow | Blue | Magenta | Foreground
+
+(** ... implementation details... *)
+
+end
+#+END_SRC
+
+Our implementation for the terminal assumes colors can be used to identify different log levels.
+
+Aside from colors, the main functionality for this module is the message formatting, which leverages
+OCaml's [[https://ocaml.org/manual/5.5/api/Format.html][format module]] to more easily create the
+log message:
+
+#+BEGIN_SRC ocaml
+sprintf
+  "@[<1>%sFile \"%s\", line %d, characters \
+   %d-%d:@]@.@[<1>%d%s%s@]@.@[<1>%s%s@]@."  
+#+END_SRC
+
+* Log
+
+#+BEGIN_SRC ocaml
+(** Currently this is the single available write for the logger functor.
+
+    This implementation assumes a concurrent scenario of accumulating log
+    messages to be flushed later via stdout. This implementation uses the Dict
+    functor. *)
+module Log : WRITE = struct
+  type key = string
+  (** Required for Dict implementation: our key is the filename string *)
+
+  type value = string FT.t
+  (** Required for Dict implementation: our value is a collection of messages *)
+
+  (** Uses of Dict functor for multiple dictionary. *)
+  module Internal = Dict.Make (struct
+    type nonrec key = key
+
+    type nonrec value = value
+
+    let empty_value = FT.empty
+
+    let key_value_flush _ msg = FT.iter Stdlib.print_endline msg
+  end)
+
+  let in_file = Internal.with_key
+
+  let export msg = Internal.update @@ Fun.flip FT.snoc msg
+
+  let flush = Internal.flush_iter
+end
+#+END_SRC
+
+As for the implementation of ~WRITE~, we use the helper functor ~Dict~, which provides a mutable
+[[https://en.wikipedia.org/wiki/Associative_array][dictionary]] with a generic API for any type for the key-value pair. Our implementation uses
+~Stdlib.print_endline~ for the flush of each pair, with ~export~ being a ~snoc~ on a [[https://en.wikipedia.org/wiki/Finger_tree][finger-tree]] of
+logs per scoped file.
+
+* Exposed API
+
+With the pieces in-place, we are not at a position to talk about the actual external API used
+throughout the compiler. First, the ability to change /the logger itself/ via dynamic scoping:
+
+#+BEGIN_SRC ocaml
+(** [current] holds the current logger. This allows to change throughout
+    execution. *)
+let current = Eio.Fiber.create_key ()
+
+let with_logger logger = Eio.Fiber.with_binding current logger
+
+module Default_Logger = Make (Terminal) (Log)
+(** Default logger uses both Terminal and Log for its OUTPUT and WRITE
+    arguments.
+
+    This is the only logger implementation so far. *)
+#+END_SRC
+
+The function ~with_logger~ allows you to change which logger will be used throughout the scope of
+the provided [[https://en.wikipedia.org/wiki/Continuation][continuation]].
+
+Therefore, because the logger may change between function calls, it is necessary to re-implement
+~API~ with this into consideration:
+
+#+BEGIN_SRC ocaml
+(** [get_current_module ()] internal-only current logger getter.
+    @param unit
+    @return Reads the current logger using default loggger as fallback. *)
+let get_current_module () =
+  Eio.Fiber.get current
+  |> Option.fold ~none:(module Default_Logger : API) ~some:Fun.id
+
+let simply_unreachable msg =
+  let (module L) = get_current_module () in
+  L.simply_unreachable msg
+
+let unreachable loc msg =
+  let (module L) = get_current_module () in
+  L.unreachable loc msg
+
+let simply_error msg =
+  let (module L) = get_current_module () in
+  L.simply_error msg
+
+let error loc msg =
+  let (module L) = get_current_module () in
+  L.error loc msg
+
+let simply_warning msg =
+  let (module L) = get_current_module () in
+  L.simply_warning msg
+
+let warning loc msg =
+  let (module L) = get_current_module () in
+  L.warning loc msg
+
+let simply_info msg =
+  let (module L) = get_current_module () in
+  L.simply_info msg
+
+let info loc msg =
+  let (module L) = get_current_module () in
+  L.info loc msg
+
+let simply_debug msg =
+  let (module L) = get_current_module () in
+  L.simply_debug msg
+
+let debug ?pos_pair msg =
+  let (module L) = get_current_module () in
+  L.debug (Location.region_of_lexing @@ Option.get pos_pair) msg
+
+let flush () =
+  let (module L) = get_current_module () in
+  L.flush ()
+
+let in_file filename =
+  let (module L) = get_current_module () in
+  L.in_file filename
+
+let with_min_level level =
+  let (module L) = get_current_module () in
+  L.with_min_level level
+#+END_SRC
+
+Finally, as you may have noticed, ~debug~ here receives an optional ~pos_pair~ argument. What is
+there for? That is to allow us to have the /compiler's souce code location/ being logged via the use
+of [[https://ocaml.org/docs/metaprogramming][ppx]], in our case ~ppx_logger~.  This preprocessor trick is adding the locations automatically for
+us at [[https://en.wikipedia.org/wiki/Compile_time][compile-time]] when calling ~Logger.debug~.
+
+
+
+
