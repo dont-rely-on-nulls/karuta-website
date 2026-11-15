@@ -9,7 +9,7 @@
 
 A logger is a program or part of a program that /reports/ messages to the user throughout the
 compiler's pipeline. In a certain sense, it is the most important part of a compiler: this is a
-crucial part of the compiler's UI, in which without it is impossible to provide good user
+crucial part of the compiler's UI, without it is impossible to provide a good user
 experience.
 
 Our logger is very quirky. Starting with its requirements:
@@ -17,7 +17,8 @@ Our logger is very quirky. Starting with its requirements:
 1. There must be a way to report messages with associated source code location and without it.
 2. We do not want to thread the logger across all our functions and/or within all the types.
 3. There must be a way to change log levels for supressing the logs if necessary.
-4. It must be concurrency-safe.
+4. It must be concurrency-safe. In particular, different threads shouldn't interfere
+   with each other's log levels.
 
 Requirement 2 puts us into using the logger just as simple function calls instead of dealing with it
 as a separate data structure. However, requirements 3 and 4 combined forbid us from using a global
@@ -35,19 +36,19 @@ module Level = struct
 end
 #+END_SRC
 
-Levels are modelled via the above [[https://en.wikipedia.org/wiki/Algebraic_data_type][ADT]] type and this is the log level we shall be able to change. By
+Levels are modelled via the above [[https://en.wikipedia.org/wiki/Algebraic_data_type][ADT]] and this is the log level we shall be able to change. By
 default, the minimum log level is ~Info~, i.e., all logs that happen /below/ it will not be logged.
 
-Karuta's CLI allows the user to change the log levels via ~--log-level~ flag.
+Karuta's CLI allows the user to change the log levels via the ~--log-level~ flag.
 
 * Logger as a Functor
 
-Naturally, our logger is a [[https://ocaml.org/docs/functors][ML functor]]. Couple of reasons for this modeling:
+Naturally, our logger is an [[https://ocaml.org/docs/functors][ML functor]]. Couple of reasons for this modeling:
 
 - Formatting of the log messages should be flexible, e.g., maybe we will format the logs in XML
-  instead of whatever we use for the terminal nowdays.
+  instead of using ANSI escape codes.
 - Writing operations (message dispatch) should be flexible, e.g., maybe we will send the logs via
-  the network via XML instead of whatever we use for ~stdout~ nowdays.
+  the network (using XML for example) instead of ~stdout~.
 
 As a side-quest bonus, this strategy also allows us to test the logger throughout the compiler via
 unit testing instead of integration tests, i.e., all effects you would perform you can make it [[https://en.wikipedia.org/wiki/Purely_functional_programming][pure]]
@@ -194,7 +195,7 @@ logs per scoped file.
 
 * Exposed API
 
-With the pieces in-place, we are not at a position to talk about the actual external API used
+With the pieces in-place, we are now in position to talk about the actual external API used
 throughout the compiler. First, the ability to change /the logger itself/ via dynamic scoping:
 
 #+BEGIN_SRC ocaml
@@ -282,7 +283,3 @@ Finally, as you may have noticed, ~debug~ here receives an optional ~pos_pair~ a
 there for? That is to allow us to have the /compiler's souce code location/ being logged via the use
 of [[https://ocaml.org/docs/metaprogramming][ppx]], in our case ~ppx_logger~.  This preprocessor trick is adding the locations automatically for
 us at [[https://en.wikipedia.org/wiki/Compile_time][compile-time]] when calling ~Logger.debug~.
-
-
-
-
