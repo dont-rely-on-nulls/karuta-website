@@ -1,5 +1,5 @@
 #+TITLE: Exceptions?
-#+DATE: 2026-11-10
+#+DATE: 2026-11-24
 #+FILETAGS: :refactor:
 #+DESCRIPTION: An anecdote of exceptions saving our logger from a huge refactor.
 #+KANA: エクセプト
